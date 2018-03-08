@@ -26,7 +26,11 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RegistroUsuariosActivity" />
+        <activity android:name=".ReportesPCSActivity" />
+        <activity android:name=".AgregarLABSActivity" />
+        <activity android:name=".FechaReservacionActivity"></activity>
     </application>
 
 </manifest>

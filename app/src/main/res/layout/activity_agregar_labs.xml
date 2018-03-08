@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.progland.labuna.AgregarLABSActivity">
+
+
+    <AbsoluteLayout
+        android:id="@+id/widget0"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <TextView
+            android:id="@+id/txtvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Complete los siguientes Campos"
+            android:layout_x="52dp"
+            android:layout_y="23dp" />
+        <RelativeLayout
+            android:id="@+id/widget44"
+            android:layout_width="wrap_content"
+            android:layout_height="298dp"
+            android:layout_x="21dp"
+            android:layout_y="55dp">
+            <TextView
+                android:id="@+id/txtvnumlabs"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Cantidad de PCS"
+                android:layout_alignTop="@+id/widget48"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/widget48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EditText"
+                android:textSize="18sp"
+                android:layout_below="@+id/widget46"
+                android:layout_alignLeft="@+id/widget46" />
+            <EditText
+                android:id="@+id/widget46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EditText"
+                android:textSize="18sp"
+                android:layout_below="@+id/widget47"
+                android:layout_toRightOf="@+id/txtvnombre" />
+            <TextView
+                android:id="@+id/detalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalle"
+                android:layout_alignBaseline="@+id/widget51"
+                android:layout_alignLeft="@+id/txtvnombre" />
+
+            <EditText
+                android:id="@+id/widget51"
+                android:layout_width="153dp"
+                android:layout_height="115dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/widget48"
+                android:text="EditText"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtvCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Codigo del LAB"
+                android:layout_alignTop="@+id/widget46"
+                android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/widget47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EditText"
+                android:textSize="18sp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/txtvnombre" />
+            <TextView
+                android:id="@+id/txtvnombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre del LAB"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true" />
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btnreportar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reportar"
+            android:layout_x="228dp"
+            android:layout_y="361dp" />
+    </AbsoluteLayout>
+
+
+</android.support.constraint.ConstraintLayout>

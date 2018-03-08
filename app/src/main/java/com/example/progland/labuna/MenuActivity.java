@@ -1,5 +1,6 @@
 package com.example.progland.labuna;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +24,7 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Mensaje("Menu");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +32,9 @@ public class MenuActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intento = new Intent(getApplicationContext(), RegistroUsuariosActivity.class);
+                startActivity(intento);
+
             }
         });
 
@@ -81,10 +87,16 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            Intent intento = new Intent(getApplicationContext(), FechaReservacionActivity.class);
+            startActivity(intento);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            Intent intento = new Intent(getApplicationContext(), ReportesPCSActivity.class);
+            startActivity(intento);
 
         } else if (id == R.id.nav_slideshow) {
+            Intent intento = new Intent(getApplicationContext(), AgregarLABSActivity.class);
+            startActivity(intento);
 
         } else if (id == R.id.nav_manage) {
 
@@ -98,4 +110,8 @@ public class MenuActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+
+    public void Mensaje(String msg){
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
+
+} // [11:03:08 p. m.] Fin de la Clase Actividad Menu

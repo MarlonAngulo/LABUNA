@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.progland.labuna.FechaReservacionActivity">
+
+    <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/widget0"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/txtvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="29dp"
+            android:layout_y="23dp"
+            android:text="Seleccione la fecha y horario que desea" />
+
+        <DatePicker
+            android:id="@+id/widget54"
+            android:layout_width="334dp"
+            android:layout_height="290dp"
+            android:layout_x="26dp"
+            android:layout_y="47dp" />
+
+        <Button
+            android:id="@+id/widget60"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_x="270dp"
+            android:layout_y="455dp"
+            android:text="Listo" />
+
+        <RelativeLayout
+            android:id="@+id/widget56"
+            android:layout_width="329dp"
+            android:layout_height="104dp"
+            android:layout_x="29dp"
+            android:layout_y="347dp"
+            tools:layout_editor_absoluteX="81dp"
+            tools:layout_editor_absoluteY="343dp">
+
+            <CheckBox
+                android:id="@+id/widget58"
+                android:layout_width="247dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="Noche" />
+
+            <CheckBox
+                android:id="@+id/widget59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/widget57"
+                android:text="Tarde" />
+
+            <CheckBox
+                android:id="@+id/widget57"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="Ma&#241;ana" />
+        </RelativeLayout>
+    </AbsoluteLayout>
+
+
+</android.support.constraint.ConstraintLayout>
