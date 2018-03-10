@@ -29,12 +29,12 @@
             android:layout_y="47dp" />
 
         <Button
-            android:id="@+id/widget60"
-            android:layout_width="73dp"
+            android:id="@+id/btnsiguiente"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="270dp"
+            android:layout_x="248dp"
             android:layout_y="455dp"
-            android:text="Listo" />
+            android:text="Siguiente" />
 
         <RelativeLayout
             android:id="@+id/widget56"

@@ -30,7 +30,8 @@
         <activity android:name=".RegistroUsuariosActivity" />
         <activity android:name=".ReportesPCSActivity" />
         <activity android:name=".AgregarLABSActivity" />
-        <activity android:name=".FechaReservacionActivity"></activity>
+        <activity android:name=".FechaReservacionActivity" />
+        <activity android:name=".DisponibilidadLABSActivity"></activity>
     </application>
 
 </manifest>
