@@ -1,17 +1,176 @@
 package com.example.progland.labuna;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class RegistroUsuariosActivity extends AppCompatActivity {
+
+    // Progress Dialog
+    private ProgressDialog pDialog;
+
+    JSONParser jsonParser = new JSONParser();
+    public EditText inputUsuario;
+    EditText inputContrasena;
+    Spinner inputPuesto;
+
+    // url to create new product
+    private static String url_create_user = "http://www.cursoplataformasmoviles.com/bd_labuna/tbl_usuarios/create_usuarios.php";
+
+    // JSON Node names
+    private static final String TAG_SUCCESS = "success";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuarios);
+
+        // Edit Text
+         inputUsuario = (EditText) findViewById(R.id.edUsuario);
+         inputContrasena = (EditText) findViewById(R.id.edContrasena);
+          inputPuesto = (Spinner) findViewById(R.id.spPuesto);
+
+        // Create button
+        Button btnCreateUser = (Button) findViewById(R.id.btnAgregarUsu);
+        Button btnverUser = (Button) findViewById(R.id.btnVerusuarios);
+
+        String[] letra = {"Administrador","Profesor","Tutor"};
+        inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
+
         Mensaje("Registro de Usuarios");
+
+        // button click event
+        btnCreateUser.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // creating new user in background thread
+                new CreateNewUser().execute();
+            }
+        });
+
+        btnverUser.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intento = new Intent(getApplicationContext(), VerUsuarios.class);
+                startActivity(intento);
+            }
+        });
+
     }
+
+    /**
+     * Background Async Task to CreateNewUser
+     * */
+    class CreateNewUser extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(RegistroUsuariosActivity.this);
+            pDialog.setMessage("Creating Product..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
+        }
+
+        /**
+         * Creating product
+         * */
+        protected String doInBackground(String... args) {
+            String usuario = inputUsuario .getText().toString();
+            String contrasena = inputContrasena.getText().toString();
+            String puesto = inputPuesto.getSelectedItem().toString();
+
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("usuario", usuario));
+            params.add(new BasicNameValuePair("contraseña", contrasena));
+            params.add(new BasicNameValuePair("puesto", puesto));
+
+            // getting JSON Object
+            // Note that create product url accepts POST method
+
+                JSONObject json = jsonParser.makeHttpRequest(url_create_user,
+                        "POST", params);
+
+//            JSONObject json = jsonParser.makeHttpRequest(url_create_user,
+//                    "POST", params);
+
+            // check log cat fro response
+//AQUI SE CAE EN ESTA LINEA SIGUIENTE
+            try {
+
+
+            Log.d("Create Response", json.toString());
+
+
+
+
+            // check for success tag
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    // successfully created product
+//                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+//                    startActivity(i);
+                    Mensaje("usuario registrado");
+
+                    // closing this screen
+                    finish();
+                } else if(success == 2){
+                    // failed to create product
+                    Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
+
+    }
+
+
 
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};

@@ -18,17 +18,17 @@
 
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/edUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/editText"
+            android:layout_alignStart="@+id/edContrasena"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/edContrasena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView8"
@@ -42,8 +42,8 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/editText2"
-            android:layout_alignBottom="@+id/editText2"
+            android:layout_alignBaseline="@+id/edUsuario"
+            android:layout_alignBottom="@+id/edUsuario"
             android:layout_alignParentStart="true"
             android:text="Usuario"
             android:textSize="@dimen/activity_horizontal_margin" />
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/editText2"
+            android:layout_below="@+id/edUsuario"
             android:layout_marginTop="36dp"
             android:text="Contraseña" />
 
@@ -70,8 +70,8 @@
             android:layout_width="187dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView7"
-            android:layout_alignEnd="@+id/editText"
-            android:layout_alignStart="@+id/editText"
+            android:layout_alignEnd="@+id/edContrasena"
+            android:layout_alignStart="@+id/edContrasena"
             android:layout_x="86dp"
             android:layout_y="90dp" />
 
@@ -100,6 +100,18 @@
         android:text="Agregar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rltlContenedor" />
+
+    <Button
+        android:id="@+id/btnVerusuarios"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Ver Usuarios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAgregarUsu" />
 
 </android.support.constraint.ConstraintLayout>
 
