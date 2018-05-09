@@ -32,12 +32,12 @@ public class VerUsuarios extends ListActivity {
     ArrayList<HashMap<String, String>> userssList;
 
     // url to get all users list
-    private static String url_all_users = "http://www.cursoplataformasmoviles.com/bd_labuna/tbl_usuarios/get_all_usuarios.php";
+    private static String url_all_users = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/get_all_usuarios.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_users = "users";
-    private static final String TAG_PID = "pid";
+    private static final String TAG_users = "usuarios";
+    private static final String TAG_UID = "uid";
     private static final String TAG_USER = "usuario";
 
     // users JSONArray
@@ -65,15 +65,15 @@ public class VerUsuarios extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // getting values from selected ListItem
-                String pid = ((TextView) view.findViewById(R.id.pid)).getText()
+                String uid = ((TextView) view.findViewById(R.id.uid)).getText()
                         .toString();
 
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
                         VerUsuarios.class);
                 // sending pid to next activity
-                in.putExtra(TAG_PID, pid);
-                System.out.println("AQUIIIIIII: "+pid);
+                in.putExtra(TAG_UID, uid);
+                System.out.println("AQUIIIIIII: "+uid);
 
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
@@ -122,10 +122,13 @@ public class VerUsuarios extends ListActivity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_users, "GET", params);
 
             // Check your log cat for JSON reponse
+
             Log.d("All Users: ", json.toString());
 
             try {
@@ -142,14 +145,14 @@ public class VerUsuarios extends ListActivity {
                         JSONObject c = users.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String id = c.getString(TAG_PID);
+                        String id = c.getString(TAG_UID);
                         String usuario = c.getString(TAG_USER);
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
-                        map.put(TAG_PID, id);
+                        map.put(TAG_UID, id);
                         map.put(TAG_USER, usuario);
 
                         // adding HashList to ArrayList
@@ -168,6 +171,8 @@ public class VerUsuarios extends ListActivity {
                 e.printStackTrace();
             }
 
+
+
             return null;
         }
 
@@ -185,9 +190,9 @@ public class VerUsuarios extends ListActivity {
                      * */
                     ListAdapter adapter = new SimpleAdapter(
                             VerUsuarios.this, userssList,
-                            R.layout.list_item, new String[] { TAG_PID,
+                            R.layout.list_item, new String[] { TAG_UID,
                             TAG_USER},
-                            new int[] { R.id.pid, R.id.usuario });
+                            new int[] { R.id.uid, R.id.usuario });
                     // updating listview
                     setListAdapter(adapter);
                 }

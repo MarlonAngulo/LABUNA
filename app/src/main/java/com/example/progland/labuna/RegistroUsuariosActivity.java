@@ -29,11 +29,11 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 
     JSONParser jsonParser = new JSONParser();
     public EditText inputUsuario;
-    EditText inputContrasena;
+    EditText inputContrasenna;
     Spinner inputPuesto;
 
     // url to create new product
-    private static String url_create_user = "http://www.cursoplataformasmoviles.com/bd_labuna/tbl_usuarios/create_usuarios.php";
+    private static String url_create_user = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/create_usuarios.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -45,7 +45,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 
         // Edit Text
          inputUsuario = (EditText) findViewById(R.id.edUsuario);
-         inputContrasena = (EditText) findViewById(R.id.edContrasena);
+         inputContrasenna = (EditText) findViewById(R.id.edContrasena);
           inputPuesto = (Spinner) findViewById(R.id.spPuesto);
 
         // Create button
@@ -91,7 +91,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(RegistroUsuariosActivity.this);
-            pDialog.setMessage("Creating Product..");
+            pDialog.setMessage("Creating User..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -103,14 +103,14 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
          * */
         protected String doInBackground(String... args) {
             String usuario = inputUsuario .getText().toString();
-            String contrasena = inputContrasena.getText().toString();
-            String puesto = inputPuesto.getSelectedItem().toString();
+            String contrasenna = inputContrasenna.getText().toString();
+            String tipo = inputPuesto.getSelectedItem().toString();
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("usuario", usuario));
-            params.add(new BasicNameValuePair("contraseña", contrasena));
-            params.add(new BasicNameValuePair("puesto", puesto));
+            params.add(new BasicNameValuePair("contrasenna", contrasenna));
+            params.add(new BasicNameValuePair("tipo", tipo));
 
             // getting JSON Object
             // Note that create product url accepts POST method
@@ -123,12 +123,12 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 
             // check log cat fro response
 //AQUI SE CAE EN ESTA LINEA SIGUIENTE
-            try {
+
 
 
             Log.d("Create Response", json.toString());
 
-
+            try {
 
 
             // check for success tag
@@ -145,6 +145,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                     finish();
                 } else if(success == 2){
                     // failed to create product
+                    Mensaje("putooo");
                     Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
