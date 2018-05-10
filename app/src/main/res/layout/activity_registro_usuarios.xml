@@ -24,8 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/edContrasena"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/edContrasena"

@@ -30,58 +30,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:text="Codigo de LAB"
-                android:layout_alignTop="@+id/widget48"
-                android:layout_alignRight="@+id/txtvnombre" />
+                android:layout_alignTop="@+id/edEstadoLabs"
+                android:layout_alignRight="@+id/txtvCantidadpc" />
             <EditText
-                android:id="@+id/widget48"
+                android:id="@+id/edEstadoLabs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="EditText"
                 android:textSize="18sp"
-                android:layout_below="@+id/widget46"
-                android:layout_alignLeft="@+id/widget46" />
+                android:layout_below="@+id/edCantidadPCSLab"
+                android:layout_alignLeft="@+id/edCantidadPCSLab" />
             <EditText
-                android:id="@+id/widget46"
+                android:id="@+id/edCantidadPCSLab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="EditText"
                 android:textSize="18sp"
-                android:layout_below="@+id/widget47"
-                android:layout_toRightOf="@+id/txtvnombre" />
+                android:layout_below="@+id/edCodigoLAB"
+                android:layout_toRightOf="@+id/txtvCantidadpc" />
             <TextView
                 android:id="@+id/detalle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Detalle"
-                android:layout_alignBaseline="@+id/widget51"
-                android:layout_alignLeft="@+id/txtvnombre" />
+                android:layout_alignBaseline="@+id/edDetalleLAB"
+                android:layout_alignLeft="@+id/txtvCantidadpc" />
 
             <EditText
-                android:id="@+id/widget51"
+                android:id="@+id/edDetalleLAB"
                 android:layout_width="153dp"
                 android:layout_height="115dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/widget48"
+                android:layout_alignStart="@+id/edEstadoLabs"
                 android:text="EditText"
                 android:textSize="18sp" />
             <TextView
-                android:id="@+id/txtvCodigo"
+                android:id="@+id/txtvCantidadpc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Codigo del Articulo"
-                android:layout_below="@+id/widget47"
+                android:layout_below="@+id/edCodigoLAB"
                 android:layout_alignParentLeft="true" />
 
             <EditText
-                android:id="@+id/widget47"
+                android:id="@+id/edCodigoLAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/txtvnombre"
+                android:layout_toEndOf="@+id/txtvCantidadpc"
                 android:text="EditText"
                 android:textSize="18sp" />
             <TextView
-                android:id="@+id/txtvnombre"
+                android:id="@+id/txtvCantidadpc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre del Articulo"

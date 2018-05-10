@@ -25,75 +25,78 @@
             android:layout_height="298dp"
             android:layout_x="21dp"
             android:layout_y="55dp">
+
             <TextView
-                android:id="@+id/txtvnumlabs"
+                android:id="@+id/lbEstadoLab"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="Cantidad de PCS"
-                android:layout_alignTop="@+id/widget48"
-                android:layout_alignParentLeft="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/edEstadoLabs"
+                android:text="Estado" />
+
             <EditText
-                android:id="@+id/widget48"
-                android:layout_width="wrap_content"
+                android:id="@+id/edEstadoLabs"
+                android:layout_width="400px"
                 android:layout_height="wrap_content"
-                android:text="EditText"
-                android:textSize="18sp"
-                android:layout_below="@+id/widget46"
-                android:layout_alignLeft="@+id/widget46" />
+                android:layout_alignLeft="@+id/edCantidadPCSLab"
+                android:layout_below="@+id/edCantidadPCSLab"
+                android:textSize="18sp" />
+
             <EditText
-                android:id="@+id/widget46"
-                android:layout_width="wrap_content"
+                android:id="@+id/edCantidadPCSLab"
+                android:layout_width="400px"
                 android:layout_height="wrap_content"
-                android:text="EditText"
-                android:textSize="18sp"
-                android:layout_below="@+id/widget47"
-                android:layout_toRightOf="@+id/txtvnombre" />
+                android:layout_below="@+id/edCodigoLAB"
+                android:layout_toRightOf="@+id/txtvCantidadpc"
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/detalle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Detalle"
-                android:layout_alignBaseline="@+id/widget51"
-                android:layout_alignLeft="@+id/txtvnombre" />
+                android:layout_alignBaseline="@+id/edDetalleLAB"
+                android:layout_alignLeft="@+id/txtvCantidadpc" />
 
             <EditText
-                android:id="@+id/widget51"
-                android:layout_width="153dp"
+                android:id="@+id/edDetalleLAB"
+                android:layout_width="400px"
                 android:layout_height="115dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/widget48"
-                android:text="EditText"
+                android:layout_alignStart="@+id/edEstadoLabs"
                 android:textSize="18sp" />
+
             <TextView
-                android:id="@+id/txtvCodigo"
+                android:id="@+id/txtvCantidadpc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Codigo del LAB"
-                android:layout_alignTop="@+id/widget46"
-                android:layout_alignParentLeft="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/edCodigoLAB"
+                android:text="Cantidad de PC" />
+
             <EditText
-                android:id="@+id/widget47"
-                android:layout_width="wrap_content"
+                android:id="@+id/edCodigoLAB"
+                android:layout_width="400px"
                 android:layout_height="wrap_content"
-                android:text="EditText"
-                android:textSize="18sp"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/txtvnombre" />
+                android:layout_toRightOf="@+id/txtvCantidadpc"
+                android:textSize="18sp" />
+
             <TextView
-                android:id="@+id/txtvnombre"
+                android:id="@+id/txtvCantidadpc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del LAB"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true" />
+                android:text="Codigo del LAB" />
         </RelativeLayout>
+
         <Button
-            android:id="@+id/btnreportar"
+            android:id="@+id/btnagregarLABS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reportar"
             android:layout_x="228dp"
-            android:layout_y="361dp" />
+            android:layout_y="361dp"
+            android:text="Agregar" />
     </AbsoluteLayout>
 
 
