@@ -70,7 +70,7 @@ public class VerUsuarios extends ListActivity {
 
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
-                        VerUsuarios.class);
+                        editarUsarios.class);
                 // sending pid to next activity
                 in.putExtra(TAG_UID, uid);
                 System.out.println("AQUIIIIIII: "+uid);
@@ -130,6 +130,10 @@ public class VerUsuarios extends ListActivity {
             // Check your log cat for JSON reponse
 
             Log.d("All Users: ", json.toString());
+
+
+
+
 
             try {
                 // Checking for SUCCESS TAG

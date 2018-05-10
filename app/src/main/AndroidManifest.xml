@@ -34,7 +34,8 @@
         <activity android:name=".AgregarLABSActivity" />
         <activity android:name=".FechaReservacionActivity" />
         <activity android:name=".DisponibilidadLABSActivity" />
-        <activity android:name=".VerUsuarios"></activity>
+        <activity android:name=".VerUsuarios" />
+        <activity android:name=".editarUsarios"></activity>
     </application>
 
 </manifest>
