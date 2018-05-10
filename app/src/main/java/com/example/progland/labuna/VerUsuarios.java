@@ -52,7 +52,7 @@ public class VerUsuarios extends ListActivity {
         userssList = new ArrayList<HashMap<String, String>>();
 
         // Loading users in Background Thread
-        new LoadAllUsers().execute();
+         new  LoadAllUsers().execute();
 
         // Get listview
         ListView lv = getListView();
@@ -101,7 +101,7 @@ public class VerUsuarios extends ListActivity {
     /**
      * Background Async Task to Load all user by making HTTP Request
      * */
-    class LoadAllUsers extends AsyncTask<String, String, String> {
+      class LoadAllUsers extends AsyncTask<String, String, String> {
 
         /**
          * Before starting background thread Show Progress Dialog

@@ -105,17 +105,17 @@ public class AgregarLABSActivity extends AppCompatActivity {
          * Creating product
          * */
         protected String doInBackground(String... args) {
-            String codigo = inputCodigo .getText().toString();
-            String Cantidad = inputCantidadPCS.getText().toString();
+            String nombre = inputCodigo .getText().toString();
+            String cantidad = inputCantidadPCS.getText().toString();
             String estado = inputEstado.getText().toString();
             String detalle = inputDetalle.getText().toString();
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("codigo", codigo));
-            params.add(new BasicNameValuePair("Cantidad", Cantidad));
-            params.add(new BasicNameValuePair("estado", estado));
+            params.add(new BasicNameValuePair("nombre", nombre));
+            params.add(new BasicNameValuePair("cantidad", cantidad));
             params.add(new BasicNameValuePair("detalle", detalle));
+            params.add(new BasicNameValuePair("estado", estado));
 
             // getting JSON Object
             // Note that create product url accepts POST method
