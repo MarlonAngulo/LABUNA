@@ -1,6 +1,7 @@
 package com.example.progland.labuna;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +53,7 @@ public class AgregarLABSActivity extends AppCompatActivity {
 
         // Create button
         Button btnCreateLab = (Button) findViewById(R.id.btnagregarLABS);
-        //Button btnverUser = (Button) findViewById(R.id.btnVerusuarios);
+        Button btnverlabs = (Button) findViewById(R.id.btnverlabs);
 
         //String[] letra = {"Administrador","Profesor","Tutor"};
         //inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
@@ -69,15 +70,16 @@ public class AgregarLABSActivity extends AppCompatActivity {
             }
         });
 
+        btnverlabs.setOnClickListener(new View.OnClickListener() {
 
-//        btnverUser.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intento = new Intent(getApplicationContext(), VerUsuarios.class);
-//                startActivity(intento);
-//            }
-//        });
+            @Override
+            public void onClick(View view) {
+                Intent VerLabo = new Intent(getApplicationContext(), New.class);
+                startActivity(VerLabo);
+            }
+        });
+
+
 
     }
 

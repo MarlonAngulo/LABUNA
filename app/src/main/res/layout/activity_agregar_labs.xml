@@ -97,6 +97,16 @@
             android:layout_x="228dp"
             android:layout_y="361dp"
             android:text="Agregar" />
+
+        <Button
+            android:id="@+id/btnverlabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="32dp"
+            android:layout_y="360dp"
+            android:text="Ver Labs"
+            tools:layout_editor_absoluteX="66dp"
+            tools:layout_editor_absoluteY="352dp" />
     </AbsoluteLayout>
 
 

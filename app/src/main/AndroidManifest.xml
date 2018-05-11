@@ -35,7 +35,11 @@
         <activity android:name=".FechaReservacionActivity" />
         <activity android:name=".DisponibilidadLABSActivity" />
         <activity android:name=".VerUsuarios" />
-        <activity android:name=".editarUsarios"></activity>
+        <activity android:name=".editarUsarios" />
+        <activity
+            android:name=".New"
+            android:label="@string/title_activity_new"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
