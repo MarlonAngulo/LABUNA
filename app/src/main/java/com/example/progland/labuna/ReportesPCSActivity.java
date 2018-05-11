@@ -1,6 +1,7 @@
 package com.example.progland.labuna;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +54,7 @@ public class ReportesPCSActivity extends AppCompatActivity {
 
         // Create button
         Button btnCreatePcs = (Button) findViewById(R.id.btnreportar);
-       // Button btnverUser = (Button) findViewById(R.id.btnVerusuarios);
+        Button btvercp = (Button) findViewById(R.id.btnvercomputadora);
 
         //String[] letra = {"Administrador","Profesor","Tutor"};
         //inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
@@ -69,15 +70,16 @@ public class ReportesPCSActivity extends AppCompatActivity {
                 new CreateNewPCS().execute();
             }
         });
+        btvercp.setOnClickListener(new View.OnClickListener() {
 
-//        btnverUser.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intento = new Intent(getApplicationContext(), VerUsuarios.class);
-//                startActivity(intento);
-//            }
-//        });
+            @Override
+            public void onClick(View view) {
+                Intent VerPc = new Intent(getApplicationContext(), VerComputadorasActivity.class);
+                startActivity(VerPc);
+            }
+        });
+
+
 
     }
 

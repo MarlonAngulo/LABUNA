@@ -95,6 +95,14 @@
             android:text="Reportar"
             android:layout_x="228dp"
             android:layout_y="361dp" />
+
+        <Button
+            android:id="@+id/btnvercomputadora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="42dp"
+            android:layout_y="361dp"
+            android:text="Ver Computadora" />
     </AbsoluteLayout>
 
 

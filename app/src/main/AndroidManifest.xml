@@ -39,6 +39,10 @@
         <activity
             android:name=".New"
             android:label="@string/title_activity_new"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".VerComputadorasActivity"
+            android:label="@string/title_activity_ver_computadoras"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
