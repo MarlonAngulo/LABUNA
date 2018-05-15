@@ -21,6 +21,14 @@
             android:layout_y="23dp"
             android:text="Seleccione la fecha y horario que desea" />
 
+        <TextView
+            android:id="@+id/txtusuario"
+            android:layout_width="53dp"
+            android:layout_height="wrap_content"
+            android:layout_x="324dp"
+            android:layout_y="9dp"
+            android:text="1" />
+
         <DatePicker
             android:id="@+id/widget54"
             android:layout_width="334dp"
@@ -29,7 +37,7 @@
             android:layout_y="47dp" />
 
         <Button
-            android:id="@+id/btnsiguiente"
+            android:id="@+id/btnsiguientereser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_x="248dp"
@@ -68,7 +76,37 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:text="Ma&#241;ana" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/widget59"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp" />
+
+
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnapartar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="62dp"
+            android:layout_y="459dp"
+            android:text="Apartar"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="447dp" />
+
+        <Button
+            android:id="@+id/btneliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="155dp"
+            android:layout_y="455dp"
+            android:text="Eliminar"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="447dp" />
     </AbsoluteLayout>
 
 

@@ -21,4 +21,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_new">New</string>
     <string name="title_activity_ver_computadoras">VerComputadorasActivity</string>
+    <string name="title_activity_ver_reservaciones">VerReservaciones</string>
 </resources>
