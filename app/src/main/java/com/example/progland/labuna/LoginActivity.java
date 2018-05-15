@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     ArrayList<HashMap<String, String>> userssList;
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+           // "foo@example.com:hello", "bar@example.com:world"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -96,10 +96,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         userssList = new ArrayList<HashMap<String, String>>();
 
         new  LoadAllUsers().execute();
+        llenarArregloConUuarios();
+
+        System.out.println("siiiii" + DUMMY_CREDENTIALS);
+       // System.out.println(userssList.get(1).get("usuario"));
+        //Mensaje(userssList.get(1).get("usuario").toString() + ":" + userssList.get(1).get("contraseña").toString());
 
 
         populateAutoComplete();
-        Mensaje("Bienvenido al Login");
+        //Mensaje("Bienvenido al Login");
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -183,6 +188,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    private void llenarArregloConUuarios()
+    {
+        for (int i = 0; i < userssList.size(); i++)
+        {
+            DUMMY_CREDENTIALS[1] = userssList.get(1).get("usuario").toString() + ":" + userssList.get(1).get("contraseña").toString();
+
+        }
+    }
+
+
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -201,11 +217,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean cancel = false;
         View focusView = null;
 
-        System.out.println(userssList.get(1).get("usuario"));
+        System.out.println(userssList.get(1).get("usuario") + userssList.get(1).get("contraseña"));
+
+//        for (int i = 0; i < userssList.size(); i++)
+//        {
+//            DUMMY_CREDENTIALS[0] += userssList.get(1).get("usuario") + ":" + userssList.get(1).get("contraseña");
+//
+//        }
+//
+//        System.out.println(DUMMY_CREDENTIALS[0]);
+//
+
 
         for (int i = 0; i < userssList.size(); i++)
         {
-            if(userssList.get(i).get("usuario").equalsIgnoreCase(email)   )
+            if((userssList.get(i).get("usuario").trim().equalsIgnoreCase(email)) &&  (userssList.get(i).get("contraseña").trim().equalsIgnoreCase(password)) )
             {
                 Intent intento = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intento);
@@ -219,7 +245,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
 
-        // Check for a valid password, if the user entered one.
+//        // Check for a valid password, if the user entered one.
 //        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
 //            mPasswordView.setError(getString(R.string.error_invalid_password));
 //            focusView = mPasswordView;
@@ -228,11 +254,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //
 //        // Check for a valid email address.
 //        if (TextUtils.isEmpty(email)) {
-//            mEmailView.setError(getString(R.string.error_field_required));
+//           // mEmailView.setError(getString(R.string.error_field_required));
 //            focusView = mEmailView;
 //            cancel = true;
 //        } else if (!isEmailValid(email)) {
-//            mEmailView.setError(getString(R.string.error_invalid_email));
+//           // mEmailView.setError(getString(R.string.error_invalid_email));
 //            focusView = mEmailView;
 //            cancel = true;
 //        }
@@ -252,12 +278,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.contains("a");
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
