@@ -69,11 +69,14 @@ public class FechaReservacionActivity extends AppCompatActivity {
         inputHorarioNoche = (CheckBox) findViewById(R.id.widget58);
         inputUsuario = (TextView) findViewById(R.id.txtusuario);
         Spinner dropdown = findViewById(R.id.spinner);
+        Spinner inputLabs = (Spinner) findViewById(R.id.spinner);
 
         final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
         Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
         Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
         new LoadAlllabs().execute();
+
+
         // button click event
         btncrearapartado.setOnClickListener(new View.OnClickListener() {
 
@@ -103,6 +106,17 @@ public class FechaReservacionActivity extends AppCompatActivity {
                 // boton1.setText("Has pulsado el boton "+clicks+" veces");
             }
         });
+        System.out.println("estoy aqui    "+LabsList.get(0).get("nombre"));
+       // System.out.println(LabsList.get(1).get("nombre"));
+       String[] letra = new String[LabsList.size()];
+        for (int i = 0; i < letra.length; i++)
+        {
+            System.out.println("entre");
+            letra[i] = LabsList.get(i).get("nombre");
+        }
+
+        inputLabs.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
+        System.out.println(letra[1]+"ojocnweuvneveovbue");
     } // Fin del Oncreate
 
 
@@ -153,7 +167,7 @@ public class FechaReservacionActivity extends AppCompatActivity {
 
                         // adding HashList to ArrayList
                         LabsList.add(map);
-                        populationSpinner(TAG_SUCCESS);
+                        //populationSpinner(TAG_SUCCESS);
                     }
                 } else {
                     // no users found
@@ -270,7 +284,7 @@ public class FechaReservacionActivity extends AppCompatActivity {
         }
 
     }
-    public void populationSpinner( String respuesta ){
+    /*public void populationSpinner( String respuesta ){
         ArrayList<laboratorios> lables = new ArrayList<laboratorios>();
 try {
     JSONArray jsonArreglo = new JSONArray(respuesta);
@@ -291,6 +305,12 @@ try {
 }catch(Exception i) {
     i.printStackTrace();
 }
+    }*/
+
+    public void datosllenar()
+    {
+
+
     }
 
     class CreateNewReserva extends AsyncTask<String, String, String> {

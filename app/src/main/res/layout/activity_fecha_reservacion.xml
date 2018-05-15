@@ -44,14 +44,33 @@
             android:layout_y="455dp"
             android:text="Siguiente" />
 
+        <Button
+            android:id="@+id/btnapartar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="62dp"
+            android:layout_y="459dp"
+            android:text="Apartar"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="447dp" />
+
+        <Button
+            android:id="@+id/btneliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="155dp"
+            android:layout_y="455dp"
+            android:text="Eliminar"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="447dp" />
+
         <RelativeLayout
-            android:id="@+id/widget56"
             android:layout_width="329dp"
             android:layout_height="104dp"
             android:layout_x="29dp"
             android:layout_y="347dp"
-            tools:layout_editor_absoluteX="81dp"
-            tools:layout_editor_absoluteY="343dp">
+            tools:layout_editor_absoluteX="169dp"
+            tools:layout_editor_absoluteY="304dp">
 
             <CheckBox
                 android:id="@+id/widget58"
@@ -79,34 +98,15 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="match_parent"
+                android:layout_width="215dp"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/widget59"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="11dp" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/spinner"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="505dp" />
 
 
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/btnapartar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="62dp"
-            android:layout_y="459dp"
-            android:text="Apartar"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="447dp" />
-
-        <Button
-            android:id="@+id/btneliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="155dp"
-            android:layout_y="455dp"
-            android:text="Eliminar"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="447dp" />
     </AbsoluteLayout>
 
 
