@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     ArrayList<HashMap<String, String>> userssList;
 
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
+    public static String[] DUMMY_CREDENTIALS = new String[]{
            // "foo@example.com:hello", "bar@example.com:world"
     };
     /**
@@ -81,10 +82,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String TAG_UID = "uid";
     private static final String TAG_USER = "usuario";
     private static final String TAG_CONTRASENNA = "contraseña";
+    String [] var;
     JSONArray users = null;
-
+    Spinner inputPuesto;
+    Spinner spinner;
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
+    private String[] spinnerArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +99,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         userssList = new ArrayList<HashMap<String, String>>();
 
-        new  LoadAllUsers().execute();
-        llenarArregloConUuarios();
 
-        System.out.println("siiiii" + DUMMY_CREDENTIALS);
+
+       new  LoadAllUsers().execute();
+
+//
+//        }
+
+
+
+
+
+
+
+        //System.out.println("siiiii" + userssList.get(0).);
        // System.out.println(userssList.get(1).get("usuario"));
         //Mensaje(userssList.get(1).get("usuario").toString() + ":" + userssList.get(1).get("contraseña").toString());
 
@@ -188,13 +202,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void llenarArregloConUuarios()
+    public String [] llenarArregloConUuarios()
     {
-        for (int i = 0; i < userssList.size(); i++)
+       String [] local = new String[userssList.size()];
+        for (int i = 0; i < userssList.size() - 1; i++)
         {
-            DUMMY_CREDENTIALS[1] = userssList.get(1).get("usuario").toString() + ":" + userssList.get(1).get("contraseña").toString();
-
+            local[i] = userssList.get(i).get("usuario").toString() ;
+//            System.out.println(var[i]);
         }
+       // inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, var));
+
+       return local;
     }
 
 
@@ -452,6 +470,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         /**
          * getting All users from url
          */
+        String va[];
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -497,6 +516,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         // adding HashList to ArrayList
                         userssList.add(map);
+                       va = llenarArregloConUuarios();
+
                     }
                 } else {
                     // no users found
@@ -514,7 +535,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             return null;
         }
+//        @Override
+//        protected void onPostExecute(String [] var){
+//
+//
+//            spinner = (Spinner) findViewById(R.id.espinneruser);
+//            // Application of the Array to the Spinner
+//            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,   android.R.layout.simple_spinner_item, vr );
+//            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+//            spinner.setAdapter(spinnerArrayAdapter);
+//        }
+
+
     }
+
 
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};

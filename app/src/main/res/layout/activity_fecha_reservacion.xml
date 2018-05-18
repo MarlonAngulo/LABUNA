@@ -64,8 +64,19 @@
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="447dp" />
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/spinner"
+            android:layout_x="145dp"
+            android:layout_y="347dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="505dp" />
+
         <RelativeLayout
-            android:layout_width="329dp"
+            android:layout_width="95dp"
             android:layout_height="104dp"
             android:layout_x="29dp"
             android:layout_y="347dp"
@@ -95,15 +106,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:text="Ma&#241;ana" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="215dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/spinner"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="505dp" />
 
 
         </RelativeLayout>
