@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -24,7 +25,6 @@ import org.json.JSONObject;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,6 +56,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     TextView inputUsuario;
     private Spinner spinnerFood;
     ArrayList<HashMap<String, String>> LabsList;
+    VariablesGlobales vg = VariablesGlobales.getInstance();
+
 
     JSONArray labs = null;
     @Override
@@ -64,6 +66,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         // Loading users in Background Thread
         setContentView(R.layout.activity_fecha_reservacion);
         Mensaje(" Reservacion de los LABS");
+
+        Mensaje("usuario: " + vg.getMitexto() + " id: " + vg.getMivalor());
         LabsList = new ArrayList<HashMap<String, String>>();
         categoriesList = new ArrayList<laboratorios>();
 

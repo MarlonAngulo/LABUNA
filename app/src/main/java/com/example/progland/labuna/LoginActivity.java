@@ -8,15 +8,12 @@ import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,8 +36,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -89,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     private String[] spinnerArray;
+    VariablesGlobales vg = VariablesGlobales.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,23 +97,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
+        Mensaje("usuario" + vg.getMitexto());
+
+
        new  LoadAllUsers().execute();
 
-//
-//        }
-
-
-
-
-
-
-
-        //System.out.println("siiiii" + userssList.get(0).);
-       // System.out.println(userssList.get(1).get("usuario"));
-        //Mensaje(userssList.get(1).get("usuario").toString() + ":" + userssList.get(1).get("contraseña").toString());
-
-
-        populateAutoComplete();
+        //populateAutoComplete();
         //Mensaje("Bienvenido al Login");
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -149,52 +134,55 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
+
     }
 
 
 
-    private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
+//    private void populateAutoComplete() {
+//        if (!mayRequestContacts()) {
+//            return;
+//        }
+//
+//        getLoaderManager().initLoader(0, null, this);
+//    }
 
-        getLoaderManager().initLoader(0, null, this);
-    }
-
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
-    }
+//    private boolean mayRequestContacts() {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            return true;
+//        }
+//        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+//            return true;
+//        }
+//        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+//            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+//                    .setAction(android.R.string.ok, new View.OnClickListener() {
+//                        @Override
+//                        @TargetApi(Build.VERSION_CODES.M)
+//                        public void onClick(View v) {
+//                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+//                        }
+//                    });
+//        } else {
+//            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+//        }
+//        return false;
+//    }
 
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+//                                           @NonNull int[] grantResults) {
+//        if (requestCode == REQUEST_READ_CONTACTS) {
+//            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                populateAutoComplete();
+//            }
+//        }
+//    }
 
 
     /**
@@ -202,18 +190,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public String [] llenarArregloConUuarios()
-    {
-       String [] local = new String[userssList.size()];
-        for (int i = 0; i < userssList.size() - 1; i++)
-        {
-            local[i] = userssList.get(i).get("usuario").toString() ;
-//            System.out.println(var[i]);
-        }
-       // inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, var));
-
-       return local;
-    }
+//    public String [] llenarArregloConUuarios()
+//    {
+//       String [] local = new String[userssList.size()];
+//        for (int i = 0; i < userssList.size() - 1; i++)
+//        {
+//            local[i] = userssList.get(i).get("usuario").toString() ;
+////            System.out.println(var[i]);
+//        }
+//       // inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, var));
+//
+//       return local;
+//    }
 
 
 
@@ -236,6 +224,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         System.out.println(userssList.get(1).get("usuario") + userssList.get(1).get("contraseña"));
+//        vg.setMitexto(userssList.get(1).get("usuario"));
+//        Mensaje("usuario" + vg.getMitexto());
 
 //        for (int i = 0; i < userssList.size(); i++)
 //        {
@@ -253,6 +243,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             {
                 Intent intento = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intento);
+                vg.setMitexto(userssList.get(i).get("usuario"));
+                vg.setMivalor(Integer.parseInt(userssList.get(i).get("uid")));
+                //Mensaje("usuario" + vg.getMitexto());
+
             }
             else
             {
@@ -516,7 +510,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         // adding HashList to ArrayList
                         userssList.add(map);
-                       va = llenarArregloConUuarios();
+                       //va = llenarArregloConUuarios();
 
                     }
                 } else {
