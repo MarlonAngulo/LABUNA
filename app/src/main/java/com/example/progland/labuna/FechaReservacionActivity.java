@@ -1,6 +1,7 @@
 package com.example.progland.labuna;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +10,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,54 +66,54 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         Mensaje(" Reservacion de los LABS");
         LabsList = new ArrayList<HashMap<String, String>>();
         categoriesList = new ArrayList<laboratorios>();
-//
-//
-//
-//        inputCalendario = (DatePicker) findViewById(R.id.widget54);
-//        inputHorarioMannana = (CheckBox) findViewById(R.id.widget57);
-//        inputHorarioTarde = (CheckBox) findViewById(R.id.widget59);
-//        inputHorarioNoche = (CheckBox) findViewById(R.id.widget58);
-//        inputUsuario = (TextView) findViewById(R.id.txtusuario);
+
+
+
+        inputCalendario = (DatePicker) findViewById(R.id.widget54);
+        inputHorarioMannana = (CheckBox) findViewById(R.id.widget57);
+        inputHorarioTarde = (CheckBox) findViewById(R.id.widget59);
+        inputHorarioNoche = (CheckBox) findViewById(R.id.widget58);
+        inputUsuario = (TextView) findViewById(R.id.txtusuario);
         spinnerFood = (Spinner) findViewById(R.id.spinner);
 
         spinnerFood.setOnItemSelectedListener(this);
 
 
-       // final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
-       // Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
-       // Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
+        final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
+        Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
+        Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
         new LoadAlllabs().execute();
 
 
         // button click event
-//        btncrearapartado.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                // creating new user in background thread
-//                new CreateNewReserva().execute();
-//            }
-//        });
+       btncrearapartado.setOnClickListener(new View.OnClickListener() {
+
+           @Override
+           public void onClick(View view) {
+               // creating new user in background thread
+               new CreateNewReserva().execute();
+           }
+       });
 
         // button click event
-//        btnEliminarapartado.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                // creating new user in background thread
-//                // new DeleteReserva().execute();
-//            }
-//        });
+        btnEliminarapartado.setOnClickListener(new View.OnClickListener() {
 
-        //boton1.setText("No has pulsado el boton");
-//        boton1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intento = new Intent(getApplicationContext(),VerReservaciones.class);
-//                startActivity(intento);
-//                // boton1.setText("Has pulsado el boton "+clicks+" veces");
-//            }
-//        });
+            @Override
+            public void onClick(View view) {
+                 //creating new user in background thread;
+                 new DeleteReserva().execute();
+            }
+        });
+
+        boton1.setText("No has pulsado el boton");
+        boton1.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intento = new Intent(getApplicationContext(),VerReservaciones.class);
+               startActivity(intento);
+        //         boton1.setText("Has pulsado el boton "+clicks+" veces");
+           }
+       });
         //System.out.println("estoy aqui    "+LabsList.get(0).get("nombre"));
        // System.out.println(LabsList.get(1).get("nombre"));
 
@@ -118,7 +126,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 //        txtCategory.setText("");
 //
         for (int i = 0; i < categoriesList.size(); i++) {
-            lables.add(categoriesList.get(i).getNombre());
+            lables.add(Integer.toString(categoriesList.get(i).getId())+" "+categoriesList.get(i).getNombre());
         }
 
         // Creating adapter for spinner
@@ -202,226 +210,238 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     /**
      * Background Async Task to CreateNewUser
      * */
-//    class DeleteReserva extends AsyncTask<String, String, String> {
-//
-//        /**
-//         * Before starting background thread Show Progress Dialog
-//         * */
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//            pDialog = new ProgressDialog(FechaReservacionActivity.this);
-//            pDialog.setMessage("Eliminando Reservación...");
-//            pDialog.setIndeterminate(false);
-//            pDialog.setCancelable(true);
-//            pDialog.show();
-//
-//        }
-//
-//        /**
-//         * Creating product
-//         * */
-//        protected String doInBackground(String... args) {
-//            String id = "0";
-//
-//
-//            // Building Parameters
-//            List<NameValuePair> params = new ArrayList<NameValuePair>();
-//            params.add(new BasicNameValuePair("rid",id));
-//
-//
-//
-//
-//            // getting JSON Object
-//            // Note that create product url accepts POST method
-//
-//            JSONObject json = jsonParser.makeHttpRequest(url_delete_reservaciones,
-//                    "POST", params);
-//
-////            JSONObject json = jsonParser.makeHttpRequest(url_create_user,
-////                    "POST", params);
-//
-//            // check log cat fro response
-////AQUI SE CAE EN ESTA LINEA SIGUIENTE
+    class DeleteReserva extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(FechaReservacionActivity.this);
+            pDialog.setMessage("Eliminando Reservación...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
+        }
+
+        /**
+         * Creating product
+         * */
+        protected String doInBackground(String... args) {
+            String id = "0";
+
+
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("rid",id));
+
+
+            // getting JSON Object
+            // Note that create product url accepts POST method
+
+            JSONObject json = jsonParser.makeHttpRequest(url_delete_reservaciones,
+                    "POST", params);
+
+         //   JSONObject json = jsonParser.makeHttpRequest(url_create_user,
+        //            "POST", params);
+
+            // check log cat fro response
+          ////AQUI SE CAE EN ESTA LINEA SIGUIENTE
 //
 //
 //
-//            Log.d("Create Response", json.toString());
-//
-//            try {
-//
-//
-//                // check for success tag
-//                try {
-//                    int success = json.getInt(TAG_SUCCESS);
-//
-//                    if (success == 1) {
-//                        // successfully created product
-////                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-////                    startActivity(i);
-//                        Mensaje("Eliminado el  Reservado");
-//
-//                        // closing this screen
-//                        finish();
-//                    } else if(success == 2){
-//                        // failed to create product
-//                        Mensaje("Eliminado");
-//                        Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//
-//            return null;
-//        }
-//
+            Log.d("Create Response", json.toString());
+
+            try {
+
+
+                // check for success tag
+                try {
+                    int success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                      // successfully created product
+                  //  Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+                 //   startActivity(i);
+                        Mensaje("Eliminado el  Reservado");
+
+                        // closing this screen
+                        finish();
+                    } else if(success == 2){
+                        // failed to create product
+                        Mensaje("Eliminado");
+                        Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+            return null;
+        }
+
 //        /**
 //         * After completing background task Dismiss the progress dialog
 //         * **/
-//        protected void onPostExecute(String file_url) {
-//            // dismiss the dialog once done
-//            pDialog.dismiss();
-//        }
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
 //
-//    }
-
-    /*public void populationSpinner( String respuesta ){
-        ArrayList<laboratorios> lables = new ArrayList<laboratorios>();
-try {
-    JSONArray jsonArreglo = new JSONArray(respuesta);
-
-
-    for (int i = 0; i < jsonArreglo.length(); i++) {
-        laboratorios labo = new laboratorios();
-        labo.setNombre(jsonArreglo.getJSONObject(i).getString(TAG_Name));
-        lables.add(labo);
-
-
     }
-    ArrayAdapter<laboratorios> spinnerAdapter = new ArrayAdapter<laboratorios>(this, android.R.layout.simple_dropdown_item_1line, lables);
 
-   // spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    class CreateNewReserva extends AsyncTask<String, String, String> {
 
-    inputdropdown.setAdapter(spinnerAdapter);
-}catch(Exception i) {
-    i.printStackTrace();
-}
-    }*/
+       /**
+        * Before starting background thread Show Progress Dialog
+        * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-//
-//    class CreateNewReserva extends AsyncTask<String, String, String> {
-//
-//        /**
-//         * Before starting background thread Show Progress Dialog
-//         * */
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//            pDialog = new ProgressDialog(FechaReservacionActivity.this);
-//            pDialog.setMessage("Creando Reservación...");
-//            pDialog.setIndeterminate(false);
-//            pDialog.setCancelable(true);
-//            pDialog.show();
-//
-//        }
-//
-//        /**
-//         * Creating product
-//         * */
-//        protected String doInBackground(String... args) {
-//            String calendario = "Prueba";//inputCalendario.toString();
-//            String mannana = inputHorarioMannana.getText().toString();
-//            String tarde = inputHorarioTarde.getText().toString();
-//            String noche = inputHorarioNoche.getText().toString();
-//            String usuario = inputUsuario.getText().toString();
-//
-//            // Building Parameters
-//            List<NameValuePair> params = new ArrayList<NameValuePair>();
-//            if(inputHorarioMannana.isChecked() == true) {
-//                params.add(new BasicNameValuePair("fecha", calendario));
-//                params.add(new BasicNameValuePair("horario", mannana));
-//                params.add(new BasicNameValuePair("lab", "1"));
-//                params.add(new BasicNameValuePair("usuario", usuario));
-//
-//            }else if(inputHorarioTarde.isChecked() == true){
-//                params.add(new BasicNameValuePair("fecha", calendario));
-//                params.add(new BasicNameValuePair("horario", tarde));
-//                params.add(new BasicNameValuePair("lab", "1"));
-//                params.add(new BasicNameValuePair("usuario",usuario));
-//            }else if(inputHorarioNoche.isChecked() == true) {
-//                params.add(new BasicNameValuePair("fecha", calendario));
-//                params.add(new BasicNameValuePair("horario", noche));
-//                params.add(new BasicNameValuePair("lab", "1"));
-//                params.add(new BasicNameValuePair("usuario",usuario));
-//            }
-//
-//
-//            // getting JSON Object
-//            // Note that create product url accepts POST method
-//
-//            JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
-//                    "POST", params);
-//
-////            JSONObject json = jsonParser.makeHttpRequest(url_create_user,
-////                    "POST", params);
-//
-//            // check log cat fro response
-////AQUI SE CAE EN ESTA LINEA SIGUIENTE
-//
-//
-//
-//            Log.d("Create Response", json.toString());
-//
-//            try {
-//
-//
-//                // check for success tag
-//                try {
-//                    int success = json.getInt(TAG_SUCCESS);
-//
-//                    if (success == 1) {
-//                        // successfully created product
-////                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-////                    startActivity(i);
-//                        Mensaje("Laboratorio Reservado");
-//
-//                        // closing this screen
-//                        finish();
-//                    } else if(success == 2){
-//                        // failed to create product
-//                        Mensaje("Reservado");
-//                        Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//
-//            return null;
-//        }
-//
-//        /**
-//         * After completing background task Dismiss the progress dialog
-//         * **/
-//        protected void onPostExecute(String file_url) {
-//            // dismiss the dialog once done
-//            pDialog.dismiss();
-//        }
-//
-//    }
+            pDialog = new ProgressDialog(FechaReservacionActivity.this);
+            pDialog.setMessage("Creando Reservación...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
+        }
+
+        /**
+         * Creating product
+         * */
+        protected String doInBackground(String... args) {
+            int dia, mes, ano;
+            int diaa,mess,anoo;
+            SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+            SimpleDateFormat dff = new SimpleDateFormat("dd/MMM/yyyy");
+            String calendario = df.format(new Date(inputCalendario.getYear() - 1900, inputCalendario.getMonth(), inputCalendario.getDayOfMonth()));
+            final Calendar c = Calendar.getInstance();
+            final Calendar m = Calendar.getInstance();
+            ano = c.get(Calendar.YEAR);
+            mes = c.get(Calendar.MONTH);
+            dia = c.get(Calendar.DAY_OF_MONTH);
+            m.add(Calendar.DATE,+1);
+            anoo = m.get(Calendar.YEAR);
+            mess = m.get(Calendar.MONTH);
+            diaa = m.get(Calendar.DATE);
+            Format formatter = new SimpleDateFormat("dd/MMM/yyyy");
+            Format formatterm = new SimpleDateFormat("dd/MMM/yyyy");
+            String hoy = formatter.format(c.getTime());
+            String mannna = formatterm.format(m.getTime());
+            String mannana = inputHorarioMannana.getText().toString();
+            String tarde = inputHorarioTarde.getText().toString();
+            String noche = inputHorarioNoche.getText().toString();
+            String usuario = inputUsuario.getText().toString();
+            String lab =  (String) spinnerFood.getSelectedItem();
+            lab = lab.replace(" ", "☺");
+            String []  labid = lab.split("☺");
+           if(calendario.equals(hoy) || calendario.equals(mannna)) {
+
+               // Building Parameters
+               List<NameValuePair> params = new ArrayList<NameValuePair>();
+               if (inputHorarioMannana.isChecked() == true) {
+                   inputHorarioTarde.setChecked(false);
+                   inputHorarioNoche.setChecked(false);
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", mannana));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", usuario));
+                   mannna="";
+
+               } else if (inputHorarioTarde.isChecked() == true) {
+                   inputHorarioMannana.setChecked(false);
+                   inputHorarioNoche.setChecked(false);
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", tarde));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", usuario));
+                   mannna="";
+               } else if (inputHorarioNoche.isChecked() == true) {
+                   inputHorarioMannana.setChecked(false);
+                   inputHorarioTarde.setChecked(false);
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", noche));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", usuario));
+                   mannna="";
+               }
+               JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
+                       "POST", params);
+               Log.d("Create Response", json.toString());
+
+               try {
+
+
+                   // check for success tag
+                   try {
+                       int success = json.getInt(TAG_SUCCESS);
+
+                       if (success == 1) {
+                           // successfully created product
+                           // Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+                           // startActivity(i);
+                           Mensaje("Laboratorio Reservado");
+
+                           // closing this screen
+                           finish();
+                       } else if(success == 2){
+                           // failed to create product
+                           Mensaje("Reservado");
+                           Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
+                       }
+                   } catch (JSONException e) {
+                       e.printStackTrace();
+                   }
+
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+
+
+
+
+
+           }else {
+               try {
+                   Mensaje("Las Reservas son un día antes");
+               }catch (Exception k ){
+
+               }
+           }
+            // getting JSON Object
+            // Note that create product url accepts POST method
+
+
+
+
+            // check log cat fro response
+//AQUI SE CAE EN ESTA LINEA SIGUIENTE
+
+
+
+
+
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+           // dismiss the dialog once done
+           pDialog.dismiss();
+        }
+
+   }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
