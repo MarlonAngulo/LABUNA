@@ -252,9 +252,13 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         System.out.println("HOY "+hoy);
 
         for(int i=0;i<listaReservas.size();i++) {
-            if (hoy.equals(listaReservas.get(i).get("fecha"))) {
-                System.out.println("ENTRO");
+            if (hoy.equals(listaReservas.get(i).get("fecha")) && listaReservas.get(i).get("horario").equals("Mañana")) {
+                inputHorarioMannana.setEnabled(false);
 
+            }else if(hoy.equals(listaReservas.get(i).get("fecha")) && listaReservas.get(i).get("horario").equals("Tarde")){
+                inputHorarioTarde.setEnabled(false);
+            }else if(hoy.equals(listaReservas.get(i).get("fecha")) && listaReservas.get(i).get("horario").equals("Noche")){
+                inputHorarioNoche.setEnabled(false);
             }
         }
     }
