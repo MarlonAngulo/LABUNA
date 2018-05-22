@@ -246,6 +246,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 vg.setMitexto(userssList.get(i).get("usuario"));
                 vg.setMivalor(Integer.parseInt(userssList.get(i).get("uid")));
                 //Mensaje("usuario" + vg.getMitexto());
+                finish();
+                break;
 
             }
             else

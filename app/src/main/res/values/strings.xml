@@ -2,8 +2,7 @@
     <string name="app_name">LABUNA</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Contraseña (optional)</string>
+    <string name="prompt_password">"Contraseña "</string>
     <string name="action_sign_in">Iniciar</string>
     <string name="action_sign_in_short">Iniciar</string>
     <string name="error_invalid_email">La direccion de correo es invalidad</string>
@@ -22,4 +21,5 @@
     <string name="title_activity_new">New</string>
     <string name="title_activity_ver_computadoras">VerComputadorasActivity</string>
     <string name="title_activity_ver_reservaciones">VerReservaciones</string>
+    <string name="prompt_email">Nombre Usuario</string>
 </resources>
