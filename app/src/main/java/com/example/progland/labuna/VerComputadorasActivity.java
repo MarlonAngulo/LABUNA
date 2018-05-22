@@ -70,7 +70,7 @@ public class VerComputadorasActivity extends ListActivity {
 
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
-                        editarUsarios.class);
+                        editarReportesPCS.class);
                 // sending pid to next activity
                 in.putExtra(TAG_CID, cid);
 
