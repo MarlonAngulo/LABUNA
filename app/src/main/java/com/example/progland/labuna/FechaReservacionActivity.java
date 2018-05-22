@@ -273,14 +273,40 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
             if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])/*listaReservas.get(i).get("horario").equals("Mañana")*/) {
                 inputHorarioMannana.setEnabled(false);
+            }else {
+               // inputHorarioMannana.setEnabled(true);
             }
             if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])){
                 inputHorarioTarde.setEnabled(false);
+            }else {
+                //inputHorarioTarde.setEnabled(true);
             }
-
             if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])){
                 inputHorarioNoche.setEnabled(false);
+            }else {
+             //   inputHorarioNoche.setEnabled(true);
             }
+            if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])) {
+                inputHorarioMannana.setEnabled(false);
+                inputHorarioTarde.setEnabled(false);
+            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])) {
+                inputHorarioTarde.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])) {
+                inputHorarioMannana.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])) {
+                inputHorarioTarde.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])) {
+                inputHorarioMannana.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])) {
+                inputHorarioTarde.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            }
+
+
         }
     }
     public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
@@ -590,6 +616,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 getApplicationContext(),
                 parent.getItemAtPosition(position).toString() + " Selected" ,
                 Toast.LENGTH_LONG).show();
+        inputHorarioMannana.setEnabled(true);
+        inputHorarioTarde.setEnabled(true);
+        inputHorarioNoche.setEnabled(true);
         Revisar();
 
     }
