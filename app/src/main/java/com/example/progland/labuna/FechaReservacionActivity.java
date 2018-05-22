@@ -1,5 +1,6 @@
 package com.example.progland.labuna;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +39,20 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     private static String url_create_reservaciones = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/create_reservaciones.php";
     private static String url_delete_reservaciones = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/delete_reservaciones.php";
     private static String url_all_labs ="http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/get_all_laboratorios.php";
+    private static String url_all_reservaciones = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/get_all_reservaciones.php";
+
     private String URL_CATEGORIES = "http://www.cursoplataformasmoviles.com/prueba/get_categories.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_labs = "laboratorios";
     private static final String TAG_LID = "lid";
     private static final String TAG_Name = "nombre";
+    private static final String TAG_reservaciones = "reservaciones";
+    private static final String TAG_HORARIO = "horario";
+    private static final String TAG_FECHA = "fecha";
+
+
+    JSONArray users = null;
     private ArrayList<laboratorios> categoriesList;
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -55,6 +66,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     CheckBox inputHorarioNoche;
     TextView inputUsuario;
     private Spinner spinnerFood;
+    ArrayList<HashMap<String, String>> listaReservas;
     ArrayList<HashMap<String, String>> LabsList;
     VariablesGlobales vg = VariablesGlobales.getInstance();
 
@@ -70,7 +82,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         Mensaje("usuario: " + vg.getMitexto() + " id: " + vg.getMivalor());
         LabsList = new ArrayList<HashMap<String, String>>();
         categoriesList = new ArrayList<laboratorios>();
-
+        listaReservas = new ArrayList<HashMap<String, String>>();
 
 
         inputCalendario = (DatePicker) findViewById(R.id.widget54);
@@ -85,9 +97,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
         Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
         Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
-        new LoadAlllabs().execute();
+        new LoadAllReserv().execute();
         inputUsuario.setText(vg.getMitexto());
-
+        new LoadAlllabs().execute();
+        Revisar();
         // button click event
        btncrearapartado.setOnClickListener(new View.OnClickListener() {
 
@@ -147,6 +160,107 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     /**
      * Background Async Task to Load all user by making HTTP Request
      * */
+    class LoadAllReserv extends AsyncTask<String, String, String> {
+
+
+
+
+        @SuppressLint("LongLogTag")
+        protected String doInBackground(String... args) {
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+
+            // getting JSON string from URL
+            JSONObject json = jParser.makeHttpRequest(url_all_reservaciones, "GET", params);
+
+            // Check your log cat for JSON reponse
+
+            Log.d("Todas las Reservaciones: ", json.toString());
+
+
+
+            try {
+                // Checking for SUCCESS TAG
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    // users found
+                    // Getting Array of Users
+                    users = json.getJSONArray(TAG_reservaciones);
+
+                    // looping through All Users
+                    for (int i = 0; i < users.length(); i++) {
+                        JSONObject c = users.getJSONObject(i);
+
+                        // Storing each json item in variable
+                        String horario = c.getString(TAG_HORARIO);
+                        String fecha = c.getString(TAG_FECHA);
+
+
+                        // creating new HashMap
+                        HashMap<String, String> map = new HashMap<String, String>();
+
+                        // adding each child node to HashMap key => value
+                        map.put(TAG_HORARIO, horario);
+                        map.put(TAG_FECHA, fecha);
+
+                        // adding HashList to ArrayList
+                        listaReservas.add(map);
+                    }
+                } else {
+                    // no users found
+                    // Launch Add New user Activity
+                    Intent i = new Intent(getApplicationContext(),
+                            RegistroUsuariosActivity.class);
+                    // Closing all previous activities
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+
+    }
+    /**
+     * Background Async Task to Load all user by making HTTP Request
+     * */
+    public void Revisar(){
+        int dia, mes, ano;
+        int diaa,mess,anoo;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+        SimpleDateFormat dff = new SimpleDateFormat("dd/MMM/yyyy");
+        String calendario = df.format(new Date(inputCalendario.getYear() - 1900, inputCalendario.getMonth(), inputCalendario.getDayOfMonth()));
+        final Calendar c = Calendar.getInstance();
+        final Calendar m = Calendar.getInstance();
+        ano = c.get(Calendar.YEAR);
+        mes = c.get(Calendar.MONTH);
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        m.add(Calendar.DATE,+1);
+        anoo = m.get(Calendar.YEAR);
+        mess = m.get(Calendar.MONTH);
+        diaa = m.get(Calendar.DATE);
+        Format formatter = new SimpleDateFormat("dd/MMM/yyyy");
+        Format formatterm = new SimpleDateFormat("dd/MMM/yyyy");
+        String hoy = formatter.format(c.getTime());
+        for(int i=0;i<listaReservas.size();i++){
+            if(hoy.equals(listaReservas.get(i).get("fecha"))){
+                System.out.println("ENTRO");
+                //inputHorarioTarde.setEnabled(false);
+            /*    if("Mañana".equals(listaReservas.get(i).get("horario"))){
+                    inputHorarioMannana.setEnabled(false);
+                }else if("Noche".equals(listaReservas.get(i).get("horario"))){
+                    inputHorarioNoche.setEnabled(false);
+                }*/
+            }
+        }
+
+    }
     public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
 
         @Override

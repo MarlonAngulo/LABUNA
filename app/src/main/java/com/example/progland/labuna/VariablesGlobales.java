@@ -11,6 +11,8 @@ public class VariablesGlobales {
     private int mivalor=0;
     private double minum=3.14;
 
+    private int IdReservas = 0;
+    private String NombreReservas = "";
     private static VariablesGlobales instance = null;
 
     protected VariablesGlobales() {}
@@ -42,5 +44,21 @@ public class VariablesGlobales {
 
     public void setMinum(double minum) {
         this.minum = minum;
+    }
+
+    public int getIdReservas() {
+        return IdReservas;
+    }
+
+    public void setIdReservas(int idReservas) {
+        IdReservas = idReservas;
+    }
+
+    public String getNombreReservas() {
+        return NombreReservas;
+    }
+
+    public void setNombreReservas(String nombreReservas) {
+        NombreReservas = nombreReservas;
     }
 }// fin de la clase de variables globales
