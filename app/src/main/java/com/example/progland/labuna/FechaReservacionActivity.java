@@ -100,7 +100,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         new LoadAllReserv().execute();
         inputUsuario.setText(vg.getMitexto());
         new LoadAlllabs().execute();
-        Revisar();
+
         // button click event
        btncrearapartado.setOnClickListener(new View.OnClickListener() {
 
@@ -207,6 +207,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
                         // adding HashList to ArrayList
                         listaReservas.add(map);
+                     //   System.out.println(listaReservas);
                     }
                 } else {
                     // no users found
@@ -221,7 +222,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 e.printStackTrace();
             }
 
-
+            Revisar();
             return null;
         }
 
@@ -248,18 +249,14 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         Format formatter = new SimpleDateFormat("dd/MMM/yyyy");
         Format formatterm = new SimpleDateFormat("dd/MMM/yyyy");
         String hoy = formatter.format(c.getTime());
-        for(int i=0;i<listaReservas.size();i++){
-            if(hoy.equals(listaReservas.get(i).get("fecha"))){
+        System.out.println("HOY "+hoy);
+
+        for(int i=0;i<listaReservas.size();i++) {
+            if (hoy.equals(listaReservas.get(i).get("fecha"))) {
                 System.out.println("ENTRO");
-                //inputHorarioTarde.setEnabled(false);
-            /*    if("Mañana".equals(listaReservas.get(i).get("horario"))){
-                    inputHorarioMannana.setEnabled(false);
-                }else if("Noche".equals(listaReservas.get(i).get("horario"))){
-                    inputHorarioNoche.setEnabled(false);
-                }*/
+
             }
         }
-
     }
     public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
 
@@ -296,7 +293,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                                     catObj.getString("nombre"));
                             System.out.println(cat.getId());
                             categoriesList.add(cat);
-                            System.out.println("En array: "+categoriesList.get(i).getNombre());
                         }
                     }
 
