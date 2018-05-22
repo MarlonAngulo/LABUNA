@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,10 +49,10 @@ public class editarUsarios extends Activity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_USER = "user";
+    private static final String TAG_USER = "usuario";
     private static final String TAG_UID = "uid";
     private static final String TAG_USUARIO = "usuario";
-    private static final String TAG_CONTRASEÑA = "contraseña";
+    private static final String TAG_CONTRASEÑA = "contrasenna";
     private static final String TAG_TIPO = "tipo";
 
 
@@ -60,6 +61,10 @@ public class editarUsarios extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_usarios);
 
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                // StrictMode is most commonly used to catch accidental disk or network access on the application's main thread
+                .penaltyLog().build());
         // save button
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
@@ -80,6 +85,8 @@ public class editarUsarios extends Activity {
             public void onClick(View arg0) {
                 // starting background task to update user
                 new SaveUserDetails().execute();
+                Intent in = new Intent(getApplicationContext(),
+                        VerUsuarios.class);
             }
         });
 
@@ -90,6 +97,8 @@ public class editarUsarios extends Activity {
             public void onClick(View arg0) {
                 // deleting user in background thread
                 new DeleteUser().execute();
+                Intent in = new Intent(getApplicationContext(),
+                        VerUsuarios.class);
             }
         });
 
@@ -212,14 +221,14 @@ public class editarUsarios extends Activity {
 
             // getting updated data from EditTexts
             String usuario = txtUsuario.getText().toString();
-            String contraseña = txtContrasenna.getText().toString();
+            String contrasenna = txtContrasenna.getText().toString();
             String tipo = txtTipo.getText().toString();
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_UID, uid));
             params.add(new BasicNameValuePair(TAG_USUARIO, usuario));
-            params.add(new BasicNameValuePair(TAG_CONTRASEÑA, contraseña));
+            params.add(new BasicNameValuePair(TAG_CONTRASEÑA, contrasenna));
             params.add(new BasicNameValuePair(TAG_TIPO, tipo));
 
             // sending modified data through http request
