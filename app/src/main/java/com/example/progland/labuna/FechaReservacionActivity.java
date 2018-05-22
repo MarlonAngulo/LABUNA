@@ -33,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 public class FechaReservacionActivity extends AppCompatActivity implements OnItemSelectedListener {
     // url to create new product
@@ -97,9 +98,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
         Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
         Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
+        new LoadAlllabs().execute();
         new LoadAllReserv().execute();
         inputUsuario.setText(vg.getMitexto());
-        new LoadAlllabs().execute();
+
 
         // button click event
        btncrearapartado.setOnClickListener(new View.OnClickListener() {
@@ -196,14 +198,16 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                         // Storing each json item in variable
                         String horario = c.getString(TAG_HORARIO);
                         String fecha = c.getString(TAG_FECHA);
+                        String lab = c.getString("lab");
 
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
-                        map.put(TAG_HORARIO, horario);
+                        map.put(TAG_HORARIO, horario+" "+lab);
                         map.put(TAG_FECHA, fecha);
+
 
                         // adding HashList to ArrayList
                         listaReservas.add(map);
@@ -222,7 +226,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 e.printStackTrace();
             }
 
-            Revisar();
+           // Revisar();
             return null;
         }
 
@@ -249,15 +253,32 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         Format formatter = new SimpleDateFormat("dd/MMM/yyyy");
         Format formatterm = new SimpleDateFormat("dd/MMM/yyyy");
         String hoy = formatter.format(c.getTime());
-        System.out.println("HOY "+hoy);
+        System.out.println("Lista"+listaReservas);
+
+        String prueba =  spinnerFood.getSelectedItem().toString();
+        prueba = prueba.replace(" ", "☺☺");
+        String []  nuevo = prueba.split("☺☺");
+
+        System.out.println("AQUIIIIIIIIIII ID"+nuevo[0]);
+
+        String lab =  "";
+        String nuevoLab="";
+        String labid [];
 
         for(int i=0;i<listaReservas.size();i++) {
-            if (hoy.equals(listaReservas.get(i).get("fecha")) && listaReservas.get(i).get("horario").equals("Mañana")) {
-                inputHorarioMannana.setEnabled(false);
+            lab = listaReservas.get(i).get("horario");
+            lab = lab.replace(" ", "☺");
+            labid = lab.split("☺");
 
-            }else if(hoy.equals(listaReservas.get(i).get("fecha")) && listaReservas.get(i).get("horario").equals("Tarde")){
+
+            if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])/*listaReservas.get(i).get("horario").equals("Mañana")*/) {
+                inputHorarioMannana.setEnabled(false);
+            }
+            if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])){
                 inputHorarioTarde.setEnabled(false);
-            }else if(hoy.equals(listaReservas.get(i).get("fecha")) && listaReservas.get(i).get("horario").equals("Noche")){
+            }
+
+            if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])){
                 inputHorarioNoche.setEnabled(false);
             }
         }
@@ -317,6 +338,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinner();
+
+            Revisar();
         }
 
 
@@ -567,6 +590,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 getApplicationContext(),
                 parent.getItemAtPosition(position).toString() + " Selected" ,
                 Toast.LENGTH_LONG).show();
+        Revisar();
 
     }
 
