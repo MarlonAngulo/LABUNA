@@ -48,7 +48,8 @@
             android:name=".VerReservaciones"
             android:label="@string/title_activity_ver_reservaciones"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".editarReportesPCS"></activity>
+        <activity android:name=".editarReportesPCS" />
+        <activity android:name=".editarLABS"></activity>
     </application>
 
 </manifest>
