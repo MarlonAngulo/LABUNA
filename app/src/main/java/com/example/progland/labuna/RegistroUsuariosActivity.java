@@ -62,6 +62,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         //Mensaje(vg.getTipo());
 
         // button click event
+
         btnCreateUser.setOnClickListener(new View.OnClickListener() {
 
             @Override

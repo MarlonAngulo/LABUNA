@@ -134,7 +134,12 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         new LoadAllReserv().execute();
         inputUsuario.setText(vg.getMitexto());
         Calendar calendar = Calendar.getInstance();
-
+            boton1.setText("Ver Reservaciones");
+        if(vg.getTipo().equals("A")){
+        }else{
+            btnEliminarapartado.setVisibility(View.GONE);
+            boton1.setVisibility(View.GONE);
+        }
 
 
         // button click event
@@ -159,7 +164,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             }
         });
 
-        boton1.setText("No has pulsado el boton");
+
         boton1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {

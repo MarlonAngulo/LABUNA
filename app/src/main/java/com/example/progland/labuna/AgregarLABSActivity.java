@@ -37,7 +37,7 @@ public class AgregarLABSActivity extends AppCompatActivity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-
+    VariablesGlobales vg = VariablesGlobales.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,10 @@ public class AgregarLABSActivity extends AppCompatActivity {
 
         //String[] letra = {"Administrador","Profesor","Tutor"};
         //inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
-
+        if(vg.getTipo().equals("A")){
+        }else{
+            btnverlabs.setVisibility(View.GONE);
+        }
 
 
         // button click event

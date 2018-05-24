@@ -20,16 +20,24 @@ import android.widget.Toast;
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ImageButton imageButton;
+    VariablesGlobales vg = VariablesGlobales.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Mensaje("Menu");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(vg.getTipo().equals("A")){
+        }else{
+            fab.setVisibility(View.GONE);
+        }
+        System.out.println("TIPO DE USUARIO: "+vg.getTipo() );
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

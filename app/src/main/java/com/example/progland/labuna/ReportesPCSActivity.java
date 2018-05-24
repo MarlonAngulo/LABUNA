@@ -30,7 +30,7 @@ public class ReportesPCSActivity extends AppCompatActivity {
     EditText inputCodigoAr;
     EditText inputCodigoLab;
     EditText inputDetalle;
-
+    VariablesGlobales vg = VariablesGlobales.getInstance();
     // url to create new product
     private static String url_create_pcs = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/create_computadoras.php";
 
@@ -51,10 +51,14 @@ public class ReportesPCSActivity extends AppCompatActivity {
         inputCodigoAr = (EditText) findViewById(R.id.edCantidadPCSLab);
         inputCodigoLab = (EditText) findViewById(R.id.edEstadoLabs);
         inputDetalle = (EditText) findViewById(R.id.edDetalleLAB);
-
-        // Create button
         Button btnCreatePcs = (Button) findViewById(R.id.btnreportar);
         Button btvercp = (Button) findViewById(R.id.btnvercomputadora);
+        // Create button
+        if(vg.getTipo().equals("A")){
+        }else{
+            btvercp.setVisibility(View.GONE);
+        }
+
 
         //String[] letra = {"Administrador","Profesor","Tutor"};
         //inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));

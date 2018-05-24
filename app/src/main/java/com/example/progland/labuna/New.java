@@ -33,7 +33,7 @@ public class New extends ListActivity {
 
     // url to get all users list
     private static String url_all_labs ="http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/get_all_laboratorios.php";
-
+    VariablesGlobales vg = VariablesGlobales.getInstance();
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_labs = "laboratorios";
