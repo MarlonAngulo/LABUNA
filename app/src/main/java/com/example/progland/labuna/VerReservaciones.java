@@ -71,7 +71,7 @@ public class VerReservaciones extends ListActivity {
 
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
-                        editarUsarios.class);
+                        editarReservaciones.class);
                 // sending pid to next activity
                 in.putExtra(TAG_RID, rid);
                 System.out.println("AQUIIIIIII: "+rid);
