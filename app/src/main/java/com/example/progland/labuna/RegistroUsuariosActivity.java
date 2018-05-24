@@ -32,6 +32,8 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     EditText inputContrasenna;
     Spinner inputPuesto;
 
+    VariablesGlobales vg = VariablesGlobales.getInstance();
+
     // url to create new product
     private static String url_create_user = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/create_usuarios.php";
 
@@ -56,6 +58,8 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
 
         Mensaje("Registro de Usuarios");
+
+        //Mensaje(vg.getTipo());
 
         // button click event
         btnCreateUser.setOnClickListener(new View.OnClickListener() {

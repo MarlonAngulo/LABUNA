@@ -10,6 +10,7 @@ public class VariablesGlobales {
     private String mitexto=" ";
     private int mivalor=0;
     private double minum=3.14;
+    private String tipo = " ";
 
     private int IdReservas = 0;
     private String NombreReservas = "";
@@ -19,6 +20,14 @@ public class VariablesGlobales {
     public static VariablesGlobales getInstance() {
         if(instance == null) {instance = new VariablesGlobales(); }
         return instance;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 

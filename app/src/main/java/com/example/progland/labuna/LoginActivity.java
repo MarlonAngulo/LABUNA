@@ -77,6 +77,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String TAG_UID = "uid";
     private static final String TAG_USER = "usuario";
     private static final String TAG_CONTRASENNA = "contraseña";
+    private static final String TAG_TIPO = "tipo";
+
+
     String [] var;
     JSONArray users = null;
     Spinner inputPuesto;
@@ -223,7 +226,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean cancel = false;
         View focusView = null;
 
-        System.out.println(userssList.get(1).get("usuario") + userssList.get(1).get("contraseña"));
+        System.out.println(userssList.get(1).get("usuario") + userssList.get(1).get("contraseña") + userssList.get(1).get("tipo"));
 //        vg.setMitexto(userssList.get(1).get("usuario"));
 //        Mensaje("usuario" + vg.getMitexto());
 
@@ -245,6 +248,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(intento);
                 vg.setMitexto(userssList.get(i).get("usuario"));
                 vg.setMivalor(Integer.parseInt(userssList.get(i).get("uid")));
+                vg.setTipo(userssList.get(i).get("tipo"));
                 //Mensaje("usuario" + vg.getMitexto());
                 finish();
                 break;
@@ -500,6 +504,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         String contraseña = c.getString(TAG_CONTRASENNA);
 
+                        String tipo = c.getString(TAG_TIPO);
+
+
 
 
                         // creating new HashMap
@@ -509,6 +516,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         map.put(TAG_UID, id);
                         map.put(TAG_USER, usuario);
                         map.put(TAG_CONTRASENNA, contraseña);
+                        map.put(TAG_TIPO, tipo);
 
                         // adding HashList to ArrayList
                         userssList.add(map);
