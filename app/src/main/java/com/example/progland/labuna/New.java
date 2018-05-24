@@ -70,7 +70,7 @@ public class New extends ListActivity {
 
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
-                        editarUsarios.class);
+                        editarLABS.class);
                 // sending pid to next activity
                 in.putExtra(TAG_LID, lid);
 
