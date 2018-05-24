@@ -1,10 +1,16 @@
 package com.example.progland.labuna;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.app.usage.UsageEvents;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -73,6 +79,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
 
     JSONArray labs = null;
+    DatePicker pickerDate;
+    TextView info;
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,12 +105,36 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         spinnerFood.setOnItemSelectedListener(this);
 
 
+        info = (TextView)findViewById(R.id.info);
+
+        Calendar today = Calendar.getInstance();
+
+        inputCalendario.init(
+                today.get(Calendar.YEAR),
+                today.get(Calendar.MONTH),
+                today.get(Calendar.DAY_OF_MONTH),
+                new DatePicker.OnDateChangedListener(){
+
+                    @Override
+                    public void onDateChanged(DatePicker view,
+                                              int year, int monthOfYear,int dayOfMonth) {
+                        Toast.makeText(getApplicationContext(),
+                                "onDateChanged", Toast.LENGTH_SHORT).show();
+                         limpiarChecks();
+                         Revisar();
+
+                    }});
+
+
+
         final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
         Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
         Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
         new LoadAlllabs().execute();
         new LoadAllReserv().execute();
         inputUsuario.setText(vg.getMitexto());
+        Calendar calendar = Calendar.getInstance();
+
 
 
         // button click event
@@ -110,6 +144,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
            public void onClick(View view) {
                // creating new user in background thread
                new CreateNewReserva().execute();
+               limpiarChecks();
+               Revisar();
            }
        });
 
@@ -652,9 +688,14 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 getApplicationContext(),
                 parent.getItemAtPosition(position).toString() + " Selected" ,
                 Toast.LENGTH_LONG).show();
-        inputHorarioMannana.setEnabled(true);
-        inputHorarioTarde.setEnabled(true);
-        inputHorarioNoche.setEnabled(true);
+        limpiarChecks();
+        Revisar();
+
+    }
+
+    public void setOnClickListener() {
+        limpiarChecks();
+
         Revisar();
 
     }
@@ -663,6 +704,12 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     public void onNothingSelected(AdapterView<?> arg0) {
     }
 
+    public void limpiarChecks(){
+        inputHorarioMannana.setEnabled(true);
+        inputHorarioTarde.setEnabled(true);
+        inputHorarioNoche.setEnabled(true);
+
+    }
 
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
