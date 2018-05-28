@@ -1,11 +1,11 @@
 package com.example.progland.labuna;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,8 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity
@@ -22,9 +23,15 @@ public class MenuActivity extends AppCompatActivity
     ImageButton imageButton;
     VariablesGlobales vg = VariablesGlobales.getInstance();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       // imageButton = (ImageButton) findViewById(R.id.btnimgNotificacion);
+
+
+
 
 
         setContentView(R.layout.activity_menu);
@@ -48,7 +55,7 @@ public class MenuActivity extends AppCompatActivity
 
             }
         });
-        addListenerOnButton();
+        //addListenerOnButton();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,6 +65,11 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //imageButton.setVisibility(View.GONE);
+
+        TextView Mi_textview = (TextView) findViewById(R.id.txtVSaludo);
+        Mi_textview.setText("bienvenido(a)  " + vg.getMitexto() + " !");
     }
 
     @Override
@@ -113,6 +125,9 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse( "http://www.coto.una.ac.cr/" ));
+            startActivity(i);
 
         } else if (id == R.id.nav_send) {
 
@@ -126,20 +141,22 @@ public class MenuActivity extends AppCompatActivity
     }
     public void addListenerOnButton() {
 
-        imageButton = (ImageButton) findViewById(R.id.btnimgNotificacion);
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                Mensaje("Derian a reservado el laboratorio 1 para mañana!");
-
-
-            }
 
 
 
-        });
+
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//                Mensaje("Derian a reservado el laboratorio 1 para mañana!");
+//
+//
+//            }
+//
+//
+//
+//        });
 
     }
 
