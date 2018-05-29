@@ -10,32 +10,23 @@
         android:id="@+id/widget0"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="0dp">
-
-        <TextView
-            android:id="@+id/txtvTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="28dp"
-            android:layout_y="7dp"
-            android:text="Seleccione la fecha y horario que desea" />
 
         <TextView
             android:id="@+id/txtusuario"
             android:layout_width="53dp"
             android:layout_height="wrap_content"
-            android:layout_x="324dp"
-            android:layout_y="9dp"
+            android:layout_x="9dp"
+            android:layout_y="483dp"
             android:text="1" />
 
         <DatePicker
             android:id="@+id/widget54"
-            android:layout_width="335dp"
-            android:layout_height="377dp"
-            android:layout_x="27dp"
-            android:layout_y="27dp" />
+            android:layout_width="377dp"
+            android:layout_height="403dp"
+            android:layout_x="0dp"
+            android:layout_y="0dp" />
 
         <Button
             android:id="@+id/btnsiguientereser"
@@ -67,11 +58,11 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="215dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/spinner"
-            android:layout_x="135dp"
+            android:layout_x="53dp"
             android:layout_y="406dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="505dp" />
@@ -107,7 +98,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:text="Ma&#241;ana" />
+                android:text="Ma&#241;ana"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="414dp" />
 
 
         </RelativeLayout>

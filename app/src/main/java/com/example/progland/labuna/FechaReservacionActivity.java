@@ -3,10 +3,7 @@ package com.example.progland.labuna;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.app.usage.UsageEvents;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,8 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 public class FechaReservacionActivity extends AppCompatActivity implements OnItemSelectedListener {
     // url to create new product
@@ -279,8 +273,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     public void Revisar(){
         int dia, mes, ano;
         int diaa,mess,anoo;
-        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-        SimpleDateFormat dff = new SimpleDateFormat("dd/MMM/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MMM/dd");
+        SimpleDateFormat dff = new SimpleDateFormat("yyyy/MMM/dd");
         String calendario = df.format(new Date(inputCalendario.getYear() - 1900, inputCalendario.getMonth(), inputCalendario.getDayOfMonth()));
         final Calendar c = Calendar.getInstance();
         final Calendar m = Calendar.getInstance();
@@ -291,8 +285,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         anoo = m.get(Calendar.YEAR);
         mess = m.get(Calendar.MONTH);
         diaa = m.get(Calendar.DATE);
-        Format formatter = new SimpleDateFormat("dd/MMM/yyyy");
-        Format formatterm = new SimpleDateFormat("dd/MMM/yyyy");
+        Format formatter = new SimpleDateFormat("yyyy/MMM/dd");
+        Format formatterm = new SimpleDateFormat("yyyy/MMM/dd");
         String hoy = formatter.format(c.getTime());
         System.out.println("Lista"+listaReservas);
 
@@ -563,8 +557,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         protected String doInBackground(String... args) {
             int dia, mes, ano;
             int diaa,mess,anoo;
-            SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-            SimpleDateFormat dff = new SimpleDateFormat("dd/MMM/yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat dff = new SimpleDateFormat("yyyy/MM/dd");
             String calendario = df.format(new Date(inputCalendario.getYear() - 1900, inputCalendario.getMonth(), inputCalendario.getDayOfMonth()));
             final Calendar c = Calendar.getInstance();
             final Calendar m = Calendar.getInstance();
@@ -575,8 +569,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             anoo = m.get(Calendar.YEAR);
             mess = m.get(Calendar.MONTH);
             diaa = m.get(Calendar.DATE);
-            Format formatter = new SimpleDateFormat("dd/MMM/yyyy");
-            Format formatterm = new SimpleDateFormat("dd/MMM/yyyy");
+            Format formatter = new SimpleDateFormat("yyyy/MM/dd");
+            Format formatterm = new SimpleDateFormat("yyyy/MM/dd");
             String hoy = formatter.format(c.getTime());
             String mannna = formatterm.format(m.getTime());
             String mannana = inputHorarioMannana.getText().toString();
@@ -587,7 +581,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             lab = lab.replace(" ", "☺");
             String []  labid = lab.split("☺");
            if(calendario.equals(hoy) || calendario.equals(mannna)) {
-
+               System.out.println("FECHA "+calendario);
                // Building Parameters
                List<NameValuePair> params = new ArrayList<NameValuePair>();
                if (inputHorarioMannana.isChecked() == true) {
