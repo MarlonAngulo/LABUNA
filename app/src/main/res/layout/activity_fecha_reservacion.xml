@@ -10,15 +10,16 @@
         android:id="@+id/widget0"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/txtvTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="29dp"
-            android:layout_y="23dp"
+            android:layout_x="28dp"
+            android:layout_y="7dp"
             android:text="Seleccione la fecha y horario que desea" />
 
         <TextView
@@ -31,17 +32,17 @@
 
         <DatePicker
             android:id="@+id/widget54"
-            android:layout_width="334dp"
-            android:layout_height="290dp"
-            android:layout_x="26dp"
-            android:layout_y="47dp" />
+            android:layout_width="335dp"
+            android:layout_height="377dp"
+            android:layout_x="27dp"
+            android:layout_y="27dp" />
 
         <Button
             android:id="@+id/btnsiguientereser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_x="248dp"
-            android:layout_y="455dp"
+            android:layout_y="463dp"
             android:text="Siguiente" />
 
         <Button
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_x="62dp"
-            android:layout_y="459dp"
+            android:layout_y="463dp"
             android:text="Apartar"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="447dp" />
@@ -58,8 +59,8 @@
             android:id="@+id/btneliminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="155dp"
-            android:layout_y="455dp"
+            android:layout_x="153dp"
+            android:layout_y="463dp"
             android:text="Eliminar"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="447dp" />
@@ -70,33 +71,34 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/spinner"
-            android:layout_x="145dp"
-            android:layout_y="347dp"
+            android:layout_x="135dp"
+            android:layout_y="406dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="505dp" />
 
         <RelativeLayout
-            android:layout_width="95dp"
-            android:layout_height="104dp"
-            android:layout_x="29dp"
-            android:layout_y="347dp"
-            tools:layout_editor_absoluteX="169dp"
-            tools:layout_editor_absoluteY="304dp">
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:layout_x="55dp"
+            android:layout_y="433dp"
+            tools:layout_editor_absoluteX="17dp"
+            tools:layout_editor_absoluteY="345dp">
 
             <CheckBox
                 android:id="@+id/widget58"
                 android:layout_width="247dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/widget59"
                 android:text="Noche" />
 
             <CheckBox
                 android:id="@+id/widget59"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/widget57"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/widget57"
                 android:text="Tarde" />
 
             <CheckBox
