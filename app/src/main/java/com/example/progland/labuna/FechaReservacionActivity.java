@@ -273,8 +273,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     public void Revisar(){
         int dia, mes, ano;
         int diaa,mess,anoo;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/MMM/dd");
-        SimpleDateFormat dff = new SimpleDateFormat("yyyy/MMM/dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dff = new SimpleDateFormat("yyyy/MM/dd");
         String calendario = df.format(new Date(inputCalendario.getYear() - 1900, inputCalendario.getMonth(), inputCalendario.getDayOfMonth()));
         final Calendar c = Calendar.getInstance();
         final Calendar m = Calendar.getInstance();
@@ -285,8 +285,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         anoo = m.get(Calendar.YEAR);
         mess = m.get(Calendar.MONTH);
         diaa = m.get(Calendar.DATE);
-        Format formatter = new SimpleDateFormat("yyyy/MMM/dd");
-        Format formatterm = new SimpleDateFormat("yyyy/MMM/dd");
+        Format formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Format formatterm = new SimpleDateFormat("yyyy/MM/dd");
         String hoy = formatter.format(c.getTime());
         System.out.println("Lista"+listaReservas);
 
@@ -625,7 +625,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                            // successfully created product
                            // Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
                            // startActivity(i);
-                           Mensaje("Laboratorio Reservado");
+                           //Mensaje("Laboratorio Reservado");
 
                            // closing this screen
                            finish();
