@@ -267,7 +267,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 e.printStackTrace();
             }
 
-           // Revisar();
+            Revisar();
             return null;
         }
 
