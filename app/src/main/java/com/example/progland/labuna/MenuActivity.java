@@ -85,7 +85,7 @@ public class MenuActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        //getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -130,6 +130,10 @@ public class MenuActivity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_send) {
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse( "http://cursoplataformasmoviles.com/labuna/index.html" ));
+            startActivity(i);
 
         }
 
