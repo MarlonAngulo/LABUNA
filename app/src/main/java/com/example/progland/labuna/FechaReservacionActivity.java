@@ -618,9 +618,12 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    mannna="";
                    limpiarChecks();
                }
+
+
                JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
                        "POST", params);
                Log.d("Create Response", json.toString());
+               Revisar();
 
                try {
 
