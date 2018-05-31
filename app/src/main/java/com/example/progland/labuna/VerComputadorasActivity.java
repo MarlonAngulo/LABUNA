@@ -165,7 +165,7 @@ public class VerComputadorasActivity extends ListActivity {
                     // no users found
                     // Launch Add New user Activity
                     Intent i = new Intent(getApplicationContext(),
-                            RegistroUsuariosActivity.class);
+                            ReportesPCSActivity.class);
                     // Closing all previous activities
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
