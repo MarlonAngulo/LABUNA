@@ -141,8 +141,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
            public void onClick(View view) {
                // creating new user in background thread
                new CreateNewReserva().execute();
-               limpiarChecks();
-               Revisar();
+
            }
        });
 
@@ -539,21 +538,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
     class CreateNewReserva extends AsyncTask<String, String, String> {
 
-       /**
-        * Before starting background thread Show Progress Dialog
-        * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            pDialog = new ProgressDialog(FechaReservacionActivity.this);
-            pDialog.setMessage("Creando Reservación...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-
-        }
-
         /**
          * Creating product
          * */
@@ -621,7 +605,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
                        "POST", params);
                Log.d("Create Response", json.toString());
-               Revisar();
+
 
                try {
 
@@ -674,7 +658,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
 
 
-
+            limpiarChecks();
+            Revisar();
 
             return null;
         }
