@@ -616,9 +616,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
                        if (success == 1) {
                            // successfully created product
-                           // Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                           // startActivity(i);
-                           //Mensaje("Laboratorio Reservado");
+                            Intent i = new Intent(getApplicationContext(), FechaReservacionActivity.class);
+                            startActivity(i);
+                           Mensaje("Laboratorio Reservado");
 
                            // closing this screen
                            finish();
