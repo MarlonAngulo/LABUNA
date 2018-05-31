@@ -17,8 +17,8 @@
             android:id="@+id/txtusuario"
             android:layout_width="53dp"
             android:layout_height="wrap_content"
-            android:layout_x="168dp"
-            android:layout_y="448dp"
+            android:layout_x="134dp"
+            android:layout_y="479dp"
             android:text="1" />
 
         <Button
@@ -26,7 +26,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="248dp"
+            android:layout_x="193dp"
             android:layout_y="463dp"
             android:text="Siguiente" />
 
@@ -35,7 +35,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="62dp"
+            android:layout_x="32dp"
             android:layout_y="463dp"
             android:text="Apartar"
             tools:layout_editor_absoluteX="39dp"
@@ -47,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/spinner"
-            android:layout_x="55dp"
-            android:layout_y="362dp"
+            android:layout_x="41dp"
+            android:layout_y="397dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="505dp" />
 
@@ -67,8 +67,8 @@
             android:id="@+id/manana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="56dp"
-            android:layout_y="403dp"
+            android:layout_x="36dp"
+            android:layout_y="427dp"
             android:text="Mañana"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="101dp" />
@@ -77,8 +77,8 @@
             android:id="@+id/tarde"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="171dp"
-            android:layout_y="403dp"
+            android:layout_x="158dp"
+            android:layout_y="426dp"
             android:text="Tarde"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="62dp" />
@@ -87,16 +87,16 @@
             android:id="@+id/noche"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="273dp"
-            android:layout_y="403dp"
+            android:layout_x="258dp"
+            android:layout_y="425dp"
             android:text="Noche"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="29dp" />
 
         <DatePicker
             android:id="@+id/datePicker"
-            android:layout_width="match_parent"
-            android:layout_height="359dp"
+            android:layout_width="wrap_content"
+            android:layout_height="392dp"
             android:layout_x="0dp"
             android:layout_y="0dp"
             tools:layout_editor_absoluteX="17dp"

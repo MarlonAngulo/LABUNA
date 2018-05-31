@@ -18,7 +18,7 @@
             android:id="@+id/txtvTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="81dp"
+            android:layout_x="32dp"
             android:layout_y="14dp"
             android:text="Complete los siguientes Campos"
             android:textSize="20dp"
@@ -29,8 +29,8 @@
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="304dp"
-            android:layout_y="359dp"
+            android:layout_x="253dp"
+            android:layout_y="361dp"
             android:text="Agregar" />
 
         <Button
@@ -38,7 +38,7 @@
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="52dp"
+            android:layout_x="26dp"
             android:layout_y="360dp"
             android:text="Ver Laboratorios"
             tools:layout_editor_absoluteX="66dp"
@@ -48,8 +48,8 @@
             android:id="@+id/widget44"
             android:layout_width="348dp"
             android:layout_height="298dp"
-            android:layout_x="52dp"
-            android:layout_y="55dp"
+            android:layout_x="23dp"
+            android:layout_y="59dp"
             android:background="@android:color/background_light"
             tools:layout_editor_absoluteX="67dp"
             tools:layout_editor_absoluteY="57dp">
@@ -127,10 +127,10 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="269dp"
-            android:layout_height="210dp"
-            android:layout_x="93dp"
-            android:layout_y="420dp"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_x="70dp"
+            android:layout_y="422dp"
             app:srcCompat="@mipmap/corecore" />
     </AbsoluteLayout>
 
