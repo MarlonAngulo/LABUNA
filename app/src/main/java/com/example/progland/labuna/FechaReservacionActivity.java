@@ -246,11 +246,11 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 } else {
                     // no users found
                     // Launch Add New user Activity
-                    Intent i = new Intent(getApplicationContext(),
-                            FechaReservacionActivity.class);
-                    // Closing all previous activities
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+//                    Intent i = new Intent(getApplicationContext(),
+//                            FechaReservacionActivity.class);
+//                    // Closing all previous activities
+//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(i);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
