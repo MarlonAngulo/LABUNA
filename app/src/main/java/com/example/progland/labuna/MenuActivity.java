@@ -124,6 +124,9 @@ public class MenuActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
+            Intent intento = new Intent(getApplicationContext(), creditos.class);
+            startActivity(intento);
+
         } else if (id == R.id.nav_share) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse( "http://www.coto.una.ac.cr/" ));
