@@ -39,16 +39,6 @@
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="447dp" />
 
-        <Button
-            android:id="@+id/btneliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="153dp"
-            android:layout_y="463dp"
-            android:text="Eliminar"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="447dp" />
-
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="280dp"

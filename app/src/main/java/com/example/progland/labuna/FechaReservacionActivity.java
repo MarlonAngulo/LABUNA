@@ -122,7 +122,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
         final Button boton1 = (Button)findViewById(R.id.btnsiguientereser);
         Button btncrearapartado = (Button) findViewById(R.id.btnapartar);
-        Button btnEliminarapartado = (Button) findViewById(R.id.btneliminar);
         new LoadAlllabs().execute();
         new LoadAllReserv().execute();
         inputUsuario.setText(vg.getMitexto());
@@ -130,7 +129,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             boton1.setText("Ver Reservaciones");
         if(vg.getTipo().equals("A")){
         }else{
-            btnEliminarapartado.setVisibility(View.GONE);
+
             boton1.setVisibility(View.GONE);
         }
 
@@ -142,9 +141,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
            public void onClick(View view) {
                // creating new user in background thread
                new CreateNewReserva().execute();
-               limpiarChecks();
 
-               //Revisar();
            }
        });
         boton1.setOnClickListener(new View.OnClickListener() {
@@ -536,7 +533,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                            finish();
                        } else if(success == 2){
                            // failed to create product
-                           Mensaje("Reservado");
+                           Mensaje("RESERVA CON EXITO!");
                            Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
                        }
                    } catch (JSONException e) {
@@ -566,7 +563,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
             // check log cat fro response
 //AQUI SE CAE EN ESTA LINEA SIGUIENTE
-
 
 
 
@@ -610,6 +606,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         inputHorarioMannana.setEnabled(true);
         inputHorarioTarde.setEnabled(true);
         inputHorarioNoche.setEnabled(true);
+        inputHorarioMannana.setChecked(false);
+        inputHorarioTarde.setChecked(false);
+        inputHorarioNoche.setChecked(false);
 
     }
 
