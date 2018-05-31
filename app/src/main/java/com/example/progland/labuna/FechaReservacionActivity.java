@@ -90,10 +90,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         listaReservas = new ArrayList<HashMap<String, String>>();
 
 
-        inputCalendario = (DatePicker) findViewById(R.id.widget54);
-        inputHorarioMannana = (CheckBox) findViewById(R.id.widget57);
-        inputHorarioTarde = (CheckBox) findViewById(R.id.widget59);
-        inputHorarioNoche = (CheckBox) findViewById(R.id.widget58);
+        inputCalendario = (DatePicker) findViewById(R.id.datePicker);
+        inputHorarioMannana = (CheckBox) findViewById(R.id.manana);
+        inputHorarioTarde = (CheckBox) findViewById(R.id.tarde);
+        inputHorarioNoche = (CheckBox) findViewById(R.id.noche);
         inputUsuario = (TextView) findViewById(R.id.txtusuario);
         spinnerFood = (Spinner) findViewById(R.id.spinner);
         spinnerFood.setOnItemSelectedListener(this);
@@ -307,7 +307,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             lab = lab.replace(" ", "☺");
             labid = lab.split("☺");
 
-
+            System.out.println("ENTRA ---------------------------------------------------");
+            System.out.println("Hoy"+hoy);
+            System.out.println("Fecha "+listaReservas.get(i).get("fecha").toString()+" "+labid[0]+" "+labid[1]);
 
 
             if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
@@ -316,9 +318,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                // inputHorarioMannana.setEnabled(true);
             }
             if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0])){
-                System.out.println("ENTRA ---------------------------------------------------");
-                System.out.println("Hoy"+hoy);
-                System.out.println("Fecha "+listaReservas.get(i).get("fecha").toString()+" "+labid[0]+" "+labid[1]);
+
                 inputHorarioTarde.setEnabled(false);
             }else {
                 //inputHorarioTarde.setEnabled(true);

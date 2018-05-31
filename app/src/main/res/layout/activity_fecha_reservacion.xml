@@ -21,13 +21,6 @@
             android:layout_y="483dp"
             android:text="1" />
 
-        <DatePicker
-            android:id="@+id/widget54"
-            android:layout_width="377dp"
-            android:layout_height="403dp"
-            android:layout_x="0dp"
-            android:layout_y="0dp" />
-
         <Button
             android:id="@+id/btnsiguientereser"
             android:layout_width="wrap_content"
@@ -62,8 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/spinner"
-            android:layout_x="53dp"
-            android:layout_y="406dp"
+            android:layout_x="55dp"
+            android:layout_y="362dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="505dp" />
 
@@ -75,35 +68,47 @@
             tools:layout_editor_absoluteX="17dp"
             tools:layout_editor_absoluteY="345dp">
 
-            <CheckBox
-                android:id="@+id/widget58"
-                android:layout_width="247dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/widget59"
-                android:text="Noche" />
-
-            <CheckBox
-                android:id="@+id/widget59"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/widget57"
-                android:text="Tarde" />
-
-            <CheckBox
-                android:id="@+id/widget57"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:text="Ma&#241;ana"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="414dp" />
-
 
         </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/manana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="56dp"
+            android:layout_y="403dp"
+            android:text="Mañana"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <CheckBox
+            android:id="@+id/tarde"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="171dp"
+            android:layout_y="403dp"
+            android:text="Tarde"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="62dp" />
+
+        <CheckBox
+            android:id="@+id/noche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="273dp"
+            android:layout_y="403dp"
+            android:text="Noche"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="29dp" />
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="359dp"
+            android:layout_x="0dp"
+            android:layout_y="0dp"
+            tools:layout_editor_absoluteX="17dp"
+            tools:layout_editor_absoluteY="10dp" />
     </AbsoluteLayout>
 
 
