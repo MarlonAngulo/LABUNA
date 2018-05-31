@@ -112,8 +112,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                     @Override
                     public void onDateChanged(DatePicker view,
                                               int year, int monthOfYear,int dayOfMonth) {
-                         limpiarChecks();
-                         Revisar();
+                        limpiarChecks();
+                        Revisar();
+                        System.out.println("EVENTO ()");
 
                     }});
 
@@ -141,32 +142,24 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
            public void onClick(View view) {
                // creating new user in background thread
                new CreateNewReserva().execute();
+               limpiarChecks();
 
+               //Revisar();
            }
        });
-
-        // button click event
-        btnEliminarapartado.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                 //creating new user in background thread;
-                 new DeleteReserva().execute();
-            }
-        });
-
-
         boton1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent otra = new Intent(getApplicationContext(),VerReservaciones.class);
-               startActivity(otra);
+               Intent intento = new Intent(getApplicationContext(),VerReservaciones.class);
+               startActivity(intento);
+        //         boton1.setText("Has pulsado el boton "+clicks+" veces");
            }
        });
+        //System.out.println("estoy aqui    "+LabsList.get(0).get("nombre"));
+       // System.out.println(LabsList.get(1).get("nombre"));
 
 
-
-    }
+    } // Fin del Oncreate
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
@@ -246,17 +239,17 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 } else {
                     // no users found
                     // Launch Add New user Activity
-//                    Intent i = new Intent(getApplicationContext(),
-//                            FechaReservacionActivity.class);
-//                    // Closing all previous activities
-//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(i);
+                    Intent i = new Intent(getApplicationContext(),
+                            RegistroUsuariosActivity.class);
+                    // Closing all previous activities
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            limpiarChecks();
-            Revisar();
+
+            //Revisar();
             return null;
         }
 
@@ -307,7 +300,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             System.out.println("Fecha "+listaReservas.get(i).get("fecha").toString()+" "+labid[0]+" "+labid[1]);
 
 
-            if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
+           /* if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
                 inputHorarioMannana.setEnabled(false);
             }else {
                // inputHorarioMannana.setEnabled(true);
@@ -341,7 +334,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("3")&& labid[1].equals(nuevo[0])) {
                 inputHorarioTarde.setEnabled(false);
                 inputHorarioNoche.setEnabled(false);
-            }
+            }*/
 
             //--------------------------------------------------
             if (calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])/*listaReservas.get(i).get("horario").equals("Mañana")*/) {
@@ -381,7 +374,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
 
         }
-        hoy="";
     }
     public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
 
@@ -438,8 +430,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinner();
-            limpiarChecks();
-            Revisar();
+
+          //  Revisar();
         }
 
 
@@ -447,97 +439,22 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     }
 
 
-    /**
-     * Background Async Task to CreateNewUser
-     * */
-    class DeleteReserva extends AsyncTask<String, String, String> {
+    class CreateNewReserva extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
+       /**
+        * Before starting background thread Show Progress Dialog
+        * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(FechaReservacionActivity.this);
-            pDialog.setMessage("Eliminando Reservación...");
+            pDialog.setMessage("Creando Reservación...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
 
         }
-
-        /**
-         * Creating product
-         * */
-        protected String doInBackground(String... args) {
-            String id = "0";
-
-
-            // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("rid",id));
-
-
-            // getting JSON Object
-            // Note that create product url accepts POST method
-
-            JSONObject json = jsonParser.makeHttpRequest(url_delete_reservaciones,
-                    "POST", params);
-
-         //   JSONObject json = jsonParser.makeHttpRequest(url_create_user,
-        //            "POST", params);
-
-            // check log cat fro response
-          ////AQUI SE CAE EN ESTA LINEA SIGUIENTE
-//
-//
-//
-            Log.d("Create Response", json.toString());
-
-            try {
-
-
-                // check for success tag
-                try {
-                    int success = json.getInt(TAG_SUCCESS);
-                    if (success == 1) {
-                      // successfully created product
-                  //  Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                 //   startActivity(i);
-                        Mensaje("Eliminado el  Reservado");
-
-                        // closing this screen
-                        finish();
-                    } else if(success == 2){
-                        // failed to create product
-                        Mensaje("Eliminado");
-                        Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-
-            return null;
-        }
-
-//        /**
-//         * After completing background task Dismiss the progress dialog
-//         * **/
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
-            pDialog.dismiss();
-        }
-//
-    }
-
-    class CreateNewReserva extends AsyncTask<String, String, String> {
 
         /**
          * Creating product
@@ -580,7 +497,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
-                   limpiarChecks();
 
                } else if (inputHorarioTarde.isChecked() == true) {
                    inputHorarioMannana.setChecked(false);
@@ -590,7 +506,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
-                   limpiarChecks();
                } else if (inputHorarioNoche.isChecked() == true) {
                    inputHorarioMannana.setChecked(false);
                    inputHorarioTarde.setChecked(false);
@@ -599,14 +514,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
-                   limpiarChecks();
                }
-
-
                JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
                        "POST", params);
                Log.d("Create Response", json.toString());
-
 
                try {
 
@@ -617,9 +528,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
                        if (success == 1) {
                            // successfully created product
-                            Intent i = new Intent(getApplicationContext(), FechaReservacionActivity.class);
-                            startActivity(i);
-                           Mensaje("Laboratorio Reservado");
+                           // Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+                           // startActivity(i);
+                           //Mensaje("Laboratorio Reservado");
 
                            // closing this screen
                            finish();
@@ -659,8 +570,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
 
 
-            limpiarChecks();
-            Revisar();
+
 
             return null;
         }
@@ -688,9 +598,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     }
 
     public void setOnClickListener() {
-        limpiarChecks();
 
-        Revisar();
 
     }
 
@@ -702,9 +610,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         inputHorarioMannana.setEnabled(true);
         inputHorarioTarde.setEnabled(true);
         inputHorarioNoche.setEnabled(true);
-        inputHorarioMannana.setChecked(false);
-        inputHorarioTarde.setChecked(false);
-        inputHorarioNoche.setChecked(false);
 
     }
 
