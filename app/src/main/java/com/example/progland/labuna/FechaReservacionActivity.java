@@ -701,6 +701,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         inputHorarioMannana.setEnabled(true);
         inputHorarioTarde.setEnabled(true);
         inputHorarioNoche.setEnabled(true);
+        inputHorarioMannana.setChecked(false);
+        inputHorarioTarde.setChecked(false);
+        inputHorarioNoche.setChecked(false);
 
     }
 
