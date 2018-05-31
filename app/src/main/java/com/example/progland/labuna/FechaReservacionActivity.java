@@ -255,7 +255,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            limpiarChecks();
             Revisar();
             return null;
         }
@@ -381,6 +381,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
 
         }
+        hoy="";
     }
     public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
 
