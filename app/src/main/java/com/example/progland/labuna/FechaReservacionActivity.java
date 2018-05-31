@@ -236,11 +236,11 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 } else {
                     // no users found
                     // Launch Add New user Activity
-                    Intent i = new Intent(getApplicationContext(),
-                            RegistroUsuariosActivity.class);
-                    // Closing all previous activities
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+//                    Intent i = new Intent(getApplicationContext(),
+//                            RegistroUsuariosActivity.class);
+//                    // Closing all previous activities
+//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(i);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -525,9 +525,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
                        if (success == 1) {
                            // successfully created product
-                           // Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                           // startActivity(i);
-                           //Mensaje("Laboratorio Reservado");
+                           Intent i = new Intent(getApplicationContext(), FechaReservacionActivity.class);
+                           startActivity(i);
+                           Mensaje("Laboratorio Reservado");
 
                            // closing this screen
                            finish();
