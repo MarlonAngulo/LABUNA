@@ -112,8 +112,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                     @Override
                     public void onDateChanged(DatePicker view,
                                               int year, int monthOfYear,int dayOfMonth) {
-                        Toast.makeText(getApplicationContext(),
-                                "onDateChanged", Toast.LENGTH_SHORT).show();
                          limpiarChecks();
                          Revisar();
 
@@ -308,7 +306,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             labid = lab.split("☺");
 
             System.out.println("ENTRA ---------------------------------------------------");
-            System.out.println("Hoy"+hoy);
+            System.out.println("Calendario "+calendario);
             System.out.println("Fecha "+listaReservas.get(i).get("fecha").toString()+" "+labid[0]+" "+labid[1]);
 
 
