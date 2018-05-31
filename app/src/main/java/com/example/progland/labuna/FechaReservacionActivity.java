@@ -440,7 +440,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinner();
-
+            limpiarChecks();
             Revisar();
         }
 
@@ -597,6 +597,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
+                   limpiarChecks();
 
                } else if (inputHorarioTarde.isChecked() == true) {
                    inputHorarioMannana.setChecked(false);
@@ -606,6 +607,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
+                   limpiarChecks();
                } else if (inputHorarioNoche.isChecked() == true) {
                    inputHorarioMannana.setChecked(false);
                    inputHorarioTarde.setChecked(false);
@@ -614,6 +616,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
+                   limpiarChecks();
                }
                JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
                        "POST", params);
