@@ -50,7 +50,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".editarReportesPCS" />
         <activity android:name=".editarLABS" />
-        <activity android:name=".editarReservaciones"></activity>
+        <activity android:name=".editarReservaciones" />
+        <activity android:name=".creditos"></activity>
     </application>
 
 </manifest>
