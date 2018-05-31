@@ -271,6 +271,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
      * Background Async Task to Load all user by making HTTP Request
      * */
     public void Revisar(){
+
         int dia, mes, ano;
         int diaa,mess,anoo;
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
@@ -285,20 +286,21 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         anoo = m.get(Calendar.YEAR);
         mess = m.get(Calendar.MONTH);
         diaa = m.get(Calendar.DATE);
-        Format formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         Format formatterm = new SimpleDateFormat("yyyy/MM/dd");
         String hoy = formatter.format(c.getTime());
-        System.out.println("Lista"+listaReservas);
+       // System.out.println("Lista"+listaReservas);
 
         String prueba =  spinnerFood.getSelectedItem().toString();
         prueba = prueba.replace(" ", "☺☺");
         String []  nuevo = prueba.split("☺☺");
 
-        System.out.println("AQUIIIIIIIIIII ID"+nuevo[0]);
+
 
         String lab =  "";
         String nuevoLab="";
         String labid [];
+//        hoy = hoy.replace("/","-");
 
         for(int i=0;i<listaReservas.size();i++) {
             lab = listaReservas.get(i).get("horario");
@@ -306,37 +308,42 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             labid = lab.split("☺");
 
 
-            if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])/*listaReservas.get(i).get("horario").equals("Mañana")*/) {
+
+
+            if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
                 inputHorarioMannana.setEnabled(false);
             }else {
                // inputHorarioMannana.setEnabled(true);
             }
-            if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])){
+            if(hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("2")&& labid[1].equals(nuevo[0])){
+                System.out.println("ENTRA ---------------------------------------------------");
+                System.out.println("Hoy"+hoy);
+                System.out.println("Fecha "+listaReservas.get(i).get("fecha").toString()+" "+labid[0]+" "+labid[1]);
                 inputHorarioTarde.setEnabled(false);
             }else {
                 //inputHorarioTarde.setEnabled(true);
             }
-            if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])){
+            if(hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("3")&& labid[1].equals(nuevo[0])){
                 inputHorarioNoche.setEnabled(false);
             }else {
              //   inputHorarioNoche.setEnabled(true);
             }
-            if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])) {
+            if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("1")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("2")&& labid[1].equals(nuevo[0])) {
                 inputHorarioMannana.setEnabled(false);
                 inputHorarioTarde.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])) {
+            } if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("1")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("3")&& labid[1].equals(nuevo[0])) {
                 inputHorarioTarde.setEnabled(false);
                 inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])) {
+            } if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("3")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
                 inputHorarioMannana.setEnabled(false);
                 inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0])) {
+            } if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("3")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("2")&& labid[1].equals(nuevo[0])) {
                 inputHorarioTarde.setEnabled(false);
                 inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Mañana")&& labid[1].equals(nuevo[0])) {
+            } if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("2")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
                 inputHorarioMannana.setEnabled(false);
                 inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Tarde")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("Noche")&& labid[1].equals(nuevo[0])) {
+            } if (hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("2")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha").toString()) && labid[0].equals("3")&& labid[1].equals(nuevo[0])) {
                 inputHorarioTarde.setEnabled(false);
                 inputHorarioNoche.setEnabled(false);
             }
@@ -588,7 +595,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    inputHorarioTarde.setChecked(false);
                    inputHorarioNoche.setChecked(false);
                    params.add(new BasicNameValuePair("fecha", calendario));
-                   params.add(new BasicNameValuePair("horario", mannana));
+                   params.add(new BasicNameValuePair("horario", "1"));
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
@@ -597,7 +604,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    inputHorarioMannana.setChecked(false);
                    inputHorarioNoche.setChecked(false);
                    params.add(new BasicNameValuePair("fecha", calendario));
-                   params.add(new BasicNameValuePair("horario", tarde));
+                   params.add(new BasicNameValuePair("horario", "2"));
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
@@ -605,7 +612,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    inputHorarioMannana.setChecked(false);
                    inputHorarioTarde.setChecked(false);
                    params.add(new BasicNameValuePair("fecha", calendario));
-                   params.add(new BasicNameValuePair("horario", noche));
+                   params.add(new BasicNameValuePair("horario", "3"));
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
