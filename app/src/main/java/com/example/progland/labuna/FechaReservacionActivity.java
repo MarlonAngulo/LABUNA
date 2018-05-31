@@ -160,16 +160,14 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         boton1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intento = new Intent(getApplicationContext(),VerReservaciones.class);
-               startActivity(intento);
-        //         boton1.setText("Has pulsado el boton "+clicks+" veces");
+               Intent otra = new Intent(getApplicationContext(),VerReservaciones.class);
+               startActivity(otra);
            }
        });
-        //System.out.println("estoy aqui    "+LabsList.get(0).get("nombre"));
-       // System.out.println(LabsList.get(1).get("nombre"));
 
 
-    } // Fin del Oncreate
+
+    }
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
