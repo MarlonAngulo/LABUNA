@@ -7,14 +7,30 @@
     tools:context="com.example.progland.labuna.RegistroUsuariosActivity">
 
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="336dp"
+        android:layout_height="146dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVerusuarios"
+        app:srcCompat="@mipmap/usarios" />
+
     <RelativeLayout
         android:id="@+id/rltlContenedor"
-        android:layout_width="364dp"
-        android:layout_height="307dp"
+        android:layout_width="365dp"
+        android:layout_height="204dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:background="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtvTitulo"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="10dp">
+        tools:ignore="MissingConstraints">
 
 
         <EditText
@@ -44,6 +60,7 @@
             android:layout_alignBaseline="@+id/edUsuario"
             android:layout_alignBottom="@+id/edUsuario"
             android:layout_alignParentStart="true"
+            android:background="@android:color/background_light"
             android:text="Usuario"
             android:textSize="@dimen/activity_horizontal_margin" />
 
@@ -51,8 +68,10 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/textView6"
+            android:layout_below="@+id/edContrasena"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/background_light"
             android:text="Puesto" />
 
         <TextView
@@ -62,6 +81,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/edUsuario"
             android:layout_marginTop="36dp"
+            android:background="@android:color/background_light"
             android:text="Contraseña" />
 
         <Spinner
@@ -69,7 +89,6 @@
             android:layout_width="187dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView7"
-            android:layout_alignEnd="@+id/edContrasena"
             android:layout_alignStart="@+id/edContrasena"
             android:layout_x="86dp"
             android:layout_y="90dp" />
@@ -80,37 +99,43 @@
         android:id="@+id/txtvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="4dp"
         android:layout_x="98dp"
         android:layout_y="43dp"
-        android:text="Nuevo Usuario"
+        android:text="REGISTRO DE USUARIOS"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnAgregarUsu"
-        android:layout_width="90dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="106dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="16dp"
         android:layout_x="193dp"
         android:layout_y="255dp"
+        android:background="@android:color/darker_gray"
         android:text="Agregar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rltlContenedor" />
 
     <Button
         android:id="@+id/btnVerusuarios"
-        android:layout_width="97dp"
-        android:layout_height="wrap_content"
+        android:layout_width="107dp"
+        android:layout_height="61dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray"
         android:text="Ver Usuarios"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAgregarUsu" />
+        app:layout_constraintTop_toBottomOf="@+id/rltlContenedor" />
 
 </android.support.constraint.ConstraintLayout>
 
