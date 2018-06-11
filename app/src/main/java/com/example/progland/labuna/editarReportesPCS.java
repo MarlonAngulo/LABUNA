@@ -19,36 +19,37 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//clase para editar pc
 public class editarReportesPCS extends AppCompatActivity {
 
 
-
+    //******declaro variables de los campos de texto y botones******
     EditText txtNombreMarca;
     EditText txtCodigoArticulo;
     EditText txtCodigoLAB;
     EditText txtCodigoDetalle;
     Button btnSave;
     Button btnDelete;
+    //*************************************************************
 
-    String cid;
+    String cid;//vqriable para manejar el id del laboratorio a editar
 
     // Progress Dialog
-    private ProgressDialog pDialog;
+    private ProgressDialog pDialog;//declaracion del visual mientas se carga o realiza una accion
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 
-    // single pc url
+    // url ara optener detalles de una pc
     private static final String url_pc_detials = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/get_computadoras_details.php";
 
-    // url to update pc
+    // url para actualizar pc
     private static final String url_update_pc = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/update_computadoras.php";
 
-    // url to delete pc
+    // url para eliminar pc
     private static final String url_delete_pc = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/delete_computadoras.php";
 
-    // JSON Node names
+    // Nombre del nodo JSON***********************************************
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PC = "computadora";
     private static final String TAG_CID = "cid";
@@ -56,6 +57,7 @@ public class editarReportesPCS extends AppCompatActivity {
     private static final String TAG_CODIGO = "codigo";
     private static final String TAG_DESCRIPCION = "descripcion";
     private static final String TAG_LAB = "lab";
+    //**************************************************************
 
 
     @Override
@@ -65,39 +67,40 @@ public class editarReportesPCS extends AppCompatActivity {
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
-                // StrictMode is most commonly used to catch accidental disk or network access on the application's main thread
+                // StrictMode se usa más comúnmente para detectar acceso accidental a disco o red en el hilo principal de la aplicación
+
                 .penaltyLog().build());
-        // save button
+        // boto guardar y eliminar
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
-        // getting pc details from intent
+        // obtener los detalles de la LAB de la intención
         Intent i = getIntent();
 
-        // getting pc id (cid) from intent
+        // Obteniendo la ID de lal LAB (lid) de la intención
         cid = i.getStringExtra(TAG_CID);
 
-        // Getting complete pc details in background thread
+        // Obtener detalles completos de la PC en el hilo de fondo
         new GetUserDetails().execute();
 
-        // save button click event
+        // botón Guardar clic evento
         btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // starting background task to update pc
+                // comenzando la tarea de fondo para actualizar la PC
                 new SaveUserDetails().execute();
                 Intent in = new Intent(getApplicationContext(),
                         VerUsuarios.class);
             }
         });
 
-        // Delete button click event
+        // Eliminar click evento
         btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // deleting pc in background thread
+                // eliminando la pc en el hilo de fondo
                 new DeleteUser().execute();
                 Intent in = new Intent(getApplicationContext(),
                         VerUsuarios.class);
@@ -107,12 +110,12 @@ public class editarReportesPCS extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to Get complete pc details
+     * Tarea de fondo Async para obtener detalles completos de pc
      * */
     class GetUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -125,17 +128,17 @@ public class editarReportesPCS extends AppCompatActivity {
         }
 
         /**
-         * Getting pc details in background thread
+         * Obtener detalles de la pc en el hilo de fondo
          * */
         protected String doInBackground(String... params) {
 
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
-                    // Check for success tag
+                    // Compruebe la etiqueta de éxito
                     int success;
                     try {
-                        // Building Parameters
+                        // Parámetros de construcción
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("cid", cid));
 
@@ -143,37 +146,37 @@ public class editarReportesPCS extends AppCompatActivity {
                         System.out.println("hola lleguee");
 
 
-                        // getting pc details by making HTTP request
-                        // Note that pc details url will use GET request
+                        // obtener detalles de la PC al hacer una solicitud HTTP
+                        // Tenga en cuenta que la URL de detalles de la PC usará la solicitud GET
                         JSONObject json = jsonParser.makeHttpRequest(
                                 url_pc_detials, "GET", params);
                         success = json.getInt(TAG_SUCCESS);
 
                         System.out.println(success);
-                        // check your log for json response
+                        // revisa tu registro para ver si hay respuesta
                         Log.d("Single Pc Details", json.toString());
 
 
-                        // json success tag
+                        // etiqueta json success
 
                         System.out.println(success);
                         if (success == 1) {
-                            // successfully received pc details
+                            // recibió con éxito los detalles de la PC
                             JSONArray userObj = json
                                     .getJSONArray(TAG_PC); // JSON Array
 
-                            // get first pc object from JSON Array
+                            //obtener el primer objeto de PC desde JSON Array
                             JSONObject pc = userObj.getJSONObject(0);
                             System.out.println("mmm: ");
 
-                            // pc with this cid found
-                            // Edit Text
+                            //PC con este cid encontrado
+                            // Editar texto
                             txtNombreMarca = (EditText) findViewById(R.id.inputNombreArticulo);
                             txtCodigoArticulo = (EditText) findViewById(R.id.inputCodigoArticulo);
                             txtCodigoLAB = (EditText) findViewById(R.id.inputCodigoLAB);
                             txtCodigoDetalle = (EditText) findViewById(R.id.inputDetalle);
 
-                            // display pc data in EditText
+                            //  mostrar datos de pc en EditText
                             txtNombreMarca.setText(pc.getString(TAG_MARCA));
                             txtCodigoArticulo.setText(pc.getString(TAG_CODIGO));
                             txtCodigoDetalle.setText(pc.getString(TAG_DESCRIPCION));
@@ -181,7 +184,7 @@ public class editarReportesPCS extends AppCompatActivity {
 
 
                         }else{
-                            // pc with cid not found
+                            // LAB con lid no encontrado
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -193,21 +196,21 @@ public class editarReportesPCS extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once got all details
+            // descartar el diálogo una vez que obtuvo todos los detalles
             pDialog.dismiss();
         }
     }
 
     /**
-     * Background Async Task to  Save pc Details
+     * Tarea de fondo Async para guardar LAB Detalles
      * */
     class SaveUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -220,18 +223,18 @@ public class editarReportesPCS extends AppCompatActivity {
         }
 
         /**
-         * Saving pc
+         * guardar pc
          * */
         protected String doInBackground(String... args) {
 
-            // getting updated data from EditTexts
+            // obtener datos actualizados de EditTexts
             String marca = txtNombreMarca.getText().toString();
             String codigo = txtCodigoArticulo.getText().toString();
             String descripcion = txtCodigoDetalle.getText().toString();
             String lab = txtCodigoLAB.getText().toString();
 
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_CID, cid));
             params.add(new BasicNameValuePair(TAG_MARCA, marca));
@@ -239,23 +242,24 @@ public class editarReportesPCS extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_DESCRIPCION, descripcion));
             params.add(new BasicNameValuePair(TAG_LAB, lab));
 
-            // sending modified data through http request
-            // Notice that update pc url accepts POST method
+            // enviando datos modificados a través de una solicitud http
+            // Tenga en cuenta que update pc url acepta el método POST
             JSONObject json = jsonParser.makeHttpRequest(url_update_pc,
                     "POST", params);
 
-            // check json success tag
+            // comprobar la etiqueta de éxito json
             try {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // successfully updated
+                    // actualizado exitosamente
                     Intent i = getIntent();
-                    // send result code 100 to notify about pc update
+                    //  envíe el código de resultado 100 para notificar sobre la actualización de la PC
+
                     setResult(100, i);
                     finish();
                 } else {
-                    // failed to update pc
+                    // no se pudo actualizar la pc
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -265,21 +269,21 @@ public class editarReportesPCS extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         *  Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once pc uupdated
+            // descartar el diálogo una vez que la pc se haya actualizado
             pDialog.dismiss();
         }
     }
 
     /*****************************************************************
-     * Background Async Task to Delete User
+     * Tarea asincrónica de fondo para eliminar lab
      * */
     class DeleteUser extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -292,31 +296,32 @@ public class editarReportesPCS extends AppCompatActivity {
         }
 
         /**
-         * Deleting pc
+         * eliminar pc
          * */
         protected String doInBackground(String... args) {
 
-            // Check for success tag
+            // Compruebe la etiqueta de éxito
             int success;
             try {
-                // Building Parameters
+                // Parámetros de construcción
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("cid", cid));
 
-                // getting pc details by making HTTP request
+                // obtener detalles de la PC al hacer una solicitud HTTP
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_delete_pc, "POST", params);
 
-                // check your log for json response
+                // revisa tu LG para obtener una respuesta json
                 Log.d("Delete User", json.toString());
 
-                // json success tag
+                // etiqueta json success
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    // pc successfully deleted
-                    // notify previous activity by sending code 100
+                    // PC eliminado con éxito
+                    // notifica actividad previa enviando el código 100
                     Intent i = getIntent();
-                    // send result code 100 to notify about pc deletion
+                    // envíe el código de resultado 100 para notificar sobre la eliminación de la PC
+
                     setResult(100, i);
                     finish();
                 }
@@ -328,10 +333,10 @@ public class editarReportesPCS extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         *Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once pc deleted
+            // descartar el diálogo una vez que la PC haya eliminado
             pDialog.dismiss();
 
         }

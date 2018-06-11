@@ -18,23 +18,24 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//clase para realizar reportes de pc
 public class ReportesPCSActivity extends AppCompatActivity {
 
 
-    // Progress Dialog
+    // Diálogo de progreso
     private ProgressDialog pDialog;
 
     JSONParser jsonParser = new JSONParser();
+    //declaracion de variables para casteo
     public EditText inputNombre;
     EditText inputCodigoAr;
     EditText inputCodigoLab;
     EditText inputDetalle;
-    VariablesGlobales vg = VariablesGlobales.getInstance();
-    // url to create new product
+    VariablesGlobales vg = VariablesGlobales.getInstance();//llamado de la clase variables glovales
+    // url para crear un nuevo reporte
     private static String url_create_pcs = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/create_computadoras.php";
 
-    // JSON Node names
+    // Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
 
 
@@ -46,14 +47,18 @@ public class ReportesPCSActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reportes_pcs);
         Mensaje("Reportes PCS");
 
-        // Edit Text
+        // Editar texto
+        //casteo de los componentes UI
         inputNombre = (EditText) findViewById(R.id.edCodigoLAB);
         inputCodigoAr = (EditText) findViewById(R.id.edCantidadPCSLab);
         inputCodigoLab = (EditText) findViewById(R.id.edEstadoLabs);
         inputDetalle = (EditText) findViewById(R.id.edDetalleLAB);
+        // casteo de botones crear y ver
         Button btnCreatePcs = (Button) findViewById(R.id.btnreportar);
         Button btvercp = (Button) findViewById(R.id.btnvercomputadora);
         // Create button
+
+        //funcion para los permisos si es admin o profe o tutor
         if(vg.getTipo().equals("A")){
         }else{
             btvercp.setVisibility(View.GONE);
@@ -65,15 +70,16 @@ public class ReportesPCSActivity extends AppCompatActivity {
 
 
 
-        // button click event
+        //  botón clic evento
         btnCreatePcs.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                // creating new user in background thread
+                //creando un nuevo usuario en el hilo de fondo
                 new CreateNewPCS().execute();
             }
         });
+        //boton ver reportes y llamado de la actividad correspondiente
         btvercp.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -108,7 +114,7 @@ public class ReportesPCSActivity extends AppCompatActivity {
         }
 
         /**
-         * Creating product
+         * creando usuario
          * */
         protected String doInBackground(String... args) {
             String marca = inputNombre.getText().toString();
@@ -116,15 +122,15 @@ public class ReportesPCSActivity extends AppCompatActivity {
             String lab = inputCodigoLab.getText().toString();
             String descripcion = inputDetalle.getText().toString();
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("marca", marca));
             params.add(new BasicNameValuePair("codigo", codigo));
             params.add(new BasicNameValuePair("descripcion", descripcion));
             params.add(new BasicNameValuePair("lab", lab));
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
+// obteniendo el objeto JSON
+// Tenga en cuenta que crear url de producto acepta el método POST
 
             JSONObject json = jsonParser.makeHttpRequest(url_create_pcs,
                     "POST", params);
@@ -132,8 +138,7 @@ public class ReportesPCSActivity extends AppCompatActivity {
 //            JSONObject json = jsonParser.makeHttpRequest(url_create_pcs,
 //                    "POST", params);
 
-            // check log cat fro response
-//AQUI SE CAE EN ESTA LINEA SIGUIENTE
+//verifique el logcat de la respuesta
 
 
 
@@ -142,20 +147,20 @@ public class ReportesPCSActivity extends AppCompatActivity {
             try {
 
 
-                // check for success tag
+                // cverificar la etiqueta de éxito
                 try {
                     int success = json.getInt(TAG_SUCCESS);
 
                     if (success == 1) {
-                        // successfully created product
+                        // producto creado con éxito
 //                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
 //                    startActivity(i);
                         Mensaje("Reporte registrado");
 
-                        // closing this screen
+                        // cerrando esta pantalla
                         finish();
                     } else if(success == 2){
-                        // failed to create product
+                        //  no se pudo crear el producto
                         Mensaje("putooo");
                         Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
                     }
@@ -173,10 +178,10 @@ public class ReportesPCSActivity extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         *  Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
+            // descartar el diálogo una vez hecho
             pDialog.dismiss();
         }
 
@@ -188,4 +193,4 @@ public class ReportesPCSActivity extends AppCompatActivity {
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
-} // [11:32:45 p. m.] Fin de la Clase Actividad Reportes PCS
+} // Fin de la Clase Actividad Reportes PCS

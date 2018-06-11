@@ -20,37 +20,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//clase para editar laboratorios
 public class editarLABS extends AppCompatActivity {
 
 
 
 
+    //******declaro variables de los campos de texto y botones******
     EditText txtNombre;
     EditText txtcantidad;
     EditText txtdetalle;
     EditText txtestado;
     Button btnSave;
     Button btnDelete;
-
-    String lid;
+//**********************************************************************
+    String lid;//vqriable para manejar el id del laboratorio a editar
 
     // Progress Dialog
-    private ProgressDialog pDialog;
+    private ProgressDialog pDialog;//declaracion del visual mientas se carga o realiza una accion
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 
-    // single pc url
+    // url para optener un laboratorio
     private static final String url_lab_detials = "http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/get_laboratorios_details.php";
 
-    // url to update pc
+    // url para actualizar una LAB
     private static final String url_update_lab = "http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/update_laboratorios.php";
 
-    // url to delete pc
+    // url para eliminar un LAB
     private static final String url_delete_lab = "http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/delete_laboratorios.php";
 
-    // JSON Node names
+    // Nombre del nodo JSON***********************************************
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_LAB = "laboratorio";
     private static final String TAG_LID = "lid";
@@ -58,6 +59,7 @@ public class editarLABS extends AppCompatActivity {
     private static final String TAG_CANTIDAD = "cantidad";
     private static final String TAG_DETALLE = "detalle";
     private static final String TAG_ESTADO = "estado";
+        //**************************************************************
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,39 +68,39 @@ public class editarLABS extends AppCompatActivity {
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
-                // StrictMode is most commonly used to catch accidental disk or network access on the application's main thread
+                // StrictMode se usa más comúnmente para detectar acceso accidental a disco o red en el hilo principal de la aplicación
                 .penaltyLog().build());
-        // save button
+        // boto guardar y eliminar
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
-        // getting pc details from intent
+        // obtener los detalles de la LAB de la intención
         Intent i = getIntent();
 
-        // getting pc id (cid) from intent
+        // Obteniendo la ID de lal LAB (lid) de la intención
         lid = i.getStringExtra(TAG_LID);
 
-        // Getting complete pc details in background thread
+        // Obtener detalles completos de la lab en el hilo de fondo
         new GetUserDetails().execute();
 
-        // save button click event
+        // botón Guardar clic evento
         btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // starting background task to update pc
+                // comenzando la tarea de fondo para actualizar la lab
                 new SaveUserDetails().execute();
                 Intent in = new Intent(getApplicationContext(),
                         New.class);
             }
         });
 
-        // Delete button click event
+        // Eliminar click evento
         btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // deleting pc in background thread
+                // eliminando la lab en el hilo de fondo
                 new DeleteUser().execute();
                 Intent in = new Intent(getApplicationContext(),
                         New.class);
@@ -108,12 +110,12 @@ public class editarLABS extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to Get complete pc details
+     * Tarea de fondo Async para obtener detalles completos del lab
      * */
     class GetUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -126,17 +128,17 @@ public class editarLABS extends AppCompatActivity {
         }
 
         /**
-         * Getting pc details in background thread
+         * Obtener detalles de la lab en el hilo de fondo
          * */
         protected String doInBackground(String... params) {
 
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
-                    // Check for success tag
+                    // Compruebe la etiqueta de éxito
                     int success;
                     try {
-                        // Building Parameters
+                        // Parámetros de construcción
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("lid", lid));
 
@@ -144,37 +146,37 @@ public class editarLABS extends AppCompatActivity {
                         System.out.println("hola lleguee");
 
 
-                        // getting pc details by making HTTP request
-                        // Note that pc details url will use GET request
+                        // obtener detalles de la lab al hacer una solicitud HTTP
+                         // Tenga en cuenta que la URL de detalles de la lab usará la solicitud GET
                         JSONObject json = jsonParser.makeHttpRequest(
                                 url_lab_detials, "GET", params);
                         success = json.getInt(TAG_SUCCESS);
 
                         System.out.println(success);
-                        // check your log for json response
+                        // revisa tu registro para ver si hay respuesta
                         Log.d("Single Lab Details", json.toString());
 
 
-                        // json success tag
+                        // etiqueta json success
 
                         System.out.println(success);
                         if (success == 1) {
-                            // successfully received pc details
+                            // recibió con éxito los detalles de la lab
                             JSONArray userObj = json
                                     .getJSONArray(TAG_LAB); // JSON Array
 
-                            // get first pc object from JSON Array
+                            // obtener el primer objeto de lab desde JSON Array
                             JSONObject lab = userObj.getJSONObject(0);
                             System.out.println("mmm: ");
 
-                            // pc with this cid found
-                            // Edit Text
+                            //lab con este lid encontrado
+                            // Editar texto
                             txtNombre = (EditText) findViewById(R.id.inputNombreLaboratorio);
                             txtcantidad = (EditText) findViewById(R.id.inputCantidaddePC);
                             txtdetalle = (EditText) findViewById(R.id.inputDetalle);
                             txtestado = (EditText) findViewById(R.id.inputEstadodellaboratorio);
 
-                            // display pc data in EditText
+                            // mostrar datos de lab en EditText
                             txtNombre.setText(lab.getString(TAG_NOMBRE));
                             txtcantidad.setText(lab.getString(TAG_CANTIDAD));
                             txtdetalle.setText(lab.getString(TAG_DETALLE));
@@ -182,7 +184,7 @@ public class editarLABS extends AppCompatActivity {
 
 
                         }else{
-                            // pc with cid not found
+                            //LAB con lid no encontrado
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -194,21 +196,21 @@ public class editarLABS extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once got all details
+            // descartar el diálogo una vez que obtuvo todos los detalles
             pDialog.dismiss();
         }
     }
 
     /**
-     * Background Async Task to  Save pc Details
+     * Tarea de fondo Async para guardar LAB Detalles
      * */
     class SaveUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -221,18 +223,18 @@ public class editarLABS extends AppCompatActivity {
         }
 
         /**
-         * Saving pc
+         * guardar lab
          * */
         protected String doInBackground(String... args) {
 
-            // getting updated data from EditTexts
+            // obtener datos actualizados de EditTexts
             String nombre = txtNombre.getText().toString();
             String cantidad = txtcantidad.getText().toString();
             String detalle = txtdetalle.getText().toString();
             String estado = txtestado.getText().toString();
 
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_LID, lid));
             params.add(new BasicNameValuePair(TAG_NOMBRE, nombre));
@@ -240,23 +242,23 @@ public class editarLABS extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_DETALLE, detalle));
             params.add(new BasicNameValuePair(TAG_ESTADO, estado));
 
-            // sending modified data through http request
-            // Notice that update pc url accepts POST method
+            // enviando datos modificados a través de una solicitud http
+            // Tenga en cuenta que update lab url acepta el método POST
             JSONObject json = jsonParser.makeHttpRequest(url_update_lab,
                     "POST", params);
 
-            // check json success tag
+            // comprobar la etiqueta de éxito json
             try {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // successfully updated
+                    // actualizado exitosamente
                     Intent i = getIntent();
-                    // send result code 100 to notify about pc update
+                    // envíe el código de resultado 100 para notificar sobre la actualización de la lab
                     setResult(100, i);
                     finish();
                 } else {
-                    // failed to update pc
+                    // no se pudo actualizar la lab
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -266,21 +268,21 @@ public class editarLABS extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once pc uupdated
+            // descartar el diálogo una vez que la lab se haya actualizado
             pDialog.dismiss();
         }
     }
 
     /*****************************************************************
-     * Background Async Task to Delete User
+     * Tarea asincrónica de fondo para eliminar lab
      * */
     class DeleteUser extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -293,31 +295,31 @@ public class editarLABS extends AppCompatActivity {
         }
 
         /**
-         * Deleting pc
+         * eliminar lab
          * */
         protected String doInBackground(String... args) {
 
-            // Check for success tag
+            // Compruebe la etiqueta de éxito
             int success;
             try {
-                // Building Parameters
+                // Parámetros de construcción
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("lid", lid));
                 System.out.println(params);
-                // getting pc details by making HTTP request
+                // obtener detalles de la lab al hacer una solicitud HTTP
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_delete_lab, "POST", params);
 
-                // check your log for json response
+                    // revisa tu LG para obtener una respuesta json
                 Log.d("Delete Lab", json.toString());
 
-                // json success tag
+                // etiqueta json success
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    // pc successfully deleted
-                    // notify previous activity by sending code 100
+                    // PC eliminado con éxito
+                    // notifica actividad previa enviando el código 100
                     Intent i = getIntent();
-                    // send result code 100 to notify about pc deletion
+                    // envíe el código de resultado 100 para notificar sobre la eliminación de la lab
                     setResult(100, i);
                     finish();
                 }
@@ -333,16 +335,17 @@ public class editarLABS extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once pc deleted
+            // descartar el diálogo una vez que la lab haya eliminado
             pDialog.dismiss();
 
         }
 
 
     }
+    //evento para el mensaje
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 

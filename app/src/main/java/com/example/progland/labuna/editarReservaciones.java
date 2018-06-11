@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+//clase para editar pc
 
 public class editarReservaciones extends AppCompatActivity {
 
@@ -27,32 +28,32 @@ public class editarReservaciones extends AppCompatActivity {
 
 
 
-
+    //******declaro variables de los campos de texto y botones******
     EditText txtFecha;
     EditText txtHorario;
     EditText txtLab;
     EditText txtUsuario;
     Button btnSave;
     Button btnDelete;
-
-    String rid;
+    //*************************************************************
+    String rid;//vqriable para manejar el id del laboratorio a editar
 
     // Progress Dialog
-    private ProgressDialog pDialog;
+    private ProgressDialog pDialog;//declaracion del visual mientas se carga o realiza una accion
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 
-    // single pc url
+    // url para optener detalle de una reservacion
     private static final String url_reserv_detials = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/get_reservaciones_details.php";
 
-    // url to update pc
+    // url tpara actualizar reservacion
     private static final String url_update_reserv = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/update_reservaciones.php";
 
-    // url to delete pc
+    // url para e,iminar reservacion
     private static final String url_delete_reserv = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/delete_reservaciones.php";
 
-    // JSON Node names
+    // Nombre del nodo JSON***********************************************
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESERVACION = "reservacion";
     private static final String TAG_RID = "rid";
@@ -60,6 +61,7 @@ public class editarReservaciones extends AppCompatActivity {
     private static final String TAG_HORARIO = "horario";
     private static final String TAG_LAB = "lab";
     private static final String TAG_USUARIO = "usuario";
+    //**************************************************************
 
 
     @Override
@@ -69,42 +71,43 @@ public class editarReservaciones extends AppCompatActivity {
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
-                // StrictMode is most commonly used to catch accidental disk or network access on the application's main thread
+                // StrictMode se usa más comúnmente para detectar acceso accidental a disco o red en el hilo principal de la aplicación
+
                 .penaltyLog().build());
-        // save button
+        // boto guardar y eliminar
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
         btnSave.setVisibility(View.GONE);
         //playButton.setVisibility(View.GONE)
 
-        // getting pc details from intent
+        // obtener los detalles de Reservacion de la intención
         Intent i = getIntent();
 
-        // getting pc id (cid) from intent
+        // Obteniendo la ID de la reservacion (rid) de la intención
         rid = i.getStringExtra(TAG_RID);
 
-        // Getting complete pc details in background thread
+        // Obtener detalles completos de la reservacion en el hilo de fondo
         new GetUserDetails().execute();
 
-        // save button click event
+        // botón Guardar clic evento
         btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // starting background task to update pc
+                // comenzando la tarea de fondo para actualizar la Reservacion
                 new SaveUserDetails().execute();
                 Intent in = new Intent(getApplicationContext(),
                         New.class);
             }
         });
 
-        // Delete button click event
+        // Eliminar click evento
         btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // deleting pc in background thread
+                // eliminando la Reservacion en el hilo de fondo
                 new DeleteUser().execute();
                 Intent in = new Intent(getApplicationContext(),
                         New.class);
@@ -114,12 +117,12 @@ public class editarReservaciones extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to Get complete pc details
+     * Tarea de fondo Async para obtener detalles completos de Reservacion
      * */
     class GetUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -132,17 +135,17 @@ public class editarReservaciones extends AppCompatActivity {
         }
 
         /**
-         * Getting pc details in background thread
+         * Obtener detalles de la Reservacion en el hilo de fondo
          * */
         protected String doInBackground(String... params) {
 
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
-                    // Check for success tag
+                    // Compruebe la etiqueta de éxito
                     int success;
                     try {
-                        // Building Parameters
+                        // Parámetros de construcción
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("rid", rid));
 
@@ -150,37 +153,37 @@ public class editarReservaciones extends AppCompatActivity {
                         System.out.println("hola lleguee");
 
 
-                        // getting pc details by making HTTP request
-                        // Note that pc details url will use GET request
+                        // obtener detalles de la Reservacion al hacer una solicitud HTTP
+                        // Tenga en cuenta que la URL de detalles de la Reservacion usará la solicitud GET
                         JSONObject json = jsonParser.makeHttpRequest(
                                 url_reserv_detials, "GET", params);
                         success = json.getInt(TAG_SUCCESS);
 
                         System.out.println(success);
-                        // check your log for json response
+                        // revisa tu registro para ver si hay respuesta
                         Log.d("Single Lab Details", json.toString());
 
 
-                        // json success tag
+                        // etiqueta json success
 
                         System.out.println(success);
                         if (success == 1) {
-                            // successfully received pc details
+                            // recibió con éxito los detalles de la Reservacion
                             JSONArray userObj = json
                                     .getJSONArray(TAG_RESERVACION); // JSON Array
 
-                            // get first pc object from JSON Array
+                            // obtener el primer objeto de Reservacion desde JSON Array
                             JSONObject reserv = userObj.getJSONObject(0);
                             System.out.println("mmm: ");
 
-                            // pc with this cid found
-                            // Edit Text
+                            //PC con este cid encontrado
+                            // Editar texto
                             txtFecha = (EditText) findViewById(R.id.inputFechadeReservacion);
                             txtHorario = (EditText) findViewById(R.id.inputHorario);
                             txtLab = (EditText) findViewById(R.id.inputLaboratorioreservado);
                             txtUsuario = (EditText) findViewById(R.id.inputUsuarioquereservo);
 
-                            // display pc data in EditText
+                            // mostrar datos de Reservacion en EditText
                             txtFecha.setText(reserv.getString(TAG_FECHA));
                             txtHorario.setText(reserv.getString(TAG_HORARIO));
                             txtLab.setText(reserv.getString(TAG_LAB));
@@ -188,7 +191,7 @@ public class editarReservaciones extends AppCompatActivity {
 
 
                         }else{
-                            // pc with cid not found
+                            // reservacion con rid no encontrado
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -200,21 +203,21 @@ public class editarReservaciones extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once got all details
+            // descartar el diálogo una vez que obtuvo todos los detalles
             pDialog.dismiss();
         }
     }
 
     /**
-     * Background Async Task to  Save pc Details
+     * Tarea de fondo Async para guardar Reservacion Detalles
      * */
     class SaveUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -227,18 +230,18 @@ public class editarReservaciones extends AppCompatActivity {
         }
 
         /**
-         * Saving pc
+         * guardar reservacion
          * */
         protected String doInBackground(String... args) {
 
-            // getting updated data from EditTexts
+            // obtener datos actualizados de EditTexts
             String fecha = txtFecha.getText().toString();
             String horario = txtHorario.getText().toString();
             String lab = txtLab.getText().toString();
             String usuario = txtUsuario.getText().toString();
 
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_RID, rid));
             params.add(new BasicNameValuePair(TAG_FECHA, fecha));
@@ -246,23 +249,24 @@ public class editarReservaciones extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_LAB, lab));
             params.add(new BasicNameValuePair(TAG_USUARIO, usuario));
 
-            // sending modified data through http request
-            // Notice that update pc url accepts POST method
+            // enviando datos modificados a través de una solicitud http
+            // Tenga en cuenta que update Reservacion url acepta el método POST
             JSONObject json = jsonParser.makeHttpRequest(url_update_reserv,
                     "POST", params);
 
-            // check json success tag
+            // comprobar la etiqueta de éxito json
             try {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // successfully updated
+                    // actualizado exitosamente
                     Intent i = getIntent();
-                    // send result code 100 to notify about pc update
+                    //  envíe el código de resultado 100 para notificar sobre la actualización de la Reservacion
+
                     setResult(100, i);
                     finish();
                 } else {
-                    // failed to update pc
+                    // no se pudo actualizar la Reservacion
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -272,21 +276,21 @@ public class editarReservaciones extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once pc uupdated
+            // descartar el diálogo una vez que la Reservacion se haya actualizado
             pDialog.dismiss();
         }
     }
 
     /*****************************************************************
-     * Background Async Task to Delete User
+     * Tarea asincrónica de fondo para eliminar Reservacion
      * */
     class DeleteUser extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -299,31 +303,32 @@ public class editarReservaciones extends AppCompatActivity {
         }
 
         /**
-         * Deleting pc
+         * eliminar reservacion
          * */
         protected String doInBackground(String... args) {
 
-            // Check for success tag
+            // Compruebe la etiqueta de éxito
             int success;
             try {
-                // Building Parameters
+                // Parámetros de construcción
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("rid", rid));
                 System.out.println(params);
-                // getting pc details by making HTTP request
+                // obtener detalles de la Reservacion al hacer una solicitud HTTP
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_delete_reserv, "POST", params);
 
-                // check your log for json response
+                // revisa tu LG para obtener una respuesta json
                 Log.d("Delete Lab", json.toString());
 
-                // json success tag
+                // etiqueta json success
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    // pc successfully deleted
-                    // notify previous activity by sending code 100
+                    // Reservacion eliminado con éxito
+                    // notifica actividad previa enviando el código 100
                     Intent i = getIntent();
-                    // send result code 100 to notify about pc deletion
+                    // envíe el código de resultado 100 para notificar sobre la eliminación de la Reservacion
+
                     setResult(100, i);
                     finish();
                 }
@@ -339,16 +344,17 @@ public class editarReservaciones extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once pc deleted
+            // descartar el diálogo una vez que la Reservacion haya eliminado
             pDialog.dismiss();
 
         }
 
 
     }
+    //evento de mensaje
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 

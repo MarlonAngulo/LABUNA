@@ -21,23 +21,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//clase para agregar usuarios
 public class RegistroUsuariosActivity extends AppCompatActivity {
 
-    // Progress Dialog
+    // Diálogo de progreso
     private ProgressDialog pDialog;
 
     JSONParser jsonParser = new JSONParser();
+    //declaracion de variables para casteo
     public EditText inputUsuario;
     EditText inputContrasenna;
     Spinner inputPuesto;
 
-    VariablesGlobales vg = VariablesGlobales.getInstance();
+    VariablesGlobales vg = VariablesGlobales.getInstance();//llamado de la clase variables glovales
 
-    // url to create new product
+    // url to para crear un usuario
     private static String url_create_user = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/create_usuarios.php";
 
-    // JSON Node names
+    // Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
 
     @Override
@@ -45,33 +46,35 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuarios);
 
-        // Edit Text
+        // Editar texto
+        //casteo de los componentes UI
          inputUsuario = (EditText) findViewById(R.id.edUsuario);
          inputContrasenna = (EditText) findViewById(R.id.edContrasena);
           inputPuesto = (Spinner) findViewById(R.id.spPuesto);
 
-        // Create button
+        // casteo de botones crear y ver
         Button btnCreateUser = (Button) findViewById(R.id.btnAgregarUsu);
         Button btnverUser = (Button) findViewById(R.id.btnVerusuarios);
 
-        String[] letra = {"Administrador","Profesor","Tutor"};
+        String[] letra = {"Administrador","Profesor","Tutor"};//vector con los tipos de usuarios
+        //lleno el spinner con el vector anterios
         inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
 
-        Mensaje("Registro de Usuarios");
+        Mensaje("Registro de Usuarios");//mensaje de bienvenida
 
         //Mensaje(vg.getTipo());
 
-        // button click event
+        // botón clic evento
 
         btnCreateUser.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                // creating new user in background thread
+                // creando un nuevo usuario en el hilo de fondo
                 new CreateNewUser().execute();
             }
         });
-
+//boton ver usuarios y llamado de la actividad correspondiente
         btnverUser.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -104,21 +107,21 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         }
 
         /**
-         * Creating product
+         * creando usuario
          * */
         protected String doInBackground(String... args) {
             String usuario = inputUsuario .getText().toString();
             String contrasenna = inputContrasenna.getText().toString();
             String tipo = inputPuesto.getSelectedItem().toString();
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("usuario", usuario));
             params.add(new BasicNameValuePair("contrasenna", contrasenna));
             params.add(new BasicNameValuePair("tipo", tipo));
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
+// obteniendo el objeto JSON
+// Tenga en cuenta que crear url de producto acepta el método POST
 
                 JSONObject json = jsonParser.makeHttpRequest(url_create_user,
                         "POST", params);
@@ -126,8 +129,8 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 //            JSONObject json = jsonParser.makeHttpRequest(url_create_user,
 //                    "POST", params);
 
-            // check log cat fro response
-//AQUI SE CAE EN ESTA LINEA SIGUIENTE
+            //verifique el logcat de la respuesta
+
 
 
 
@@ -136,20 +139,20 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
             try {
 
 
-            // check for success tag
+            // verificar la etiqueta de éxito
             try {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // successfully created product
+                    // producto creado con éxito
 //                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
 //                    startActivity(i);
                     Mensaje("usuario registrado");
 
-                    // closing this screen
+                    // cerrando esta pantalla
                     finish();
                 } else if(success == 2){
-                    // failed to create product
+                    // no se pudo crear el producto
                     Mensaje("putooo");
                     Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
                 }
@@ -167,10 +170,10 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
+            // descartar el diálogo una vez hecho
             pDialog.dismiss();
         }
 
@@ -181,4 +184,4 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
-} // [11:05:08 p. m.] Fin de la Clase Actividad Registro
+} //Fin de la Clase Actividad Registro

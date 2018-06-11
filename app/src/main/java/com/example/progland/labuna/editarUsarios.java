@@ -19,42 +19,43 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//clase para editar pc
 public class editarUsarios extends Activity {
 
 
-
+    //******declaro variables de los campos de texto y botones******
     EditText txtUsuario;
     EditText txtContrasenna;
     EditText txtTipo;
     Button btnSave;
     Button btnDelete;
+    //*************************************************************
 
-    String uid;
+    String uid;//vqriable para manejar el id del laboratorio a editar
 
     // Progress Dialog
-    private ProgressDialog pDialog;
+    private ProgressDialog pDialog;//declaracion del visual mientas se carga o realiza una accion
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 
-    // single user url
+    // url para optener el detalle del usuario
     private static final String url_user_detials = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/get_usuarios_details.php";
 
-    // url to update user
+    // url para actualizar el usuario
     private static final String url_update_user = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/update_usuarios.php";
 
-    // url to delete user
+    // url para eliminar usuario
     private static final String url_delete_user = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/delete_usuarios.php";
 
-    // JSON Node names
+    // Nombre del nodo JSON***********************************************
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_USER = "usuario";
     private static final String TAG_UID = "uid";
     private static final String TAG_USUARIO = "usuario";
     private static final String TAG_CONTRASEÑA = "contrasenna";
     private static final String TAG_TIPO = "tipo";
-
+//**************************************************************
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,39 +64,40 @@ public class editarUsarios extends Activity {
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
-                // StrictMode is most commonly used to catch accidental disk or network access on the application's main thread
+                // StrictMode se usa más comúnmente para detectar acceso accidental a disco o red en el hilo principal de la aplicación
+
                 .penaltyLog().build());
-        // save button
+        // boto guardar y eliminar
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
-        // getting user details from intent
+        // obtener los detalles de la Usario de la intención
         Intent i = getIntent();
 
-        // getting user id (uid) from intent
+        // Obteniendo la ID de la Usario (uid) de la intención
         uid = i.getStringExtra(TAG_UID);
 
-        // Getting complete user details in background thread
+        // Obtener detalles completos de la Usario en el hilo de fondo
         new GetUserDetails().execute();
 
-        // save button click event
+        // botón Guardar clic evento
         btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // starting background task to update user
+                // comenzando la tarea de fondo para actualizar la Usario
                 new SaveUserDetails().execute();
                 Intent in = new Intent(getApplicationContext(),
                         VerUsuarios.class);
             }
         });
 
-        // Delete button click event
+        // Eliminar click evento
         btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // deleting user in background thread
+                // eliminando la Usario en el hilo de fondo
                 new DeleteUser().execute();
                 Intent in = new Intent(getApplicationContext(),
                         VerUsuarios.class);
@@ -105,12 +107,12 @@ public class editarUsarios extends Activity {
     }
 
     /**
-     * Background Async Task to Get complete user details
+     * Tarea de fondo Async para obtener detalles completos de Usario
      * */
     class GetUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -123,17 +125,17 @@ public class editarUsarios extends Activity {
         }
 
         /**
-         * Getting user details in background thread
+         * Obtener detalles de la Usario en el hilo de fondo
          * */
         protected String doInBackground(String... params) {
 
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
-                    // Check for success tag
+                    // Compruebe la etiqueta de éxito
                     int success;
                     try {
-                        // Building Parameters
+                        // Parámetros de construcción
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("uid", uid));
 
@@ -141,42 +143,42 @@ public class editarUsarios extends Activity {
                         System.out.println("hola lleguee");
 
 
-                        // getting user details by making HTTP request
-                        // Note that user details url will use GET request
+                        // obtener detalles de la Usario al hacer una solicitud HTTP
+                        // Tenga en cuenta que la URL de detalles de la Usario usará la solicitud GET
                         JSONObject json = jsonParser.makeHttpRequest(
                                 url_user_detials, "GET", params);
                         success = json.getInt(TAG_SUCCESS);
 
                         System.out.println(success);
-                        // check your log for json response
+                        // revisa tu registro para ver si hay respuesta
                         Log.d("Single User Details", json.toString());
 
 
-                        // json success tag
+                        // etiqueta json success
 
                         System.out.println(success);
                         if (success == 1) {
-                            // successfully received user details
+                            //recibió con éxito los detalles de la Usario
                             JSONArray userObj = json
                                     .getJSONArray(TAG_USER); // JSON Array
 
-                            // get first user object from JSON Array
+                            // obtener el primer objeto de PC desde JSON Array
                             JSONObject user = userObj.getJSONObject(0);
                             System.out.println("mmm: ");
 
-                            // user with this uid found
-                            // Edit Text
+                            //Usario con este cid encontrado
+                            // Editar texto
                             txtUsuario = (EditText) findViewById(R.id.inputUsuario);
                             txtContrasenna = (EditText) findViewById(R.id.inputContrasena);
                             txtTipo = (EditText) findViewById(R.id.inputTipo);
 
-                            // display user data in EditText
+                            //  mostrar datos de Usario en EditText
                             txtUsuario.setText(user.getString(TAG_USUARIO));
                             txtContrasenna.setText(user.getString(TAG_CONTRASEÑA));
                             txtTipo.setText(user.getString(TAG_TIPO));
 
                         }else{
-                            // user with uid not found
+                            // Usario con uid no encontrado
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -188,21 +190,21 @@ public class editarUsarios extends Activity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once got all details
+            // descartar el diálogo una vez que obtuvo todos los detalles
             pDialog.dismiss();
         }
     }
 
     /**
-     * Background Async Task to  Save user Details
+     * Tarea de fondo Async para guardar Usario Detalles
      * */
     class SaveUserDetails extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -215,39 +217,40 @@ public class editarUsarios extends Activity {
         }
 
         /**
-         * Saving user
+         * guardar reservacion
          * */
         protected String doInBackground(String... args) {
 
-            // getting updated data from EditTexts
+            // obtener datos actualizados de EditTexts
             String usuario = txtUsuario.getText().toString();
             String contrasenna = txtContrasenna.getText().toString();
             String tipo = txtTipo.getText().toString();
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(TAG_UID, uid));
             params.add(new BasicNameValuePair(TAG_USUARIO, usuario));
             params.add(new BasicNameValuePair(TAG_CONTRASEÑA, contrasenna));
             params.add(new BasicNameValuePair(TAG_TIPO, tipo));
 
-            // sending modified data through http request
-            // Notice that update user url accepts POST method
+            // enviando datos modificados a través de una solicitud http
+            // Tenga en cuenta que update Usario url acepta el método POST
             JSONObject json = jsonParser.makeHttpRequest(url_update_user,
                     "POST", params);
 
-            // check json success tag
+            // comprobar la etiqueta de éxito json
             try {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // successfully updated
+                    // actualizado exitosamente
                     Intent i = getIntent();
-                    // send result code 100 to notify about user update
+                    //  envíe el código de resultado 100 para notificar sobre la actualización de la Usario
+
                     setResult(100, i);
                     finish();
                 } else {
-                    // failed to update user
+                    //no se pudo actualizar la Usario
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -257,21 +260,21 @@ public class editarUsarios extends Activity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once user uupdated
+            // descartar el diálogo una vez que la Usario se haya actualizado
             pDialog.dismiss();
         }
     }
 
     /*****************************************************************
-     * Background Async Task to Delete User
+     * Tarea asincrónica de fondo para eliminar Usario
      * */
     class DeleteUser extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -284,31 +287,31 @@ public class editarUsarios extends Activity {
         }
 
         /**
-         * Deleting user
+         * eliminar reservacion
          * */
         protected String doInBackground(String... args) {
 
-            // Check for success tag
+            // Compruebe la etiqueta de éxito
             int success;
             try {
-                // Building Parameters
+                // Parámetros de construcción
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("uid", uid));
 
-                // getting user details by making HTTP request
+                // obtener detalles de la Usario al hacer una solicitud HTTP
                 JSONObject json = jsonParser.makeHttpRequest(
                         url_delete_user, "POST", params);
 
-                // check your log for json response
+                // crevisa tu LG para obtener una respuesta json
                 Log.d("Delete User", json.toString());
 
-                // json success tag
+                // etiqueta json success
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    // user successfully deleted
-                    // notify previous activity by sending code 100
+                    // PC eliminado con éxito
+                    // notifica actividad previa enviando el código 100
                     Intent i = getIntent();
-                    // send result code 100 to notify about user deletion
+                    // envíe el código de resultado 100 para notificar sobre la eliminación de la Usario
                     setResult(100, i);
                     finish();
                 }
@@ -320,10 +323,10 @@ public class editarUsarios extends Activity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once user deleted
+            // escartar el diálogo una vez que la Usario haya eliminado
             pDialog.dismiss();
 
         }

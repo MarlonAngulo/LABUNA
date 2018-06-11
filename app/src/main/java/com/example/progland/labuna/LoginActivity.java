@@ -38,17 +38,17 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * A login screen that offers login via email/password.
+ * Una pantalla de inicio de sesión que ofrece inicio de sesión a través de nombre de usuario / contraseña.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
-     * Id to identity READ_CONTACTS permission request.
+     * Id para identificar la solicitud de permiso READ_CONTACTS.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
-     * A dummy authentication store containing known user names and passwords.
+     * Un almacén de autenticación ficticio que contiene nombres de usuario y contraseñas conocidos.
      * TODO: remove after connecting to a real authentication system.
      */
     ArrayList<HashMap<String, String>> userssList;
@@ -57,19 +57,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
            // "foo@example.com:hello", "bar@example.com:world"
     };
     /**
-     * Keep track of the login task to ensure we can cancel it if requested.
+     * Mantenga un registro de la tarea de inicio de sesión para asegurarse de que podamos cancelarla si así lo solicita.
      */
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
+    // Referencias de UI
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
 
-
+    //direccion del php en el servidor e linea
     private static String url_all_users = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/get_all_usuarios.php";
 
+
+    //declaracion de variables TAG
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
 
@@ -87,28 +89,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     private String[] spinnerArray;
-    VariablesGlobales vg = VariablesGlobales.getInstance();
+    VariablesGlobales vg = VariablesGlobales.getInstance();//declaracion para poder utilizar la calse de variables globales
 
     @Override
+    //funcion al crear la actividad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);//casteo
 
-        userssList = new ArrayList<HashMap<String, String>>();
-
-
-
-        Mensaje("usuario" + vg.getMitexto());
+        userssList = new ArrayList<HashMap<String, String>>();//declariacion de la lista de usuarios
 
 
-       new  LoadAllUsers().execute();
+
+        Mensaje("usuario" + vg.getMitexto());//llamado del metodo menaje
+
+
+       new  LoadAllUsers().execute();// ejecucion de la clase que carga los usuarios
 
         //populateAutoComplete();
         //Mensaje("Bienvenido al Login");
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.password);//casteo
+        //metodo que escucha al escribir en el campo de contrasenna
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -123,20 +127,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);//casteo
+        //metodo que escucha i realizar la accion al precionar ingresar
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent intento = new Intent(getApplicationContext(), MenuActivity.class);
 //                startActivity(intento);
-                attemptLogin();
+                attemptLogin();//llamado al metodo que verifica los datos de login
 
 
             }
         });
 
         //mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mProgressView = findViewById(R.id.login_progress);//carga visual
 
 
 
@@ -207,19 +212,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //    }
 
 
-
+//funcion que verifica los datos ingresados por el usuario con los datos que se encuetran en la lista llenada desde la bd
     private void attemptLogin() {
-        if (mAuthTask != null) {
+        if (mAuthTask != null) {//si es nulo no hace nada
             return;
         }
 
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        mEmailView.setError(null);//mensaje de error si es nulo
+        mPasswordView.setError(null);//mensaje de error si es nulo
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = mEmailView.getText().toString();//optengo lo que tenga el campo te texto
+        String password = mPasswordView.getText().toString();//optengo lo que tenga el campo te texto
 
 
 
@@ -239,16 +244,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        System.out.println(DUMMY_CREDENTIALS[0]);
 //
 
-
+//en este for recorro la lista con los usuarios existentes en la bd comparandolos con lo que escribio
+        //el usuario en los campos,, donde encuentra coincidencia enra al sistema sino
+        //no entra y muestra el mensaje correspondiente **********************
         for (int i = 0; i < userssList.size(); i++)
         {
             if((userssList.get(i).get("usuario").trim().equalsIgnoreCase(email)) &&  (userssList.get(i).get("contraseña").trim().equalsIgnoreCase(password)) )
             {
                 Intent intento = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intento);
-                vg.setMitexto(userssList.get(i).get("usuario"));
-                vg.setMivalor(Integer.parseInt(userssList.get(i).get("uid")));
-                vg.setTipo(userssList.get(i).get("tipo"));
+                vg.setMitexto(userssList.get(i).get("usuario"));//le mando el dato a la clase variables globales
+                vg.setMivalor(Integer.parseInt(userssList.get(i).get("uid")));//le mando el dato a la clase variables globales
+                vg.setTipo(userssList.get(i).get("tipo"));//le mando el dato a la clase variables globales
                 //Mensaje("usuario" + vg.getMitexto());
                 finish();
                 break;
@@ -261,6 +268,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
         }
+
+        //********************************************************
 
 
 //        // Check for a valid password, if the user entered one.
@@ -293,25 +302,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //            mAuthTask.execute((Void) null);
 //        }
     }
-
+//funcion si el correo es invalido
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("a");
     }
-
+//funcon si la contrasenna no cumple los requisitos
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 3;
     }
 
     /**
-     * Shows the progress UI and hides the login form.
+     * Muestra la interfaz de usuario de progreso y oculta el formulario de inicio de sesión.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
+        // En Honeycomb MR2 tenemos las API ViewPropertyAnimator, que permiten
+        // para animaciones muy fáciles. Si está disponible, use estas API para desvanecerse
+        // el progreso spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -333,8 +342,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
+            // Las API ViewPropertyAnimator no están disponibles, así que simplemente muestre
+            // y ocultar los componentes de interfaz de usuario relevantes.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -343,20 +352,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
+                // Recupere filas de datos para el contacto 'perfil' del usuario del dispositivo.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-                // Select only email addresses.
+                // Seleccione solo direcciones de correo electrónico.
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
+                // Mostrar primero las direcciones de correo electrónico principales. Tenga en cuenta que no habrá
+                // una dirección de correo electrónico principal si el usuario no ha especificado una.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
+    //funcion cuando termina de cargar los datos
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
@@ -373,9 +383,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
-
+//funcion que autocompleta
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+        //Crea un adaptador para decirle a AutoCompleteTextView qué mostrar en su lista desplegable.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
@@ -395,8 +405,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+     * Representa una tarea de inicio de sesión / registro asíncrona utilizada para autenticarse
+           * el usuario.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -413,7 +423,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: attempt authentication against a network service.
 
             try {
-                // Simulate network access.
+                // Simular el acceso a la red.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
@@ -422,7 +432,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
+                    // La cuenta existe, devuelve verdadero si la contraseña coincide.
                     return pieces[1].equals(mPassword);
                 }
             }
@@ -455,7 +465,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     class LoadAllUsers extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          */
 //        @Override
 //        protected void onPreExecute() {
@@ -468,36 +478,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        }
 
         /**
-         * getting All users from url
+         * optener todos los usuarios por url
          */
         String va[];
         protected String doInBackground(String... args) {
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 
-            // getting JSON string from URL
+            // obteniendo cadena JSON de URL
             JSONObject json = jParser.makeHttpRequest(url_all_users, "GET", params);
 
-            // Check your log cat for JSON reponse
+            // Verifique su log cat para obtener una respuesta JSON
 
             Log.d("All Users: ", json.toString());
 
 
             try {
-                // Checking for SUCCESS TAG
+                // Comprobando la etiqueta de ÉXITO
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // users found
-                    // Getting Array of Users
+                    //usuarios encontrados
+// Obtener matriz de usuarios
                     users = json.getJSONArray(TAG_users);
 
-                    // looping through All Users
+                    // pasando por todos los usuarios
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject c = users.getJSONObject(i);
 
-                        // Storing each json item in variable
+                        // Almacenar cada elemento json en variable
 
                         String id = c.getString(TAG_UID);
                         String usuario = c.getString(TAG_USER);
@@ -509,26 +519,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-                        // creating new HashMap
+                        // creando un nuevo HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        // adding each child node to HashMap key => value
+                        // agregando cada nodo secundario a la clave HashMap => valor
                         map.put(TAG_UID, id);
                         map.put(TAG_USER, usuario);
                         map.put(TAG_CONTRASENNA, contraseña);
                         map.put(TAG_TIPO, tipo);
 
-                        // adding HashList to ArrayList
+                        // agregar HashSet a ArrayList
                         userssList.add(map);
                        //va = llenarArregloConUuarios();
 
                     }
                 } else {
-                    // no users found
-                    // Launch Add New user Activity
+                    // No se encontraron usuarios
+// Lanzamiento Agregar nueva actividad de usuario
                     Intent i = new Intent(getApplicationContext(),
                             RegistroUsuariosActivity.class);
-                    // Closing all previous activities
+                    // Cerrando todas las actividades previas
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
@@ -557,4 +567,4 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
-} // [8:53:00 p. m.] Fin de la Clase Actividad Login
+} //Fin de la Clase Actividad Login

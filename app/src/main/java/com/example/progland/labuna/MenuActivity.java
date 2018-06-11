@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//clase para el menu
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ImageButton imageButton;
@@ -84,16 +84,16 @@ public class MenuActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu, menu);
+// Inflar el menú; esto agrega elementos a la barra de acción si está presente.
+//getMenuInflater().inflate(R.menu.menu, menú);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Manejar clics del elemento de la barra de acción aquí. La barra de acción
+        // maneja automáticamente los clics en el botón Inicio / Arriba, tan largo
+    // cuando especifica una actividad principal en AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -107,32 +107,32 @@ public class MenuActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Manejar los ítems de vista de navegación aquí.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_camera) {// Maneje la acción de la reservaciones
             Intent intento = new Intent(getApplicationContext(), FechaReservacionActivity.class);
             startActivity(intento);
-            // Handle the camera action
+            // Maneje la acción de la reportes
         } else if (id == R.id.nav_gallery) {
             Intent intento = new Intent(getApplicationContext(), ReportesPCSActivity.class);
             startActivity(intento);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_slideshow) {// Maneje la acción de la agregar labs
             Intent intento = new Intent(getApplicationContext(), AgregarLABSActivity.class);
             startActivity(intento);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_manage) {// Maneje la acción de creditos
 
             Intent intento = new Intent(getApplicationContext(), creditos.class);
             startActivity(intento);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {// Maneje la acción de pagina coto web
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse( "http://www.coto.una.ac.cr/" ));
             startActivity(i);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_send) {// Maneje la acción de pagina de instrucciones
 
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse( "http://cursoplataformasmoviles.com/labuna/index.html" ));
