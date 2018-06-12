@@ -188,7 +188,7 @@ public class editarReportesPCS extends AppCompatActivity implements AdapterView.
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(editarReportesPCS.this);
-            pDialog.setMessage("Cargando labs..");
+
             pDialog.setCancelable(false);
             pDialog.show();
 
@@ -250,18 +250,7 @@ public class editarReportesPCS extends AppCompatActivity implements AdapterView.
      * */
     class GetUserDetails extends AsyncTask<String, String, String> {
 
-        /**
-         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(editarReportesPCS.this);
-            pDialog.setMessage("Loading pc details. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
+    
 
         /**
          * Obtener detalles de la pc en el hilo de fondo
