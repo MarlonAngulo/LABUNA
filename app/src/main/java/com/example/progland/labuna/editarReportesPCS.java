@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 //clase para editar pc
-public class editarReportesPCS extends AppCompatActivity {
+public class editarReportesPCS extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     //******declaro variables de los campos de texto y botones******
@@ -160,6 +161,23 @@ public class editarReportesPCS extends AppCompatActivity {
         // attaching data adapter to spinner
         spinnerFE.setAdapter(spinnerAdapter);
     }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Clase encargada de cargar los labs que luego se mostraran en el spinner.
