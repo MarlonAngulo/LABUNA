@@ -7,25 +7,33 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 //clase para realizar reportes de pc
-public class ReportesPCSActivity extends AppCompatActivity {
+public class ReportesPCSActivity extends AppCompatActivity implements OnItemSelectedListener  {
 
 
     // Diálogo de progreso
     private ProgressDialog pDialog;
 
     JSONParser jsonParser = new JSONParser();
+    JSONParser jParser = new JSONParser();
+
     //declaracion de variables para casteo
     public EditText inputNombre;
     EditText inputCodigoAr;
@@ -34,9 +42,22 @@ public class ReportesPCSActivity extends AppCompatActivity {
     VariablesGlobales vg = VariablesGlobales.getInstance();//llamado de la clase variables glovales
     // url para crear un nuevo reporte
     private static String url_create_pcs = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/create_computadoras.php";
+    private static String url_all_labs ="http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/get_all_laboratorios.php";
 
     // Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
+
+    private static final String TAG_labs = "laboratorios";
+    private static final String TAG_LID = "lid";
+    private static final String TAG_Name = "nombre";
+
+    private ArrayList<laboratorios> categoriesList;
+
+    private Spinner spinnerF;
+
+    ArrayList<HashMap<String, String>> LabsList;
+
+    JSONArray labs = null;
 
 
 
@@ -47,12 +68,20 @@ public class ReportesPCSActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reportes_pcs);
         Mensaje("Reportes PCS");
 
+        LabsList = new ArrayList<HashMap<String, String>>();
+        categoriesList = new ArrayList<laboratorios>();
+
         // Editar texto
         //casteo de los componentes UI
         inputNombre = (EditText) findViewById(R.id.edCodigoLAB);
         inputCodigoAr = (EditText) findViewById(R.id.edCantidadPCSLab);
         inputCodigoLab = (EditText) findViewById(R.id.edEstadoLabs);
         inputDetalle = (EditText) findViewById(R.id.edDetalleLAB);
+        spinnerF = (Spinner) findViewById(R.id.splabor);
+        spinnerF.setOnItemSelectedListener(this);
+
+
+
         // casteo de botones crear y ver
         Button btnCreatePcs = (Button) findViewById(R.id.btnreportar);
         Button btvercp = (Button) findViewById(R.id.btnvercomputadora);
@@ -88,6 +117,91 @@ public class ReportesPCSActivity extends AppCompatActivity {
             }
         });
 
+        new LoadAlllabs().execute();
+
+
+
+    }
+    private void populateSpinner() {
+        List<String> lables = new ArrayList<String>();
+
+//        txtCategory.setText("");
+//
+        for (int i = 0; i < categoriesList.size(); i++) {
+            lables.add(Integer.toString(categoriesList.get(i).getId())+" "+categoriesList.get(i).getNombre());
+        }
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinnerF.setAdapter(spinnerAdapter);
+    }
+
+    public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ReportesPCSActivity.this);
+            pDialog.setMessage("Cargando labs..");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(url_all_labs, ServiceHandler.GET);
+
+            Log.e("Response: ", "> " + json);
+            System.out.println(json);
+
+            if (json != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(json);
+                    if (jsonObj != null) {
+                        System.out.println("entre");
+                        JSONArray laboratorios = jsonObj
+                                .getJSONArray("laboratorios");
+                        System.out.println("entre 2");
+
+                        for (int i = 0; i < laboratorios.length(); i++) {
+                            JSONObject catObj = (JSONObject) laboratorios.get(i);
+                            laboratorios cat = new laboratorios(catObj.getInt("lid"),
+                                    catObj.getString("nombre"));
+                            System.out.println(cat.getId());
+                            categoriesList.add(cat);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Log.e("JSON Data", "Didn't receive any data from server!");
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            populateSpinner();
+
+            //  Revisar();
+        }
+
 
 
     }
@@ -118,8 +232,14 @@ public class ReportesPCSActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             String marca = inputNombre.getText().toString();
             String codigo = inputCodigoAr.getText().toString();
-            String lab = inputCodigoLab.getText().toString();
+            //String lab = inputCodigoLab.getText().toString();
             String descripcion = inputDetalle.getText().toString();
+
+
+
+            String lab =  (String) spinnerF.getSelectedItem();
+            lab = lab.replace(" ", "☺");
+            String []  labid = lab.split("☺");
 
             // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -187,6 +307,21 @@ public class ReportesPCSActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long lid) {
+        Toast.makeText(
+                getApplicationContext(),
+                parent.getItemAtPosition(position).toString() + " Selected" ,
+                Toast.LENGTH_LONG).show();
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 
 
     public void Mensaje(String msg){

@@ -45,16 +45,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/edCantidadPCSLab"
-                android:text="Codigo de LAB" />
-
-            <EditText
-                android:id="@+id/edEstadoLabs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/edCantidadPCSLab"
-                android:layout_below="@+id/edCantidadPCSLab"
-                android:paddingRight="100dp"
-                android:textSize="18sp" />
+                android:text="Laboratorio" />
 
             <EditText
                 android:id="@+id/edCantidadPCSLab"
@@ -75,10 +66,10 @@
 
             <EditText
                 android:id="@+id/edDetalleLAB"
-                android:layout_width="153dp"
-                android:layout_height="115dp"
+                android:layout_width="140dp"
+                android:layout_height="80dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/edEstadoLabs"
+                android:layout_alignStart="@+id/splabor"
                 android:textSize="18sp" />
 
             <TextView
@@ -105,6 +96,14 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:text="Nombre del Articulo" />
+
+            <Spinner
+                android:id="@+id/splabor"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edCantidadPCSLab"
+                android:layout_marginStart="34dp"
+                android:layout_toEndOf="@+id/txtvnumlabs" />
         </RelativeLayout>
 
         <Button
