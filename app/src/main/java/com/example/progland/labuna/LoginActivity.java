@@ -232,16 +232,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         System.out.println(userssList.get(1).get("usuario") + userssList.get(1).get("contraseña") + userssList.get(1).get("tipo"));
-//        vg.setMitexto(userssList.get(1).get("usuario"));
-//        Mensaje("usuario" + vg.getMitexto());
 
-//        for (int i = 0; i < userssList.size(); i++)
-//        {
-//            DUMMY_CREDENTIALS[0] += userssList.get(1).get("usuario") + ":" + userssList.get(1).get("contraseña");
-//
-//        }
-//
-//        System.out.println(DUMMY_CREDENTIALS[0]);
 //
 
 //en este for recorro la lista con los usuarios existentes en la bd comparandolos con lo que escribio

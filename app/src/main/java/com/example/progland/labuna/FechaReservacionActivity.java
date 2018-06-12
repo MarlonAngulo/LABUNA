@@ -87,7 +87,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         setContentView(R.layout.activity_fecha_reservacion);
         Mensaje(" Reservacion de los LABS");
 
-        Mensaje("usuario: " + vg.getMitexto() + " id: " + vg.getMivalor());
+        //Mensaje("usuario: " + vg.getMitexto() + " id: " + vg.getMivalor());
         LabsList = new ArrayList<HashMap<String, String>>();
         categoriesList = new ArrayList<laboratorios>();
         listaReservas = new ArrayList<HashMap<String, String>>();
@@ -544,7 +544,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                            finish();
                        } else if(success == 2){
                            // failed to create product
-                           Mensaje("RESERVA CON EXITO!");
+                           //Mensaje("RESERVA CON EXITO!");
                            Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
                        }
                    } catch (JSONException e) {
