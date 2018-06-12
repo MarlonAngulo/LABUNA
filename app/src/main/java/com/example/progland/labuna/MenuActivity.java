@@ -150,24 +150,9 @@ public class MenuActivity extends AppCompatActivity
 
 
 
-
-
-//        imageButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                Mensaje("Derian a reservado el laboratorio 1 para mañana!");
-//
-//
-//            }
-//
-//
-//
-//        });
-
     }
 
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
-} // [11:03:08 p. m.] Fin de la Clase Actividad Menu
+} // Fin de la Clase Actividad Menu

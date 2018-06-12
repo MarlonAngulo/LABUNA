@@ -18,45 +18,47 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//clase para agregar laboratorios
 public class AgregarLABSActivity extends AppCompatActivity {
 
 
 
-    // Progress Dialog
+    // Diálogo de progreso
     private ProgressDialog pDialog;
 
     JSONParser jsonParser = new JSONParser();
+    //declaracion de variables para casteo
     public EditText inputCodigo;
     EditText inputCantidadPCS;
     EditText inputEstado;
     EditText inputDetalle;
 
-    // url to create new product
+    // url para crear labs
     private static String url_create_labs = "http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/create_laboratorios.php";
 
-    // JSON Node names
+    // Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
-    VariablesGlobales vg = VariablesGlobales.getInstance();
+    VariablesGlobales vg = VariablesGlobales.getInstance();//llamado de la clase variables glovales
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_labs);
-        Mensaje("Agregar LABS");
+        Mensaje("Agregar LABS");//llamado del metodo para mensajes
 
-        // Edit Text
+        // Editar texto
+        //casteo de los componentes UI
         inputCodigo = (EditText) findViewById(R.id.edCodigoLAB);
         inputCantidadPCS = (EditText) findViewById(R.id.edCantidadPCSLab);
         inputEstado = (EditText) findViewById(R.id.edEstadoLabs);
         inputDetalle = (EditText) findViewById(R.id.edDetalleLAB);
 
-        // Create button
+        // casteo de botones crear y ver
         Button btnCreateLab = (Button) findViewById(R.id.btnagregarLABS);
         Button btnverlabs = (Button) findViewById(R.id.btnverlabs);
 
-        //String[] letra = {"Administrador","Profesor","Tutor"};
-        //inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
+
+        //funcion para ocultar las acciones dependiendo de los permisos tipo de usuario
         if(vg.getTipo().equals("A")){
         }else{
             btnverlabs.setVisibility(View.GONE);
@@ -68,11 +70,11 @@ public class AgregarLABSActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                // creating new user in background thread
+                // creando un nuevo lab en el hilo de fondo
                 new CreateNewLAB().execute();
             }
         });
-
+//boton ver reportes y llamado de la actividad correspondiente
         btnverlabs.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -87,12 +89,12 @@ public class AgregarLABSActivity extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to CreateNewUser
+     * Tarea asincrónica de fondo para CreateNewUser
      * */
     class CreateNewLAB extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -107,7 +109,7 @@ public class AgregarLABSActivity extends AppCompatActivity {
         }
 
         /**
-         * Creating product
+         * creando lab
          * */
         protected String doInBackground(String... args) {
             String nombre = inputCodigo .getText().toString();
@@ -115,15 +117,15 @@ public class AgregarLABSActivity extends AppCompatActivity {
             String estado = inputEstado.getText().toString();
             String detalle = inputDetalle.getText().toString();
 
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("nombre", nombre));
             params.add(new BasicNameValuePair("cantidad", cantidad));
             params.add(new BasicNameValuePair("detalle", detalle));
             params.add(new BasicNameValuePair("estado", estado));
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
+// obteniendo el objeto JSON
+// Tenga en cuenta que crear url de producto acepta el método POST
 
             JSONObject json = jsonParser.makeHttpRequest(url_create_labs,
                     "POST", params);
@@ -131,8 +133,7 @@ public class AgregarLABSActivity extends AppCompatActivity {
 //            JSONObject json = jsonParser.makeHttpRequest(url_create_user,
 //                    "POST", params);
 
-            // check log cat fro response
-//AQUI SE CAE EN ESTA LINEA SIGUIENTE
+//verifique el logcat de la respuesta
 
 
 
@@ -141,20 +142,20 @@ public class AgregarLABSActivity extends AppCompatActivity {
             try {
 
 
-                // check for success tag
+                //cverificar la etiqueta de éxito
                 try {
                     int success = json.getInt(TAG_SUCCESS);
 
                     if (success == 1) {
-                        // successfully created product
+                        //  lab creado con éxito
 //                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
 //                    startActivity(i);
                         Mensaje("laboratorio registrado");
 
-                        // closing this screen
+                        // cerrando esta pantalla
                         finish();
                     } else if(success == 2){
-                        // failed to create product
+                        // no se pudo crear el producto
                         Mensaje("putooo");
                         Toast.makeText(getApplicationContext(), "kejfkjerfk", Toast.LENGTH_LONG).show();
                     }
@@ -166,16 +167,14 @@ public class AgregarLABSActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-
             return null;
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog once done
+            // descartar el diálogo una vez hecho
             pDialog.dismiss();
         }
 
@@ -187,4 +186,4 @@ public class AgregarLABSActivity extends AppCompatActivity {
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
 
-} // [11:47:39 p. m.] Fin de la Clase Actividad Agregar LABS
+} //  Fin de la Clase Actividad Agregar LABS

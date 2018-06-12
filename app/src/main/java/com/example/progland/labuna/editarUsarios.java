@@ -267,7 +267,6 @@ public class editarUsarios extends Activity {
             pDialog.dismiss();
         }
     }
-
     /*****************************************************************
      * Tarea asincrónica de fondo para eliminar Usario
      * */

@@ -87,12 +87,12 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to CreateNewUser
+     * Tarea asincrónica de fondo para CreateNewUser
      * */
     class CreateNewUser extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -131,9 +131,6 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 
             //verifique el logcat de la respuesta
 
-
-
-
             Log.d("Create Response", json.toString());
 
             try {
@@ -144,7 +141,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // producto creado con éxito
+                    // usuario creado con éxito
 //                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
 //                    startActivity(i);
                     Mensaje("usuario registrado");

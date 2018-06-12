@@ -343,7 +343,6 @@ public class editarLABS extends AppCompatActivity {
 
         }
 
-
     }
     //evento para el mensaje
     public void Mensaje(String msg){

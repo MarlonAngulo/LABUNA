@@ -22,25 +22,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//clase para cargar en el list view los laboratorios
 public class New extends ListActivity {
 
     private ProgressDialog pDialog;
 
-    // Creating JSON Parser object
+    // Crear objeto JSON Parser
     JSONParser jParser = new JSONParser();
 
     ArrayList<HashMap<String, String>> LabsList;
 
-    // url to get all users list
+    // url para poder jalar consultar los labs
     private static String url_all_labs ="http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/get_all_laboratorios.php";
     VariablesGlobales vg = VariablesGlobales.getInstance();
-    // JSON Node names
+    // Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_labs = "laboratorios";
     private static final String TAG_LID = "lid";
     private static final String TAG_Name = "nombre";
 
-    // users JSONArray
+    // labs JSONArray
     JSONArray labs = null;
 
     @Override
@@ -51,45 +52,43 @@ public class New extends ListActivity {
         // Hashmap for ListView
         LabsList = new ArrayList<HashMap<String, String>>();
 
-        // Loading users in Background Thread
+        // Cargando labs en Subproceso de fondo
         new  LoadAllNew().execute();
 
-        // Get listview
+        // Obtener una lista
         ListView lv = getListView();
-
-        // on seleting single user
-        // launching Edit User Screen
+// al seleccionar un usuario individual // al iniciar la pantalla Editar lab
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // getting values from selected ListItem
+                // obteniendo valores del ListItem seleccionado
                 String lid = ((TextView) view.findViewById(R.id.lid)).getText()
                         .toString();
 
-                // Starting new intent
+                // Iniciando una nueva intención
                 Intent in = new Intent(getApplicationContext(),
                         editarLABS.class);
-                // sending pid to next activity
+                // enviando lid a la siguiente actividad
                 in.putExtra(TAG_LID, lid);
 
-                // starting new activity and expecting some response back
+                // comenzar una nueva actividad y esperar alguna respuesta
                 startActivityForResult(in, 100);
             }
         });
 
     }
 
-    // Response from Edit User Activity
+    // Respuesta de Edit User Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // if result code 100
+        // si el resultado es el código 100
         if (resultCode == 100) {
-            // if result code 100 is received
-            // means user edited/deleted user
-            // reload this screen again
+// si se recibe el código de resultado 100
+ // significa usuario editado / eliminado usuario
+ // vuelve a cargar esta pantalla
             Intent intent = getIntent();
             finish();
             startActivity(intent);
@@ -98,12 +97,12 @@ public class New extends ListActivity {
     }
 
     /**
-     * Background Async Task to Load all user by making HTTP Request
+     * Tarea de fondo Async para cargar a todos los usuarios haciendo una solicitud HTTP
      * */
     class LoadAllNew extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -116,17 +115,17 @@ public class New extends ListActivity {
         }
 
         /**
-         * getting All users from url
+         * obteniendo todos los labs de url
          * */
         protected String doInBackground(String... args) {
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 
-            // getting JSON string from URL
+            // obteniendo cadena JSON de URL
             JSONObject json = jParser.makeHttpRequest(url_all_labs, "GET", params);
 
-            // Check your log cat for JSON reponse
+            // Verifique su log cat para obtener una respuesta JSON
 
             Log.d("All Labs: ", json.toString());
 
@@ -135,38 +134,38 @@ public class New extends ListActivity {
 
 
             try {
-                // Checking for SUCCESS TAG
+                // Comprobando la etiqueta de ÉXITO
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // users found
-                    // Getting Array of Users
+// labs encontrados
+ // Obtener matriz de labs
                     labs = json.getJSONArray(TAG_labs);
 
-                    // looping through All Users
+                    // pasando por todos los labs
                     for (int i = 0; i < labs.length(); i++) {
                         JSONObject c = labs.getJSONObject(i);
 
-                        // Storing each json item in variable
+                        // Almacenar cada elemento json en variable
                         String id = c.getString(TAG_LID);
                         String nombre = c.getString(TAG_Name);
 
-                        // creating new HashMap
+                        // creando un nuevo HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        // adding each child node to HashMap key => value
+                        // agregando cada nodo secundario a la clave HashMap => valor
                         map.put(TAG_LID, id);
                         map.put(TAG_Name, nombre);
 
-                        // adding HashList to ArrayList
+                        // agregar HashSet a ArrayList
                         LabsList.add(map);
                     }
                 } else {
-                    // no users found
-                    // Launch Add New user Activity
+// No se encontraron labs
+// Lanzamiento Agregar nueva actividad de lab
                     Intent i = new Intent(getApplicationContext(),
                             AgregarLABSActivity.class);
-                    // Closing all previous activities
+                    // Cerrando todas las actividades previas
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
@@ -180,23 +179,23 @@ public class New extends ListActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all users
+            //descartar el diálogo después de obtener todos los labs
             pDialog.dismiss();
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
-                     * Updating parsed JSON data into ListView
+                     * Actualización de datos JSON analizados en ListView
                      * */
                     ListAdapter adapter = new SimpleAdapter(
                             New.this, LabsList,
                             R.layout.list_item_labs, new String[] { TAG_LID,
                             TAG_Name},
                             new int[] { R.id.lid, R.id.laboratorios });
-                    // updating listview
+                    // actualización lista vista
                     setListAdapter(adapter);
                 }
             });

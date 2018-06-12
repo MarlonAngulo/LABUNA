@@ -69,7 +69,6 @@ public class ReportesPCSActivity extends AppCompatActivity {
         //inputPuesto.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, letra));
 
 
-
         //  botón clic evento
         btnCreatePcs.setOnClickListener(new View.OnClickListener() {
 
@@ -94,12 +93,12 @@ public class ReportesPCSActivity extends AppCompatActivity {
     }
 
     /**
-     * Background Async Task to CreateNewUser
+     * Tarea asincrónica de fondo para CreateNewUser
      * */
     class CreateNewPCS extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -152,7 +151,7 @@ public class ReportesPCSActivity extends AppCompatActivity {
                     int success = json.getInt(TAG_SUCCESS);
 
                     if (success == 1) {
-                        // producto creado con éxito
+                        // pc creado con éxito
 //                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
 //                    startActivity(i);
                         Mensaje("Reporte registrado");

@@ -22,26 +22,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+//clase para optener todas las reseraciones
 public class VerReservaciones extends ListActivity {
 
     private ProgressDialog pDialog;
 
-    // Creating JSON Parser object
+    // Crear objeto JSON Parser
     JSONParser jParser = new JSONParser();
 
     ArrayList<HashMap<String, String>> userssList;
 
-    // url to get all users list
+    // url para optener todas las reservaciones
     private static String url_all_reservaciones = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/get_all_reservaciones.php";
 
-    // JSON Node names
+    // Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_reservaciones = "reservaciones";
     private static final String TAG_RID = "rid";
     private static final String TAG_FECHA = "fecha";
 
-    // users JSONArray
+    // reserva JSONArray
     JSONArray users = null;
 
     @Override
@@ -52,46 +52,45 @@ public class VerReservaciones extends ListActivity {
         // Hashmap for ListView
         userssList = new ArrayList<HashMap<String, String>>();
 
-        // Loading users in Background Thread
+        // Cargando pcs en Subproceso de fondo
         new  LoadAllReserv().execute();
 
-        // Get listview
+        // Obtener una lista
         ListView lv = getListView();
 
-        // on seleting single user
-        // launching Edit User Screen
+// al seleccionar un reserva individual // al iniciar la pantalla Editar reserva
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // getting values from selected ListItem
+                // obteniendo valores del ListItem seleccionado
                 String rid = ((TextView) view.findViewById(R.id.rid)).getText()
                         .toString();
 
-                // Starting new intent
+                // Iniciando una nueva intención
                 Intent in = new Intent(getApplicationContext(),
                         editarReservaciones.class);
-                // sending pid to next activity
+                // enviando lid a la siguiente actividad
                 in.putExtra(TAG_RID, rid);
                 System.out.println("AQUIIIIIII: "+rid);
 
-                // starting new activity and expecting some response back
+                // comenzar una nueva actividad y esperar alguna respuesta
                 startActivityForResult(in, 100);
             }
         });
 
     }
 
-    // Response from Edit User Activity
+    // Respuesta de Edit User Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // if result code 100
+        // si el resultado es el código 100
         if (resultCode == 100) {
-            // if result code 100 is received
-            // means user edited/deleted user
-            // reload this screen again
+// si se recibe el código de resultado 100
+            // significa reser editado / eliminado reserv
+            // vuelve a cargar esta pantalla
             Intent intent = getIntent();
             finish();
             startActivity(intent);
@@ -100,12 +99,12 @@ public class VerReservaciones extends ListActivity {
     }
 
     /**
-     * Background Async Task to Load all user by making HTTP Request
+     * Tarea de fondo Async para cargar a todos los reserva haciendo una solicitud HTTP
      * */
     class LoadAllReserv extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -118,18 +117,18 @@ public class VerReservaciones extends ListActivity {
         }
 
         /**
-         * getting All users from url
+         * obteniendo todos los pcs de url
          * */
         @SuppressLint("LongLogTag")
         protected String doInBackground(String... args) {
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 
-            // getting JSON string from URL
+            // obteniendo cadena JSON de URL
             JSONObject json = jParser.makeHttpRequest(url_all_reservaciones, "GET", params);
 
-            // Check your log cat for JSON reponse
+            // Verifique su log cat para obtener una respuesta JSON
 
             Log.d("Todas las Reservaciones: ", json.toString());
 
@@ -138,26 +137,26 @@ public class VerReservaciones extends ListActivity {
 
 
             try {
-                // Checking for SUCCESS TAG
+                // Comprobando la etiqueta de ÉXITO
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // users found
-                    // Getting Array of Users
+// reserva encontrados
+                    // Obtener matriz de reserva
                     users = json.getJSONArray(TAG_reservaciones);
 
-                    // looping through All Users
+                    // pasando por todos los resera
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject c = users.getJSONObject(i);
 
-                        // Storing each json item in variable
+                        // Almacenar cada elemento json en variable
                         String id = c.getString(TAG_RID);
                         String fecha = c.getString(TAG_FECHA);
 
-                        // creating new HashMap
+                        // creando un nuevo HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        // adding each child node to HashMap key => value
+                        // agregando cada nodo secundario a la clave HashMap => valor
                         map.put(TAG_RID, id);
                         map.put(TAG_FECHA, fecha);
 
@@ -165,11 +164,11 @@ public class VerReservaciones extends ListActivity {
                         userssList.add(map);
                     }
                 } else {
-                    // no users found
-                    // Launch Add New user Activity
+// No se encontraron reserva
+// Lanzamiento Agregar nueva actividad de reserva
                     Intent i = new Intent(getApplicationContext(),
                             FechaReservacionActivity.class);
-                    // Closing all previous activities
+                    // Cerrando todas las actividades previas
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
@@ -184,23 +183,23 @@ public class VerReservaciones extends ListActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all users
+            // descartar el diálogo después de obtener todos los labs
             pDialog.dismiss();
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
-                     * Updating parsed JSON data into ListView
+                     * Actualización de datos JSON analizados en ListView
                      * */
                     ListAdapter adapter = new SimpleAdapter(
                             VerReservaciones.this, userssList,
                             R.layout.list_item_reserv, new String[] { TAG_RID,
                             TAG_FECHA},
                             new int[] { R.id.rid, R.id.fechas });
-                    // updating listview
+                    // actualización lista vista
                     setListAdapter(adapter);
                 }
             });

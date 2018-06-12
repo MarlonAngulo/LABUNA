@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 
-
+//clase para el parseo de los datos mediante las co nsultas del json
 public class JSONParser {
 
     static InputStream is = null;
@@ -37,19 +37,17 @@ public class JSONParser {
     public JSONParser() {
 
     }
-
-    // function get json from url
-    // by making HTTP POST or GET mehtod
+    // función get json desde url // haciendo HTTP POST o el método GET
     public JSONObject makeHttpRequest(String url, String method,
                                       List<NameValuePair> params) {
 
-        // Making HTTP request
+        // Realizando una solicitud HTTP
         try {
 
-            // check for request method
+            // verificar el método de solicitud
             if(method == "POST"){
-                // request method is POST
-                // defaultHttpClient
+// el método de solicitud es POST
+// defaultHttpClient
                 System.out.println("llego aqui post");
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(url);
@@ -60,7 +58,7 @@ public class JSONParser {
                 is = httpEntity.getContent();
 
             }else if(method == "GET"){
-                // request method is GET
+                // El método de solicitud es OBTENER
                 System.out.println("llego aqui");
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 String paramString = URLEncodedUtils.format(params, "utf-8");
@@ -99,14 +97,14 @@ public class JSONParser {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
 
-        // try parse the string to a JSON object
+        // intenta analizar la cadena a un objeto JSON
         try {
             jObj = new JSONObject(json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
 
-        // return JSON String
+        // devolver cadena JSON
         return jObj;
 
     }

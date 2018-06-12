@@ -3,10 +3,11 @@ package com.example.progland.labuna;
 /**
  * Created by DeeJa on 21/5/2018.
  */
-// Se debe crear en el paquete com.example...
-// Forma de uso:
+
+//clase para varoebles globales
 // VariablesGlobales vg = VariablesGlobales.getInstance(); vg.setMitexto("Hola");    int i = vg.getMivalor();
 public class VariablesGlobales {
+    //declaracion de las variables**********************************
     private String mitexto=" ";
     private int mivalor=0;
     private double minum=3.14;
@@ -15,13 +16,20 @@ public class VariablesGlobales {
     private int IdReservas = 0;
     private String NombreReservas = "";
     private static VariablesGlobales instance = null;
+    //***********************************************************
 
-    protected VariablesGlobales() {}
+
+    protected VariablesGlobales() {}//constructor vacio
+
+
+    //***constructor parametrisado****************
     public static VariablesGlobales getInstance() {
         if(instance == null) {instance = new VariablesGlobales(); }
         return instance;
-    }
+    }//*************************************************
 
+
+    //***************get y set de las variables**********************************
     public String getTipo() {
         return tipo;
     }
@@ -70,4 +78,6 @@ public class VariablesGlobales {
     public void setNombreReservas(String nombreReservas) {
         NombreReservas = nombreReservas;
     }
+
+    //**********************************************************************
 }// fin de la clase de variables globales

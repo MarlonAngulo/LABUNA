@@ -21,26 +21,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+//clase para optener y ver los usuarios
 public class VerUsuarios extends ListActivity {
 
     private ProgressDialog pDialog;
 
-    // Creating JSON Parser object
+    // Crear objeto JSON Parser
     JSONParser jParser = new JSONParser();
 
     ArrayList<HashMap<String, String>> userssList;
 
-    // url to get all users list
+    // url para optener los usuarios
     private static String url_all_users = "http://www.cursoplataformasmoviles.com/labuna/tbl_usuarios/get_all_usuarios.php";
 
-    // JSON Node names
+    //Nombres de nodos JSON
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_users = "usuarios";
     private static final String TAG_UID = "uid";
     private static final String TAG_USER = "usuario";
 
-    // users JSONArray
+    // reserva JSONArray
     JSONArray users = null;
 
     @Override
@@ -48,49 +48,48 @@ public class VerUsuarios extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_usuarios);
 
-        // Hashmap for ListView
+        //  Hashmap for ListView
         userssList = new ArrayList<HashMap<String, String>>();
 
-        // Loading users in Background Thread
+        // Cargando pcs en Subproceso de fondo
          new  LoadAllUsers().execute();
 
-        // Get listview
+        // Obtener una lista
         ListView lv = getListView();
 
-        // on seleting single user
-        // launching Edit User Screen
+        //al seleccionar un usuario individual // al iniciar la pantalla Editar usuario
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // getting values from selected ListItem
+                // obteniendo valores del ListItem seleccionado
                 String uid = ((TextView) view.findViewById(R.id.uid)).getText()
                         .toString();
 
-                // Starting new intent
+                // Iniciando una nueva intención
                 Intent in = new Intent(getApplicationContext(),
                         editarUsarios.class);
-                // sending pid to next activity
+                // enviando lid a la siguiente actividad
                 in.putExtra(TAG_UID, uid);
                 System.out.println("AQUIIIIIII: "+uid);
 
-                // starting new activity and expecting some response back
+                // comenzar una nueva actividad y esperar alguna respuesta
                 startActivityForResult(in, 100);
             }
         });
 
     }
 
-    // Response from Edit User Activity
+    // Respuesta de Edit User Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // if result code 100
+        // si el resultado es el código 100
         if (resultCode == 100) {
-            // if result code 100 is received
-            // means user edited/deleted user
-            // reload this screen again
+// si se recibe el código de resultado 100
+            // significa reser editado / eliminado reserv
+            // vuelve a cargar esta pantalla
             Intent intent = getIntent();
             finish();
             startActivity(intent);
@@ -99,12 +98,12 @@ public class VerUsuarios extends ListActivity {
     }
 
     /**
-     * Background Async Task to Load all user by making HTTP Request
+     * Tarea de fondo Async para cargar a todos los usuarios haciendo una solicitud HTTP
      * */
       class LoadAllUsers extends AsyncTask<String, String, String> {
 
         /**
-         * Before starting background thread Show Progress Dialog
+         * Antes de iniciar el hilo de fondo Mostrar cuadro de diálogo de progreso
          * */
         @Override
         protected void onPreExecute() {
@@ -117,17 +116,17 @@ public class VerUsuarios extends ListActivity {
         }
 
         /**
-         * getting All users from url
+         * obteniendo todos los pcs de url
          * */
         protected String doInBackground(String... args) {
-            // Building Parameters
+            // Parámetros de construcción
             List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 
-            // getting JSON string from URL
+            // obteniendo cadena JSON de URL
             JSONObject json = jParser.makeHttpRequest(url_all_users, "GET", params);
 
-            // Check your log cat for JSON reponse
+            // Verifique su log cat para obtener una respuesta JSON
 
             Log.d("All Users: ", json.toString());
 
@@ -136,26 +135,26 @@ public class VerUsuarios extends ListActivity {
 
 
             try {
-                // Checking for SUCCESS TAG
+                // Comprobando la etiqueta de ÉXITO
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // users found
-                    // Getting Array of Users
+// reserva encontrados
+                    // Obtener matriz de usuarios
                     users = json.getJSONArray(TAG_users);
 
-                    // looping through All Users
+                    // pasando por todos los usuarios
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject c = users.getJSONObject(i);
 
-                        // Storing each json item in variable
+                        // Almacenar cada elemento json en variable
                         String id = c.getString(TAG_UID);
                         String usuario = c.getString(TAG_USER);
 
-                        // creating new HashMap
+                        // creando un nuevo HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        // adding each child node to HashMap key => value
+                        // agregando cada nodo secundario a la clave HashMap => valor
                         map.put(TAG_UID, id);
                         map.put(TAG_USER, usuario);
 
@@ -163,11 +162,11 @@ public class VerUsuarios extends ListActivity {
                         userssList.add(map);
                     }
                 } else {
-                    // no users found
-                    // Launch Add New user Activity
+// No se encontraron usuarios
+// Lanzamiento Agregar nueva actividad de usuarios
                     Intent i = new Intent(getApplicationContext(),
                             RegistroUsuariosActivity.class);
-                    // Closing all previous activities
+                    //  Cerrando todas las actividades previas
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                 }
@@ -181,23 +180,23 @@ public class VerUsuarios extends ListActivity {
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all users
+            //descartar el diálogo después de obtener todos los labs
             pDialog.dismiss();
-            // updating UI from Background Thread
+            // actualizar la interfaz de usuario desde el hilo de fondo
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
-                     * Updating parsed JSON data into ListView
+                     * Actualización de datos JSON analizados en ListView
                      * */
                     ListAdapter adapter = new SimpleAdapter(
                             VerUsuarios.this, userssList,
                             R.layout.list_item, new String[] { TAG_UID,
                             TAG_USER},
                             new int[] { R.id.uid, R.id.usuario });
-                    // updating listview
+                    // actualización lista vista
                     setListAdapter(adapter);
                 }
             });

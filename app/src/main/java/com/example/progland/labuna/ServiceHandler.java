@@ -1,8 +1,6 @@
 package com.example.progland.labuna;
 
-/**
- * Created by pablo on 17/5/2018.
- */
+
 
 import android.util.Log;
 
@@ -35,32 +33,32 @@ public class ServiceHandler {
     }
 
     /**
-     * Making service call
-     * @url - url to make request
-     * @method - http request method
+     * Hacer una llamada de servicio
+           * @url - url para hacer una solicitud
+           * @method - método de solicitud http
      * */
     public String makeServiceCall(String url, int method) {
         return this.makeServiceCall(url, method, null);
     }
 
     /**
-     * Making service call
-     * @url - url to make request
-     * @method - http request method
-     * @params - http request params
+     * Hacer una llamada de servicio
+           * @url - url para hacer una solicitud
+           * @method - método de solicitud http
+           * @params - parámetros de solicitud http
      * */
     public String makeServiceCall(String url, int method,
                                   List<NameValuePair> params) {
         try {
-            // http client
+            //cliente http
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpEntity httpEntity = null;
             HttpResponse httpResponse = null;
 
-            // Checking http request method type
+            // Comprobando el tipo de método de solicitud http
             if (method == POST) {
                 HttpPost httpPost = new HttpPost(url);
-                // adding post params
+                // agregar param posteriores
                 if (params != null) {
                     httpPost.setEntity(new UrlEncodedFormEntity(params));
                 }
@@ -68,7 +66,7 @@ public class ServiceHandler {
                 httpResponse = httpClient.execute(httpPost);
 
             } else if (method == GET) {
-                // appending params to url
+                // añadiendo parámetros a la URL
                 if (params != null) {
                     String paramString = URLEncodedUtils
                             .format(params, "utf-8");

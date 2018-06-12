@@ -283,7 +283,6 @@ public class editarReservaciones extends AppCompatActivity {
             pDialog.dismiss();
         }
     }
-
     /*****************************************************************
      * Tarea asincrónica de fondo para eliminar Reservacion
      * */
