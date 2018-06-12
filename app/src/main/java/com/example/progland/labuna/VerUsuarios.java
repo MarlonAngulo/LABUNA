@@ -21,7 +21,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-//clase para optener y ver los usuarios
+
+/**
+ * clase para optener y ver los usuarios
+ */
 public class VerUsuarios extends ListActivity {
 
     private ProgressDialog pDialog;
