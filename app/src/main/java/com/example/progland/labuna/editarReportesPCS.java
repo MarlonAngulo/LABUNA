@@ -1,15 +1,22 @@
 package com.example.progland.labuna;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -18,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 //clase para editar pc
 public class editarReportesPCS extends AppCompatActivity {
@@ -49,6 +57,9 @@ public class editarReportesPCS extends AppCompatActivity {
     // url para eliminar pc
     private static final String url_delete_pc = "http://www.cursoplataformasmoviles.com/labuna/tbl_computadoras/delete_computadoras.php";
 
+    //url para cargar laboratorios
+    private static String url_all_labs ="http://www.cursoplataformasmoviles.com/labuna/tbl_laboratorios/get_all_laboratorios.php";
+
     // Nombre del nodo JSON***********************************************
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PC = "computadora";
@@ -57,14 +68,28 @@ public class editarReportesPCS extends AppCompatActivity {
     private static final String TAG_CODIGO = "codigo";
     private static final String TAG_DESCRIPCION = "descripcion";
     private static final String TAG_LAB = "lab";
+    private static final String TAG_labs = "laboratorios";
+    private static final String TAG_LID = "lid";
+    private static final String TAG_Name = "nombre";
     //**************************************************************
+    private ArrayList<laboratorios> categoriesList;
 
+    private Spinner spinnerFE;
 
+    ArrayList<HashMap<String, String>> LabsList;
+
+    JSONArray labs = null;
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_reportes_pcs);
+        LabsList = new ArrayList<HashMap<String, String>>();
+        categoriesList = new ArrayList<laboratorios>();
 
+        spinnerFE = (Spinner) findViewById(R.id.spinnerDos);
+        spinnerFE.setOnItemSelectedListener(this);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
                 // StrictMode se usa más comúnmente para detectar acceso accidental a disco o red en el hilo principal de la aplicación
@@ -82,6 +107,7 @@ public class editarReportesPCS extends AppCompatActivity {
 
         // Obtener detalles completos de la PC en el hilo de fondo
         new GetUserDetails().execute();
+
 
         // botón Guardar clic evento
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +132,98 @@ public class editarReportesPCS extends AppCompatActivity {
                         VerUsuarios.class);
             }
         });
+        // Obtener detalles completos del spinner en el hilo de fondo
+        new LoadAlllabs().execute();
+
+    }
+    /**
+     * Metodo populateSpinner, Realiza la funcion de cargar el spinner con los laboratorios extrahídos
+     * en el JSON.
+     */
+    private void populateSpinner() {
+        List<String> lables = new ArrayList<String>();
+
+//        txtCategory.setText("");
+//
+        for (int i = 0; i < categoriesList.size(); i++) {
+            lables.add(Integer.toString(categoriesList.get(i).getId())+" "+categoriesList.get(i).getNombre());
+        }
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinnerFE.setAdapter(spinnerAdapter);
+    }
+
+    /**
+     * Clase encargada de cargar los labs que luego se mostraran en el spinner.
+     */
+    public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(editarReportesPCS.this);
+            pDialog.setMessage("Cargando labs..");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(url_all_labs, ServiceHandler.GET);
+
+            Log.e("Response: ", "> " + json);
+            System.out.println(json);
+
+            if (json != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(json);
+                    if (jsonObj != null) {
+                        System.out.println("entre");
+                        JSONArray laboratorios = jsonObj
+                                .getJSONArray("laboratorios");
+                        System.out.println("entre 2");
+
+                        for (int i = 0; i < laboratorios.length(); i++) {
+                            JSONObject catObj = (JSONObject) laboratorios.get(i);
+                            laboratorios cat = new laboratorios(catObj.getInt("lid"),
+                                    catObj.getString("nombre"));
+                            System.out.println(cat.getId());
+                            categoriesList.add(cat);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Log.e("JSON Data", "Didn't receive any data from server!");
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            populateSpinner();
+
+            //  Revisar();
+        }
+
+
 
     }
 
@@ -230,7 +348,9 @@ public class editarReportesPCS extends AppCompatActivity {
             String marca = txtNombreMarca.getText().toString();
             String codigo = txtCodigoArticulo.getText().toString();
             String descripcion = txtCodigoDetalle.getText().toString();
-            String lab = txtCodigoLAB.getText().toString();
+            String lab =  (String) spinnerFE.getSelectedItem();
+            lab = lab.replace(" ", "☺");
+            String []  labid = lab.split("☺");
 
 
             // Parámetros de construcción
@@ -239,7 +359,7 @@ public class editarReportesPCS extends AppCompatActivity {
             params.add(new BasicNameValuePair(TAG_MARCA, marca));
             params.add(new BasicNameValuePair(TAG_CODIGO, codigo));
             params.add(new BasicNameValuePair(TAG_DESCRIPCION, descripcion));
-            params.add(new BasicNameValuePair(TAG_LAB, lab));
+            params.add(new BasicNameValuePair(TAG_LAB, labid[0]));
 
             // enviando datos modificados a través de una solicitud http
             // Tenga en cuenta que update pc url acepta el método POST
@@ -331,6 +451,8 @@ public class editarReportesPCS extends AppCompatActivity {
             return null;
         }
 
+
+
         /**
          *Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
@@ -340,7 +462,20 @@ public class editarReportesPCS extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long lid) {
+        Toast.makeText(
+                getApplicationContext(),
+                parent.getItemAtPosition(position).toString() + " Selected" ,
+                Toast.LENGTH_LONG).show();
+
 
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

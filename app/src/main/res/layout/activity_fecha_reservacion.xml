@@ -54,7 +54,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/spinner"
+            android:layout_alignTop="@+id/spinnerDos"
             android:layout_x="41dp"
             android:layout_y="397dp"
             tools:layout_editor_absoluteX="8dp"

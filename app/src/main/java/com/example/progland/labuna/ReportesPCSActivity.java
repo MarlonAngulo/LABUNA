@@ -246,7 +246,7 @@ public class ReportesPCSActivity extends AppCompatActivity implements OnItemSele
             params.add(new BasicNameValuePair("marca", marca));
             params.add(new BasicNameValuePair("codigo", codigo));
             params.add(new BasicNameValuePair("descripcion", descripcion));
-            params.add(new BasicNameValuePair("lab", lab));
+            params.add(new BasicNameValuePair("lab", labid[0]));
 
 // obteniendo el objeto JSON
 // Tenga en cuenta que crear url de producto acepta el método POST
