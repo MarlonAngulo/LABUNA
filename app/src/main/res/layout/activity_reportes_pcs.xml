@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edCodigoLAB"
-                android:layout_toRightOf="@+id/txtvCodigoLAB"
+                android:layout_toRightOf="@+id/txtvnNombreArticu"
                 android:paddingRight="100dp"
                 android:textSize="18sp" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/edDetalleLAB"
-                android:layout_alignLeft="@+id/txtvCodigoLAB"
+                android:layout_alignLeft="@+id/txtvnNombreArticu"
                 android:text="Detalle" />
 
             <EditText
@@ -82,7 +82,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtvCodigoLAB"
+                android:id="@+id/txtvCodigoArticulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -94,15 +94,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/txtvCodigoLAB"
+                android:layout_toEndOf="@+id/txtvnNombreArticu"
                 android:paddingRight="100dp"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtvCodigoLAB"
+                android:id="@+id/txtvnNombreArticu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:text="Nombre del Articulo" />
         </RelativeLayout>
