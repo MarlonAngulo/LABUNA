@@ -256,6 +256,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             {
                 Mensaje("usuario incorrecto");
             }
+            finish();
+            break;
 
 
         }
