@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/edDetalleLAB"
-                android:layout_alignLeft="@+id/txtvCantidadpc"
+                android:layout_alignLeft="@+id/txtvCodigoLAB"
                 android:text="Detalle"
                 android:textSize="20dp" />
 
@@ -98,7 +98,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtvCantidadpc"
+                android:id="@+id/txtvCantidadDePC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -112,11 +112,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="42dp"
-                android:layout_toEndOf="@+id/txtvCantidadpc"
+                android:layout_toEndOf="@+id/txtvCodigoLAB"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtvCantidadpc"
+                android:id="@+id/txtvCodigoLAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"

@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edCodigoLAB"
-                android:layout_toRightOf="@+id/txtvCantidadpc"
+                android:layout_toRightOf="@+id/txtvCodigoLAB"
                 android:paddingRight="100dp"
                 android:textSize="18sp" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/edDetalleLAB"
-                android:layout_alignLeft="@+id/txtvCantidadpc"
+                android:layout_alignLeft="@+id/txtvCodigoLAB"
                 android:text="Detalle" />
 
             <EditText
@@ -82,7 +82,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtvCantidadpc"
+                android:id="@+id/txtvCodigoLAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -94,12 +94,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/txtvCantidadpc"
+                android:layout_toEndOf="@+id/txtvCodigoLAB"
                 android:paddingRight="100dp"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txtvCantidadpc"
+                android:id="@+id/txtvCodigoLAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
