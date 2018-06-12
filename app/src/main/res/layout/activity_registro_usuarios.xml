@@ -21,13 +21,14 @@
 
     <RelativeLayout
         android:id="@+id/rltlContenedor"
-        android:layout_width="365dp"
-        android:layout_height="204dp"
+        android:layout_width="338dp"
+        android:layout_height="203dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtvTitulo"
         tools:ignore="MissingConstraints">
