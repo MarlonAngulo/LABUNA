@@ -298,6 +298,27 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             }else {
                 //   inputHorarioNoche.setEnabled(true);
             }
+            if(calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("123")&& labid[1].equals(nuevo[0])){
+                inputHorarioMannana.setEnabled(false);
+                inputHorarioTarde.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            }else {
+                //   inputHorarioNoche.setEnabled(true);
+            }
+            if(calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("12")&& labid[1].equals(nuevo[0])){
+                inputHorarioMannana.setEnabled(false);
+                inputHorarioTarde.setEnabled(false);
+            }else {
+                //   inputHorarioNoche.setEnabled(true);
+            }
+
+            if(calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("23")&& labid[1].equals(nuevo[0])){
+                inputHorarioTarde.setEnabled(false);
+                inputHorarioNoche.setEnabled(false);
+            }else {
+                //   inputHorarioNoche.setEnabled(true);
+            }
+
             if (calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0]) && calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0])) {
                 inputHorarioMannana.setEnabled(false);
                 inputHorarioTarde.setEnabled(false);
@@ -439,10 +460,45 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             lab = lab.replace(" ", "☺");
             String []  labid = lab.split("☺");
            if(calendario.equals(hoy) || calendario.equals(mannna)) {
-               System.out.println("FECHA "+calendario);
                //Creando los parametros segun el check elegido
                List<NameValuePair> params = new ArrayList<NameValuePair>();
-               if (inputHorarioMannana.isChecked() == true) {
+
+               if (inputHorarioMannana.isChecked() == true &&inputHorarioTarde.isChecked() == true&&inputHorarioNoche.isChecked() == true ||
+                       inputHorarioMannana.isChecked() == true && inputHorarioNoche.isChecked() == true&&inputHorarioTarde.isChecked() == true ||
+                       inputHorarioTarde.isChecked() == true  && inputHorarioNoche.isChecked() == true&&inputHorarioMannana.isChecked() == true ||
+                       inputHorarioTarde.isChecked() == true  &&inputHorarioMannana.isChecked() == true&&inputHorarioNoche.isChecked() == true ||
+                       inputHorarioNoche.isChecked() == true&&inputHorarioMannana.isChecked() == true&&inputHorarioTarde.isChecked() == true||
+                       inputHorarioNoche.isChecked() == true&&inputHorarioTarde.isChecked() == true&&inputHorarioMannana.isChecked() == true) {
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", "123"));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
+                   mannna="";
+               }else if (inputHorarioMannana.isChecked() == true && inputHorarioTarde.isChecked() == true ||
+                       inputHorarioTarde.isChecked() == true && inputHorarioMannana.isChecked() == true){
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", "12"));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
+                   mannna="";
+               }else if (inputHorarioMannana.isChecked() == true && inputHorarioNoche.isChecked() == true ||
+                       inputHorarioNoche.isChecked() == true && inputHorarioMannana.isChecked() == true){
+                   inputHorarioTarde.setChecked(false);
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", "13"));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
+                   mannna="";
+               }else if (inputHorarioNoche.isChecked() == true && inputHorarioTarde.isChecked() == true ||
+                       inputHorarioTarde.isChecked() == true && inputHorarioNoche.isChecked() == true){
+                   System.out.println("ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                   inputHorarioMannana.setChecked(false);
+                   params.add(new BasicNameValuePair("fecha", calendario));
+                   params.add(new BasicNameValuePair("horario", "23"));
+                   params.add(new BasicNameValuePair("lab", labid[0]));
+                   params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
+                   mannna="";
+               }else if (inputHorarioMannana.isChecked() == true && inputHorarioTarde.isChecked() == false && inputHorarioNoche.isChecked() == false) {
                    inputHorarioTarde.setChecked(false);
                    inputHorarioNoche.setChecked(false);
                    params.add(new BasicNameValuePair("fecha", calendario));
@@ -451,7 +507,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
 
-               } else if (inputHorarioTarde.isChecked() == true) {
+               } else if (inputHorarioTarde.isChecked() == true && inputHorarioMannana.isChecked() == false && inputHorarioNoche.isChecked() == false) {
                    inputHorarioMannana.setChecked(false);
                    inputHorarioNoche.setChecked(false);
                    params.add(new BasicNameValuePair("fecha", calendario));
@@ -459,7 +515,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("lab", labid[0]));
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
-               } else if (inputHorarioNoche.isChecked() == true) {
+               } else if (inputHorarioNoche.isChecked() == true && inputHorarioMannana.isChecked() == false && inputHorarioTarde.isChecked() == false) {
                    inputHorarioMannana.setChecked(false);
                    inputHorarioTarde.setChecked(false);
                    params.add(new BasicNameValuePair("fecha", calendario));
@@ -468,6 +524,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                    params.add(new BasicNameValuePair("usuario", Integer.toString(vg.getMivalor())));
                    mannna="";
                }
+
                JSONObject json = jsonParser.makeHttpRequest(url_create_reservaciones,
                        "POST", params);
                Log.d("Create Response", json.toString());
