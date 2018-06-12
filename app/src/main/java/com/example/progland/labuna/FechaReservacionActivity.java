@@ -191,64 +191,41 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
      * para luego ver los horarios disponibles mediante el metodo Revisar().
      * */
     class LoadAllReserv extends AsyncTask<String, String, String> {
-
-
-
-
         @SuppressLint("LongLogTag")
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-
-
-            // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_reservaciones, "GET", params);
-
-            // Check your log cat for JSON reponse
-
             Log.d("Todas las Reservaciones: ", json.toString());
-
-
-
             try {
-                // Checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
-
+                   int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    // users found
-                    // Getting Array of Users
-                    users = json.getJSONArray(TAG_reservaciones);
-
-                    // looping through All Users
+                     users = json.getJSONArray(TAG_reservaciones);
+                    //     pasando por todos los usuarios
                     for (int i = 0; i < users.length(); i++) {
                         JSONObject c = users.getJSONObject(i);
 
-                        // Storing each json item in variable
+                        //  Almacenar cada elemento json en variable
+
                         String horario = c.getString(TAG_HORARIO);
                         String fecha = c.getString(TAG_FECHA);
                         String lab = c.getString("lab");
 
 
-                        // creating new HashMap
+                        // Creando nuevo HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
 
-                        // adding each child node to HashMap key => value
+                        //  agregando cada nodo secundario a la clave HashMap => valor
                         map.put(TAG_HORARIO, horario+" "+lab);
                         map.put(TAG_FECHA, fecha);
 
 
-                        // adding HashList to ArrayList
+                        // agregar HashSet a ArrayList
                         listaReservas.add(map);
-                     //   System.out.println(listaReservas);
+
                     }
                 } else {
-                    // no users found
-                    // Launch Add New user Activity
-//                    Intent i = new Intent(getApplicationContext(),
-//                            RegistroUsuariosActivity.class);
-//                    // Closing all previous activities
-//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(i);
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -463,7 +440,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             String []  labid = lab.split("☺");
            if(calendario.equals(hoy) || calendario.equals(mannna)) {
                System.out.println("FECHA "+calendario);
-               // Building Parameters
+               //Creando los parametros segun el check elegido
                List<NameValuePair> params = new ArrayList<NameValuePair>();
                if (inputHorarioMannana.isChecked() == true) {
                    inputHorarioTarde.setChecked(false);
@@ -497,8 +474,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
                try {
 
-
-                   // check for success tag
                    try {
                        int success = json.getInt(TAG_SUCCESS);
 
@@ -551,10 +526,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         }
 
         /**
-         * After completing background task Dismiss the progress dialog
+         * Después de completar la tarea de fondo Descartar el diálogo de progreso
          * **/
         protected void onPostExecute(String file_url) {
-           // dismiss the dialog once done
            pDialog.dismiss();
         }
 
