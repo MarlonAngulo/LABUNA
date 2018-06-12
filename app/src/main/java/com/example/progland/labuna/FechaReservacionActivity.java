@@ -35,6 +35,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Clase encargada de realizar alas reservas de un laboratorio.
+ */
 public class FechaReservacionActivity extends AppCompatActivity implements OnItemSelectedListener {
     // url to create new product
     private static String url_create_reservaciones = "http://www.cursoplataformasmoviles.com/labuna/tbl_reservaciones/create_reservaciones.php";
@@ -156,8 +159,12 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
        // System.out.println(LabsList.get(1).get("nombre"));
 
 
-    } // Fin del Oncreate
+    }
 
+    /**
+     * Metodo populateSpinner, Realiza la funcion de cargar el spinner con los laboratorios extrahídos
+     * en el JSON.
+     */
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
 
@@ -180,7 +187,8 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     }
 
     /**
-     * Background Async Task to Load all user by making HTTP Request
+     * Clase encargada de caragar las reservas que se encuentran en la base de datos
+     * para luego ver los horarios disponibles mediante el metodo Revisar().
      * */
     class LoadAllReserv extends AsyncTask<String, String, String> {
 
@@ -246,14 +254,15 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
                 e.printStackTrace();
             }
 
-            //Revisar();
+
             return null;
         }
 
 
     }
     /**
-     * Background Async Task to Load all user by making HTTP Request
+     * Metodo publiclo Revisar, metodo encargado de mostrar los hroarios disponibles
+     * para el día que se selecciona en el calendario, echo que lo realiza mediante permutaciones
      * */
     public void Revisar(){
 
@@ -296,43 +305,6 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
             System.out.println("Calendario "+calendario);
             System.out.println("Fecha "+listaReservas.get(i).get("fecha").toString()+" "+labid[0]+" "+labid[1]);
 
-
-           /* if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
-                inputHorarioMannana.setEnabled(false);
-            }else {
-               // inputHorarioMannana.setEnabled(true);
-            }
-            if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0])){
-
-                inputHorarioTarde.setEnabled(false);
-            }else {
-                //inputHorarioTarde.setEnabled(true);
-            }
-            if(hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("3")&& labid[1].equals(nuevo[0])){
-                inputHorarioNoche.setEnabled(false);
-            }else {
-             //   inputHorarioNoche.setEnabled(true);
-            }
-            if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0])) {
-                inputHorarioMannana.setEnabled(false);
-                inputHorarioTarde.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("3")&& labid[1].equals(nuevo[0])) {
-                inputHorarioTarde.setEnabled(false);
-                inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("3")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
-                inputHorarioMannana.setEnabled(false);
-                inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("3")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0])) {
-                inputHorarioTarde.setEnabled(false);
-                inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])) {
-                inputHorarioMannana.setEnabled(false);
-                inputHorarioNoche.setEnabled(false);
-            } if (hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("2")&& labid[1].equals(nuevo[0]) && hoy.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("3")&& labid[1].equals(nuevo[0])) {
-                inputHorarioTarde.setEnabled(false);
-                inputHorarioNoche.setEnabled(false);
-            }*/
-
             //--------------------------------------------------
             if (calendario.equals(listaReservas.get(i).get("fecha")) && labid[0].equals("1")&& labid[1].equals(nuevo[0])/*listaReservas.get(i).get("horario").equals("Mañana")*/) {
                 inputHorarioMannana.setEnabled(false);
@@ -372,6 +344,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
         }
     }
+
+    /**
+     * Clase encargada de cargar los labs que luego se mostraran en el spinner.
+     */
     public class LoadAlllabs extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -435,7 +411,10 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
 
     }
 
-
+    /**
+     * Clase encargada de realizar la funcion de crear una reservacion en el dia seleccionado en el componente
+     * DatePicker, mas el horario elegido en los checks box y el laboratorio elegido en el spinner.
+     */
     class CreateNewReserva extends AsyncTask<String, String, String> {
 
        /**
@@ -454,7 +433,7 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         }
 
         /**
-         * Creating product
+         * Funcion Tipo String, encargada de realizar meramente la reserva
          * */
         protected String doInBackground(String... args) {
             int dia, mes, ano;
@@ -602,6 +581,9 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
     public void onNothingSelected(AdapterView<?> arg0) {
     }
 
+    /**
+     * Metodo limpiarChecks, realiza la funcion de habilitar y deschekear todos los checkbox
+     */
     public void limpiarChecks(){
         inputHorarioMannana.setEnabled(true);
         inputHorarioTarde.setEnabled(true);
@@ -611,6 +593,11 @@ public class FechaReservacionActivity extends AppCompatActivity implements OnIte
         inputHorarioNoche.setChecked(false);
 
     }
+
+    /**
+     *  Metodo Mensaje, raliza la funcion de mostrar los mensajes
+     * @param msg parametro de tipo String
+     */
 
     public void Mensaje(String msg){
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();};
